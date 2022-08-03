@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MicroFocus.CafApi.QueryBuilder.Tests
+
+namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 {
     public class UnitTest1
     {
