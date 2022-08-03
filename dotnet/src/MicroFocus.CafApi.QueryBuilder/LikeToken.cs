@@ -13,12 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System;
 
 namespace MicroFocus.CafApi.QueryBuilder
 {
-    public class Class1
-    {
-
-    }
+    public delegate void LikeToken(ILikeTokenVisitor visitor);
 }
