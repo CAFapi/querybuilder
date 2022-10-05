@@ -22,12 +22,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
-    <PackageReference Include="System.Text.Json" Version="6.0.6" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MicroFocus.CafApi.QueryBuilder\MicroFocus.CafApi.QueryBuilder.csproj" />
   </ItemGroup>
 
