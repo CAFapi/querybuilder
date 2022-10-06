@@ -19,7 +19,7 @@ using MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal;
 
 namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson
 {
-    public class SystemJsonBuilder : IJsonBuilder
+    public sealed class SystemJsonBuilder : IJsonBuilder
     {
         private Utf8JsonWriter _jsonWriter;
 

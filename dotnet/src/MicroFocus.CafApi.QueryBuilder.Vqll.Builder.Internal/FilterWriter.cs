@@ -18,7 +18,7 @@ using System.Linq;
 
 namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
 {
-    public class FilterWriter
+    public sealed class FilterWriter
     {
         private IJsonBuilder _jsonBuilder;
 

@@ -19,7 +19,7 @@ using Xunit;
 
 namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
 {
-    public class FilterWriterTest
+    public sealed class FilterWriterTest
     {
         private Mock<IJsonBuilder> _jsonBuilder;
 
