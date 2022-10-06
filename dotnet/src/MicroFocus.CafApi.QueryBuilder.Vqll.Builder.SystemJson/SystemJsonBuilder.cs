@@ -21,7 +21,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson
 {
     public class SystemJsonBuilder : IJsonBuilder
     {
-        Utf8JsonWriter _jsonWriter;
+        private Utf8JsonWriter _jsonWriter;
 
         public SystemJsonBuilder(Utf8JsonWriter jsonWrite)
         {

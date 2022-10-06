@@ -23,7 +23,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson
         public static void WriteToJsonArray(
             Filter<string> filter,
             Utf8JsonWriter jsonWriter
-
         )
         {
             IJsonBuilder jsonBuilder = new SystemJsonBuilder(jsonWriter);

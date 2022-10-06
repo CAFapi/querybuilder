@@ -37,305 +37,250 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
             // TODO: Could the jsonBuilder be an instance variable of FilterWriterVisitor?
             new FilterWriterVisitor(filterWriter).WriteFilter(filter);
         }
-
         class FilterWriterVisitor : IFilterVisitor<string>
         {
-            private FilterWriter filterWriter;
+            private FilterWriter _filterWriter;
 
             public FilterWriterVisitor(FilterWriter filterWriter)
             {
-                this.filterWriter = filterWriter;
+                this._filterWriter = filterWriter;
             }
-
             public void WriteFilter(Filter<string> filter)
             {
-                filterWriter._jsonBuilder.WriteStartArray();
+                _filterWriter._jsonBuilder.WriteStartArray();
                 filter.Invoke(this);
-                filterWriter._jsonBuilder.WriteEndArray();
+                _filterWriter._jsonBuilder.WriteEndArray();
             }
-
-
             public void VisitEquals(string fieldSpec, bool value)
             {
-                filterWriter._jsonBuilder.WriteString("==");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteBoolean(value);
+                _filterWriter._jsonBuilder.WriteString("==");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteBoolean(value);
             }
-
-
             public void VisitEquals(string fieldSpec, long value)
             {
-                filterWriter._jsonBuilder.WriteString("==");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteNumber(value);
+                _filterWriter._jsonBuilder.WriteString("==");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteNumber(value);
             }
-
-
             public void VisitEquals(string fieldSpec, string value)
             {
-                filterWriter._jsonBuilder.WriteString("==");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteString(value);
+                _filterWriter._jsonBuilder.WriteString("==");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(value);
             }
-
-
             public void VisitNotEquals(string fieldSpec, bool value)
             {
-                filterWriter._jsonBuilder.WriteString("!=");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteBoolean(value);
+                _filterWriter._jsonBuilder.WriteString("!=");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteBoolean(value);
             }
-
-
             public void VisitNotEquals(string fieldSpec, long value)
             {
-                filterWriter._jsonBuilder.WriteString("!=");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteNumber(value);
+                _filterWriter._jsonBuilder.WriteString("!=");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteNumber(value);
             }
-
-
             public void VisitNotEquals(string fieldSpec, string value)
             {
-                filterWriter._jsonBuilder.WriteString("!=");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteString(value);
+                _filterWriter._jsonBuilder.WriteString("!=");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(value);
             }
-
-
             public void VisitIn(string fieldSpec, long[] values)
             {
-                filterWriter._jsonBuilder.WriteString(values.Length == 0 ? "in-numbers" : "in");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(values.Length == 0 ? "in-numbers" : "in");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
                 foreach (long value in values)
                 {
-                    filterWriter._jsonBuilder.WriteNumber(value);
+                    _filterWriter._jsonBuilder.WriteNumber(value);
                 }
             }
-
-
             public void VisitIn(string fieldSpec, IEnumerable<string> values)
             {
-                filterWriter._jsonBuilder.WriteString(values.Count() == 0 ? "in-strings" : "in");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(values.Count() == 0 ? "in-strings" : "in");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
                 foreach (string value in values)
                 {
-                    filterWriter._jsonBuilder.WriteString(value);
+                    _filterWriter._jsonBuilder.WriteString(value);
                 }
             }
-
-
             public void VisitContains(string fieldSpec, string value)
             {
-                filterWriter._jsonBuilder.WriteString("contains");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteString(value);
+                _filterWriter._jsonBuilder.WriteString("contains");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(value);
             }
-
-
             public void VisitStartsWith(string fieldSpec, string value)
             {
-                filterWriter._jsonBuilder.WriteString("starts-with");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteString(value);
+                _filterWriter._jsonBuilder.WriteString("starts-with");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(value);
             }
-
-
             public void VisitLike(string fieldSpec, LikeToken[] likeTokens)
             {
-                filterWriter._jsonBuilder.WriteString("like");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                new LikeTokenWriterVisitor(filterWriter).WriteLikeTokens(likeTokens);
+                _filterWriter._jsonBuilder.WriteString("like");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                new LikeTokenWriterVisitor(_filterWriter).WriteLikeTokens(likeTokens);
             }
-
-
             public void VisitBetween(string fieldSpec, long? startValue, long? endValue)
             {
-                filterWriter._jsonBuilder.WriteString(startValue == null && endValue == null ? "between-numbers" : "between");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(startValue == null && endValue == null ? "between-numbers" : "between");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
                 if (startValue == null)
                 {
-                    filterWriter._jsonBuilder.WriteNull();
+                    _filterWriter._jsonBuilder.WriteNull();
                 }
                 else
                 {
-                    filterWriter._jsonBuilder.WriteNumber(startValue);
+                    _filterWriter._jsonBuilder.WriteNumber(startValue);
                 }
                 if (endValue == null)
                 {
-                    filterWriter._jsonBuilder.WriteNull();
+                    _filterWriter._jsonBuilder.WriteNull();
                 }
                 else
                 {
-                    filterWriter._jsonBuilder.WriteNumber(endValue);
+                    _filterWriter._jsonBuilder.WriteNumber(endValue);
                 }
             }
-
-
             public void VisitBetween(string fieldSpec, string startValue, string endValue)
             {
-                filterWriter._jsonBuilder.WriteString(startValue == null && endValue == null ? "between-strings" : "between");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(startValue == null && endValue == null ? "between-strings" : "between");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
                 if (startValue == null)
                 {
-                    filterWriter._jsonBuilder.WriteNull();
+                    _filterWriter._jsonBuilder.WriteNull();
                 }
                 else
                 {
-                    filterWriter._jsonBuilder.WriteString(startValue);
+                    _filterWriter._jsonBuilder.WriteString(startValue);
                 }
                 if (endValue == null)
                 {
-                    filterWriter._jsonBuilder.WriteNull();
+                    _filterWriter._jsonBuilder.WriteNull();
                 }
                 else
                 {
-                    filterWriter._jsonBuilder.WriteString(endValue);
+                    _filterWriter._jsonBuilder.WriteString(endValue);
                 }
             }
-
-
             public void VisitLessThan(string fieldSpec, long value)
             {
-                filterWriter._jsonBuilder.WriteString("<");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteNumber(value);
+                _filterWriter._jsonBuilder.WriteString("<");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteNumber(value);
             }
-
-
             public void VisitLessThan(string fieldSpec, string value)
             {
-                filterWriter._jsonBuilder.WriteString("<");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteString(value);
+                _filterWriter._jsonBuilder.WriteString("<");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(value);
             }
-
-
             public void VisitLessThanOrEquals(string fieldSpec, long value)
             {
-                filterWriter._jsonBuilder.WriteString("<=");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteNumber(value);
+                _filterWriter._jsonBuilder.WriteString("<=");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteNumber(value);
             }
-
-
             public void VisitLessThanOrEquals(string fieldSpec, string value)
             {
-                filterWriter._jsonBuilder.WriteString("<=");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteString(value);
+                _filterWriter._jsonBuilder.WriteString("<=");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(value);
             }
-
-
             public void VisitGreaterThan(string fieldSpec, long value)
             {
-                filterWriter._jsonBuilder.WriteString(">");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteNumber(value);
+                _filterWriter._jsonBuilder.WriteString(">");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteNumber(value);
             }
-
-
             public void VisitGreaterThan(string fieldSpec, string value)
             {
-                filterWriter._jsonBuilder.WriteString(">");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteString(value);
+                _filterWriter._jsonBuilder.WriteString(">");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(value);
             }
-
-
             public void VisitGreaterThanOrEquals(string fieldSpec, long value)
             {
-                filterWriter._jsonBuilder.WriteString(">=");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteNumber(value);
+                _filterWriter._jsonBuilder.WriteString(">=");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteNumber(value);
             }
-
-
             public void VisitGreaterThanOrEquals(string fieldSpec, string value)
             {
-                filterWriter._jsonBuilder.WriteString(">=");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
-                filterWriter._jsonBuilder.WriteString(value);
+                _filterWriter._jsonBuilder.WriteString(">=");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString(value);
             }
-
-
             public void VisitExists(string fieldSpec)
             {
-                filterWriter._jsonBuilder.WriteString("exists");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString("exists");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
             }
-
-
             public void VisitEmpty(string fieldSpec)
             {
-                filterWriter._jsonBuilder.WriteString("empty");
-                filterWriter._jsonBuilder.WriteString(fieldSpec);
+                _filterWriter._jsonBuilder.WriteString("empty");
+                _filterWriter._jsonBuilder.WriteString(fieldSpec);
             }
-
 
             public void VisitOr(IEnumerable<Filter<string>> filters)
             {
-                filterWriter._jsonBuilder.WriteString("or");
+                _filterWriter._jsonBuilder.WriteString("or");
                 foreach (Filter<string> filter in filters)
                 {
                     WriteFilter(filter);
                 }
             }
-
 
             public void VisitAnd(IEnumerable<Filter<string>> filters)
             {
-                filterWriter._jsonBuilder.WriteString("and");
+                _filterWriter._jsonBuilder.WriteString("and");
                 foreach (Filter<string> filter in filters)
                 {
                     WriteFilter(filter);
                 }
             }
 
-
             public void VisitNot(Filter<string> filter)
             {
-                filterWriter._jsonBuilder.WriteString("not");
+                _filterWriter._jsonBuilder.WriteString("not");
                 WriteFilter(filter);
             }
 
-
             public void VisitFullText(FullTextFilter fullTextFilter)
             {
-                filterWriter._jsonBuilder.WriteString("full-text");
-                new FullTextFilterWriterVisitor(filterWriter).WriteFullTextFilter(fullTextFilter);
+                _filterWriter._jsonBuilder.WriteString("full-text");
+                new FullTextFilterWriterVisitor(_filterWriter).WriteFullTextFilter(fullTextFilter);
             }
-
 
             public void VisitFieldFullText(IEnumerable<string> fieldSpecs, FullTextFilter fullTextFilter)
             {
-                filterWriter._jsonBuilder.WriteString("field-full-text");
-                filterWriter._jsonBuilder.WriteStartArray();
+                _filterWriter._jsonBuilder.WriteString("field-full-text");
+                _filterWriter._jsonBuilder.WriteStartArray();
                 foreach (string fieldSpec in fieldSpecs)
                 {
-                    filterWriter._jsonBuilder.WriteString(fieldSpec);
+                    _filterWriter._jsonBuilder.WriteString(fieldSpec);
                 }
-                filterWriter._jsonBuilder.WriteEndArray();
-                new FullTextFilterWriterVisitor(filterWriter).WriteFullTextFilter(fullTextFilter);
+                _filterWriter._jsonBuilder.WriteEndArray();
+                new FullTextFilterWriterVisitor(_filterWriter).WriteFullTextFilter(fullTextFilter);
             }
         }
 
         class LikeTokenWriterVisitor : ILikeTokenVisitor
         {
-            private FilterWriter filterWriter;
+            private FilterWriter _filterWriter;
 
             public LikeTokenWriterVisitor(FilterWriter filterWriter)
             {
-                this.filterWriter = filterWriter;
+                this._filterWriter = filterWriter;
             }
-
             public void WriteLikeTokenArray(LikeToken[] likeTokens)
             {
-                filterWriter._jsonBuilder.WriteStartArray();
+                _filterWriter._jsonBuilder.WriteStartArray();
                 WriteLikeTokens(likeTokens);
-                filterWriter._jsonBuilder.WriteEndArray();
+                _filterWriter._jsonBuilder.WriteEndArray();
             }
-
             public void WriteLikeTokens(LikeToken[] likeTokens)
             {
                 foreach (LikeToken likeToken in likeTokens)
@@ -343,34 +288,26 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     WriteLikeToken(likeToken);
                 }
             }
-
             private void WriteLikeToken(LikeToken likeToken)
             {
-                filterWriter._jsonBuilder.WriteStartArray();
+                _filterWriter._jsonBuilder.WriteStartArray();
                 likeToken.Invoke(this);
-                filterWriter._jsonBuilder.WriteEndArray();
+                _filterWriter._jsonBuilder.WriteEndArray();
             }
-
-
             public void VisitStringLiteral(string literal)
             {
-                filterWriter._jsonBuilder.WriteString("'");
-                filterWriter._jsonBuilder.WriteString(literal);
+                _filterWriter._jsonBuilder.WriteString("'");
+                _filterWriter._jsonBuilder.WriteString(literal);
             }
-
-
             public void VisitSingleCharacterWildcard()
             {
-                filterWriter._jsonBuilder.WriteString("?");
+                _filterWriter._jsonBuilder.WriteString("?");
             }
-
-
             public void VisitZeroOrMoreCharactersWildcard()
             {
-                filterWriter._jsonBuilder.WriteString("*");
+                _filterWriter._jsonBuilder.WriteString("*");
             }
         }
-
         class FullTextFilterWriterVisitor : IFullTextFilterVisitor
         {
             private FilterWriter filterWriter;
@@ -379,26 +316,20 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
             {
                 this.filterWriter = filterWriter;
             }
-
             public void WriteFullTextFilter(FullTextFilter fullTextFilter)
             {
                 filterWriter._jsonBuilder.WriteStartArray();
                 fullTextFilter.Invoke(this);
                 filterWriter._jsonBuilder.WriteEndArray();
             }
-
-
             public void VisitNear(LikeToken[] lhs, LikeToken[] rhs, int distance)
             {
                 WriteNearOrDNear("near", distance, lhs, rhs);
             }
-
-
             public void VisitDnear(LikeToken[] lhs, LikeToken[] rhs, int distance)
             {
                 WriteNearOrDNear("dnear", distance, lhs, rhs);
             }
-
             private void WriteNearOrDNear(string nearOrDNear, int distance, LikeToken[] lhs, LikeToken[] rhs)
             {
                 filterWriter._jsonBuilder.WriteString(nearOrDNear);
@@ -408,15 +339,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                 Visitor.WriteLikeTokenArray(lhs);
                 Visitor.WriteLikeTokenArray(rhs);
             }
-
-
             public void VisitFullText(LikeToken[] searchTokens)
             {
                 filterWriter._jsonBuilder.WriteString("full-text");
                 new LikeTokenWriterVisitor(filterWriter).WriteLikeTokens(searchTokens);
             }
-
-
             public void VisitOr(IEnumerable<FullTextFilter> fullTextFilters)
             {
                 filterWriter._jsonBuilder.WriteString("or");
@@ -425,8 +352,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     WriteFullTextFilter(fullTextFilter);
                 }
             }
-
-
             public void VisitAnd(IEnumerable<FullTextFilter> fullTextFilters)
             {
                 filterWriter._jsonBuilder.WriteString("and");
@@ -435,8 +360,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     WriteFullTextFilter(fullTextFilter);
                 }
             }
-
-
             public void VisitNot(FullTextFilter fullTextFilter)
             {
                 filterWriter._jsonBuilder.WriteString("not");
