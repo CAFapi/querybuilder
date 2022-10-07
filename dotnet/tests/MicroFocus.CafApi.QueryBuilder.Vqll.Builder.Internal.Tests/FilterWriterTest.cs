@@ -523,7 +523,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformValueInStringEmptyArray()
         {
-            String[] values = { };
+            string[] values = Array.Empty<string>();
 
             Filter<string> clause = FilterFactory.In("DATA_SUBJECT", values);
 
