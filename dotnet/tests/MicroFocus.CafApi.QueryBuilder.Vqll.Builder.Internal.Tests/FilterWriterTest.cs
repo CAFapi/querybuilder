@@ -21,7 +21,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
 {
     public sealed class FilterWriterTest
     {
-        private Mock<IJsonBuilder> _jsonBuilder;
+        private readonly Mock<IJsonBuilder> _jsonBuilder;
 
         public FilterWriterTest()
         {
