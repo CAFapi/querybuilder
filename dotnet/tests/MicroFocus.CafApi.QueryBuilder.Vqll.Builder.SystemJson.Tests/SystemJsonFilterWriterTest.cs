@@ -40,7 +40,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests
         {
             using var stream = new MemoryStream();
             using var jsonWriter = new Utf8JsonWriter(stream);
-            SystemJsonFilterWriter.WriteToJsonArray(filter, jsonWriter);
+            filter.WriteToJsonArray(jsonWriter);
             jsonWriter.Flush();
             stream.Flush();
 
