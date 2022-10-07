@@ -1002,8 +1002,8 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformValueBetweenStringNulls()
         {
-            string startValue = null;
-            string endValue = null;
+            string? startValue = null;
+            string? endValue = null;
 
             Filter<string> clause = FilterFactory.Between("DATABATCH_ID", startValue, endValue);
 
