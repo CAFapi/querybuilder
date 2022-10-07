@@ -1667,7 +1667,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextNearSingleValueLiterals()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left") };
             LikeToken[] rhs = { LikeTokenFactory.StringLiteral("right") };
             FullTextFilter clause = FullTextFilterFactory.Near(lhs, rhs, 0);
@@ -1749,7 +1749,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextNearLiteralAndSingleCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left@$%&*") };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Near(lhs, rhs, 0);
@@ -1788,7 +1788,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextNearLiteralAndZeroOrMoreCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left") };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Near(lhs, rhs, 0);
@@ -1827,7 +1827,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextNearLiteralWithSpecialCharactersAndZeroOrMoreCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left@$%&*") };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Near(lhs, rhs, 0);
@@ -1866,7 +1866,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextNearLiteralWithSpecialCharactersAndSingleCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left") };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Near(lhs, rhs, 0);
@@ -1905,7 +1905,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextNearBothSingleCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.SingleCharacterWildcard() };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Near(lhs, rhs, 0);
@@ -1943,7 +1943,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextNearBothZeroOrMoreCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.ZeroOrMoreCharactersWildcard() };
             LikeToken[] rhs = { LikeTokenFactory.ZeroOrMoreCharactersWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Near(lhs, rhs, 0);
@@ -1981,7 +1981,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextDNearSingleValueLiterals()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left") };
             LikeToken[] rhs = { LikeTokenFactory.StringLiteral("right") };
             FullTextFilter clause = FullTextFilterFactory.Dnear(lhs, rhs, 0);
@@ -2022,7 +2022,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextDNearSpecialCharactersLiterals()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left@$%&*") };
             LikeToken[] rhs = { LikeTokenFactory.StringLiteral("right@$%&*") };
             FullTextFilter clause = FullTextFilterFactory.Dnear(lhs, rhs, 0);
@@ -2063,7 +2063,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextDNearLiteralAndSingleCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left@$%&*") };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Dnear(lhs, rhs, 0);
@@ -2102,7 +2102,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextDNearLiteralAndZeroOrMoreCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left") };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Dnear(lhs, rhs, 0);
@@ -2141,7 +2141,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextDNearLiteralWithSpecialCharactersAndZeroOrMoreCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left@$%&*") };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Dnear(lhs, rhs, 0);
@@ -2180,7 +2180,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextDNearLiteralWithSpecialCharactersAndSingleCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left") };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Dnear(lhs, rhs, 0);
@@ -2219,7 +2219,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextDNearBothSingleCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.SingleCharacterWildcard() };
             LikeToken[] rhs = { LikeTokenFactory.SingleCharacterWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Dnear(lhs, rhs, 0);
@@ -2257,7 +2257,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextDNearBothZeroOrMoreCharacterWildcard()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.ZeroOrMoreCharactersWildcard() };
             LikeToken[] rhs = { LikeTokenFactory.ZeroOrMoreCharactersWildcard() };
             FullTextFilter clause = FullTextFilterFactory.Dnear(lhs, rhs, 0);
