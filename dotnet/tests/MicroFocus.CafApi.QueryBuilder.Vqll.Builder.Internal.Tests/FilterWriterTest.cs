@@ -331,7 +331,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
             _jsonBuilder.InSequence(sequence).Setup(x => x.WriteString("DOC_COUNT"));
             foreach (long? l in values)
             {
-                _jsonBuilder.InSequence(sequence).Setup(x => x.WriteNumber(l));
+                _jsonBuilder.InSequence(sequence).Setup(x => x.WriteNumber(l.Value));
             }
             _jsonBuilder.InSequence(sequence).Setup(x => x.WriteEndArray());
 
@@ -357,7 +357,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
             _jsonBuilder.InSequence(sequence).Setup(x => x.WriteString("DOC_COUNT"));
             foreach (long? l in values)
             {
-                _jsonBuilder.InSequence(sequence).Setup(x => x.WriteNumber(l));
+                _jsonBuilder.InSequence(sequence).Setup(x => x.WriteNumber(l.Value));
             }
             _jsonBuilder.InSequence(sequence).Setup(x => x.WriteEndArray());
 
@@ -379,7 +379,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
             _jsonBuilder.InSequence(sequence).Setup(x => x.WriteString("DOC_COUNT"));
             foreach (long? l in values)
             {
-                _jsonBuilder.InSequence(sequence).Setup(x => x.WriteNumber(l));
+                _jsonBuilder.InSequence(sequence).Setup(x => x.WriteNumber(l.Value));
             }
             _jsonBuilder.InSequence(sequence).Setup(x => x.WriteEndArray());
 

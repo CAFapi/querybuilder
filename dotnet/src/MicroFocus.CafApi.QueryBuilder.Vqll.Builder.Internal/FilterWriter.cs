@@ -30,7 +30,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
         public static void WriteToJsonArray(
             Filter<string> filter,
             IJsonBuilder jsonBuilder
-
         )
         {
             FilterWriter filterWriter = new FilterWriter(jsonBuilder);
@@ -141,7 +140,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                 }
                 else
                 {
-                    _filterWriter._jsonBuilder.WriteNumber(endValue);
+                    _filterWriter._jsonBuilder.WriteNumber(endValue.Value);
                 }
             }
             public void VisitBetween(string fieldSpec, string startValue, string endValue)
