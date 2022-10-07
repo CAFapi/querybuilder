@@ -21,7 +21,7 @@ using System.Text.Json;
 
 namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests
 {
-    public sealed class SystemJsonFilterWriterTest
+    public sealed class FilterExtensionTest
     {
         [Fact]
         public void TestTransformBetweeenEnd()
