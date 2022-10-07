@@ -18,15 +18,15 @@ using MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal;
 
 namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson
 {
-    public static class SystemJsonFilterWriter
+    public static class FilterExtension
     {
         public static void WriteToJsonArray(
-            Filter<string> filter,
+            this Filter<string> that,
             Utf8JsonWriter jsonWriter
         )
         {
             IJsonBuilder jsonBuilder = new SystemJsonBuilder(jsonWriter);
-            FilterWriter.WriteToJsonArray(filter, jsonBuilder);
+            FilterWriter.WriteToJsonArray(that, jsonBuilder);
         }
     }
 }
