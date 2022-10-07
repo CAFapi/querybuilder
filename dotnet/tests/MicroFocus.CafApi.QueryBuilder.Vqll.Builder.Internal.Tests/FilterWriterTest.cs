@@ -1708,7 +1708,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformFullTextNearSpecialCharactersLiterals()
         {
-            List<string> fieldSpecs = new List<string>() { "DATA_SUBJECT" };
+            List<string> fieldSpecs = new() { "DATA_SUBJECT" };
             LikeToken[] lhs = { LikeTokenFactory.StringLiteral("left@$%&*") };
             LikeToken[] rhs = { LikeTokenFactory.StringLiteral("right@$%&*") };
             FullTextFilter clause = FullTextFilterFactory.Near(lhs, rhs, 0);
