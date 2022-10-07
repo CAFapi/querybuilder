@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MicroFocus.CafApi.QueryBuilder.Vqll.Builder.Internal\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.csproj" />
+    <ProjectReference Include="..\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.csproj" />
     <ProjectReference Include="..\MicroFocus.CafApi.QueryBuilder\MicroFocus.CafApi.QueryBuilder.csproj" />
   </ItemGroup>
 
