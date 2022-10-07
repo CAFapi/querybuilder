@@ -18,7 +18,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Matcher.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Matcher.Tests\MicroFocus.CafApi.QueryBuilder.Matcher.Tests.csproj", "{615EDEF2-D8EB-4155-9759-2497AEEF0F23}"
 EndProject
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal", "src\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.csproj", "{9264B6B6-68F0-4204-9820-AD6A8F958C5E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson", "src\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.csproj", "{56F204AB-7717-494E-B31F-AA03EFA3FCC7}"
@@ -26,6 +25,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests.csproj", "{35BC15D9-962A-4514-9FF0-A81E34067E9E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests.csproj", "{1F76A21A-2541-4F38-9665-18E801231857}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
