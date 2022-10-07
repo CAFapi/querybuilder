@@ -19,13 +19,13 @@ using MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal;
 
 namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson
 {
-    public sealed class SystemJsonBuilder : IJsonBuilder
+    internal sealed class SystemJsonBuilder : IJsonBuilder
     {
-        private Utf8JsonWriter _jsonWriter;
+        private readonly Utf8JsonWriter _jsonWriter;
 
-        public SystemJsonBuilder(Utf8JsonWriter jsonWrite)
+        public SystemJsonBuilder(Utf8JsonWriter jsonWriter)
         {
-            this._jsonWriter = jsonWrite;
+            _jsonWriter = jsonWriter;
         }
 
         public void WriteBoolean(bool value)
@@ -43,9 +43,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson
             _jsonWriter.WriteNullValue();
         }
 
-        public void WriteNumber(long? value)
+        public void WriteNumber(long value)
         {
-            _jsonWriter.WriteNumberValue(Convert.ToInt64(value));
+            _jsonWriter.WriteNumberValue(value);
         }
 
         public void WriteStartArray()

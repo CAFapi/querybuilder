@@ -20,11 +20,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
 {
     public sealed class FilterWriter
     {
-        private IJsonBuilder _jsonBuilder;
+        private readonly IJsonBuilder _jsonBuilder;
 
         private FilterWriter(IJsonBuilder jsonBuilder)
         {
-            this._jsonBuilder = jsonBuilder;
+            _jsonBuilder = jsonBuilder;
         }
 
         public static void WriteToJsonArray(
@@ -98,7 +98,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
             }
             public void VisitIn(string fieldSpec, IEnumerable<string> values)
             {
-                _filterWriter._jsonBuilder.WriteString(values.Count() == 0 ? "in-strings" : "in");
+                _filterWriter._jsonBuilder.WriteString(!values.Any() ? "in-strings" : "in");
                 _filterWriter._jsonBuilder.WriteString(fieldSpec);
                 foreach (string value in values)
                 {
@@ -133,7 +133,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                 }
                 else
                 {
-                    _filterWriter._jsonBuilder.WriteNumber(startValue);
+                    _filterWriter._jsonBuilder.WriteNumber(startValue.Value);
                 }
                 if (endValue == null)
                 {

@@ -24,7 +24,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
 
         void WriteNull();
 
-        void WriteNumber(long? v);
+        void WriteNumber(long v);
 
         void WriteStartArray();
 
