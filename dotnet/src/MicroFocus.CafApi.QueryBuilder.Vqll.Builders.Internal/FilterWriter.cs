@@ -126,7 +126,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
             {
                 _filterWriter._jsonBuilder.WriteString(startValue == null && endValue == null ? "between-numbers" : "between");
                 _filterWriter._jsonBuilder.WriteString(fieldSpec);
-                if (startValue == null)
+                if (!startValue.HasValue)
                 {
                     _filterWriter._jsonBuilder.WriteNull();
                 }
@@ -134,7 +134,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                 {
                     _filterWriter._jsonBuilder.WriteNumber(startValue.Value);
                 }
-                if (endValue == null)
+                if (!endValue.HasValue)
                 {
                     _filterWriter._jsonBuilder.WriteNull();
                 }
