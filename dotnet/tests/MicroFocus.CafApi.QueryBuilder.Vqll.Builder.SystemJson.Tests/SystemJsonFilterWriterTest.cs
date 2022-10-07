@@ -39,10 +39,10 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests
         private static string ToVqll(Filter<string> filter)
         {
             using var stream = new MemoryStream();
-            using var jsonWriter = new Utf8JsonWriter(stream);
-            filter.WriteToJsonArray(jsonWriter);
-            jsonWriter.Flush();
-            stream.Flush();
+            using (var jsonWriter = new Utf8JsonWriter(stream))
+            {
+                filter.WriteToJsonArray(jsonWriter);
+            }
 
             return Encoding.UTF8.GetString(stream.ToArray());
         }
