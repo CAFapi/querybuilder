@@ -391,7 +391,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests
         [Fact]
         public void TestTransformValueInLongEmptyArray()
         {
-            long[] values = { };
+            long[] values = Array.Empty<long>();
 
             Filter<string> clause = FilterFactory.In("DOC_COUNT", values);
 
