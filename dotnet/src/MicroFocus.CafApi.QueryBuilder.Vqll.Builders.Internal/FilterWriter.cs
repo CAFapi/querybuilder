@@ -27,6 +27,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
         {
             new FilterWriterVisitor(jsonBuilder).WriteFilter(filter);
         }
+
         sealed class FilterWriterVisitor : IFilterVisitor<string>
         {
             private readonly IJsonBuilder _jsonBuilder;
@@ -35,48 +36,56 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
             {
                 _jsonBuilder = jsonBuilder;
             }
+
             public void WriteFilter(Filter<string> filter)
             {
                 _jsonBuilder.WriteStartArray();
                 filter.Invoke(this);
                 _jsonBuilder.WriteEndArray();
             }
+
             public void VisitEquals(string fieldSpec, bool value)
             {
                 _jsonBuilder.WriteString("==");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteBoolean(value);
             }
+
             public void VisitEquals(string fieldSpec, long value)
             {
                 _jsonBuilder.WriteString("==");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteNumber(value);
             }
+
             public void VisitEquals(string fieldSpec, string value)
             {
                 _jsonBuilder.WriteString("==");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteString(value);
             }
+
             public void VisitNotEquals(string fieldSpec, bool value)
             {
                 _jsonBuilder.WriteString("!=");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteBoolean(value);
             }
+
             public void VisitNotEquals(string fieldSpec, long value)
             {
                 _jsonBuilder.WriteString("!=");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteNumber(value);
             }
+
             public void VisitNotEquals(string fieldSpec, string value)
             {
                 _jsonBuilder.WriteString("!=");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteString(value);
             }
+
             public void VisitIn(string fieldSpec, long[] values)
             {
                 _jsonBuilder.WriteString(values.Length == 0 ? "in-numbers" : "in");
@@ -86,6 +95,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     _jsonBuilder.WriteNumber(value);
                 }
             }
+
             public void VisitIn(string fieldSpec, IEnumerable<string> values)
             {
                 _jsonBuilder.WriteString(!values.Any() ? "in-strings" : "in");
@@ -95,24 +105,28 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     _jsonBuilder.WriteString(value);
                 }
             }
+
             public void VisitContains(string fieldSpec, string value)
             {
                 _jsonBuilder.WriteString("contains");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteString(value);
             }
+
             public void VisitStartsWith(string fieldSpec, string value)
             {
                 _jsonBuilder.WriteString("starts-with");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteString(value);
             }
+
             public void VisitLike(string fieldSpec, LikeToken[] likeTokens)
             {
                 _jsonBuilder.WriteString("like");
                 _jsonBuilder.WriteString(fieldSpec);
                 new LikeTokenWriterVisitor(_jsonBuilder).WriteLikeTokens(likeTokens);
             }
+
             public void VisitBetween(string fieldSpec, long? startValue, long? endValue)
             {
                 _jsonBuilder.WriteString(startValue == null && endValue == null ? "between-numbers" : "between");
@@ -134,6 +148,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     _jsonBuilder.WriteNumber(endValue.Value);
                 }
             }
+
             public void VisitBetween(string fieldSpec, string startValue, string endValue)
             {
                 _jsonBuilder.WriteString(startValue == null && endValue == null ? "between-strings" : "between");
@@ -155,59 +170,69 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     _jsonBuilder.WriteString(endValue);
                 }
             }
+
             public void VisitLessThan(string fieldSpec, long value)
             {
                 _jsonBuilder.WriteString("<");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteNumber(value);
             }
+
             public void VisitLessThan(string fieldSpec, string value)
             {
                 _jsonBuilder.WriteString("<");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteString(value);
             }
+
             public void VisitLessThanOrEquals(string fieldSpec, long value)
             {
                 _jsonBuilder.WriteString("<=");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteNumber(value);
             }
+
             public void VisitLessThanOrEquals(string fieldSpec, string value)
             {
                 _jsonBuilder.WriteString("<=");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteString(value);
             }
+
             public void VisitGreaterThan(string fieldSpec, long value)
             {
                 _jsonBuilder.WriteString(">");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteNumber(value);
             }
+
             public void VisitGreaterThan(string fieldSpec, string value)
             {
                 _jsonBuilder.WriteString(">");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteString(value);
             }
+
             public void VisitGreaterThanOrEquals(string fieldSpec, long value)
             {
                 _jsonBuilder.WriteString(">=");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteNumber(value);
             }
+
             public void VisitGreaterThanOrEquals(string fieldSpec, string value)
             {
                 _jsonBuilder.WriteString(">=");
                 _jsonBuilder.WriteString(fieldSpec);
                 _jsonBuilder.WriteString(value);
             }
+
             public void VisitExists(string fieldSpec)
             {
                 _jsonBuilder.WriteString("exists");
                 _jsonBuilder.WriteString(fieldSpec);
             }
+
             public void VisitEmpty(string fieldSpec)
             {
                 _jsonBuilder.WriteString("empty");
@@ -265,12 +290,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
             {
                 _jsonBuilder = jsonBuilder;
             }
+
             public void WriteLikeTokenArray(LikeToken[] likeTokens)
             {
                 _jsonBuilder.WriteStartArray();
                 WriteLikeTokens(likeTokens);
                 _jsonBuilder.WriteEndArray();
             }
+
             public void WriteLikeTokens(LikeToken[] likeTokens)
             {
                 foreach (LikeToken likeToken in likeTokens)
@@ -278,26 +305,31 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     WriteLikeToken(likeToken);
                 }
             }
+
             private void WriteLikeToken(LikeToken likeToken)
             {
                 _jsonBuilder.WriteStartArray();
                 likeToken.Invoke(this);
                 _jsonBuilder.WriteEndArray();
             }
+
             public void VisitStringLiteral(string literal)
             {
                 _jsonBuilder.WriteString("'");
                 _jsonBuilder.WriteString(literal);
             }
+
             public void VisitSingleCharacterWildcard()
             {
                 _jsonBuilder.WriteString("?");
             }
+
             public void VisitZeroOrMoreCharactersWildcard()
             {
                 _jsonBuilder.WriteString("*");
             }
         }
+
         sealed class FullTextFilterWriterVisitor : IFullTextFilterVisitor
         {
             private readonly IJsonBuilder _jsonBuilder;
@@ -306,20 +338,24 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
             {
                 _jsonBuilder = jsonBuilder;
             }
+
             public void WriteFullTextFilter(FullTextFilter fullTextFilter)
             {
                 _jsonBuilder.WriteStartArray();
                 fullTextFilter.Invoke(this);
                 _jsonBuilder.WriteEndArray();
             }
+
             public void VisitNear(LikeToken[] lhs, LikeToken[] rhs, int distance)
             {
                 WriteNearOrDNear("near", distance, lhs, rhs);
             }
+
             public void VisitDnear(LikeToken[] lhs, LikeToken[] rhs, int distance)
             {
                 WriteNearOrDNear("dnear", distance, lhs, rhs);
             }
+
             private void WriteNearOrDNear(string nearOrDNear, int distance, LikeToken[] lhs, LikeToken[] rhs)
             {
                 _jsonBuilder.WriteString(nearOrDNear);
@@ -329,11 +365,13 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                 Visitor.WriteLikeTokenArray(lhs);
                 Visitor.WriteLikeTokenArray(rhs);
             }
+
             public void VisitFullText(LikeToken[] searchTokens)
             {
                 _jsonBuilder.WriteString("full-text");
                 new LikeTokenWriterVisitor(_jsonBuilder).WriteLikeTokens(searchTokens);
             }
+
             public void VisitOr(IEnumerable<FullTextFilter> fullTextFilters)
             {
                 _jsonBuilder.WriteString("or");
@@ -342,6 +380,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     WriteFullTextFilter(fullTextFilter);
                 }
             }
+
             public void VisitAnd(IEnumerable<FullTextFilter> fullTextFilters)
             {
                 _jsonBuilder.WriteString("and");
@@ -350,6 +389,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                     WriteFullTextFilter(fullTextFilter);
                 }
             }
+
             public void VisitNot(FullTextFilter fullTextFilter)
             {
                 _jsonBuilder.WriteString("not");
