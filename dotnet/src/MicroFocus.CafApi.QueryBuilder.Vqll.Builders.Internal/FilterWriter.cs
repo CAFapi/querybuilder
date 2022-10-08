@@ -27,7 +27,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
         {
             new FilterWriterVisitor(jsonBuilder).WriteFilter(filter);
         }
-        class FilterWriterVisitor : IFilterVisitor<string>
+        sealed class FilterWriterVisitor : IFilterVisitor<string>
         {
             private readonly IJsonBuilder _jsonBuilder;
 
@@ -257,9 +257,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
             }
         }
 
-        class LikeTokenWriterVisitor : ILikeTokenVisitor
+        sealed class LikeTokenWriterVisitor : ILikeTokenVisitor
         {
-            private IJsonBuilder _jsonBuilder;
+            private readonly IJsonBuilder _jsonBuilder;
 
             public LikeTokenWriterVisitor(IJsonBuilder jsonBuilder)
             {
@@ -298,7 +298,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal
                 _jsonBuilder.WriteString("*");
             }
         }
-        class FullTextFilterWriterVisitor : IFullTextFilterVisitor
+        sealed class FullTextFilterWriterVisitor : IFullTextFilterVisitor
         {
             private readonly IJsonBuilder _jsonBuilder;
 
