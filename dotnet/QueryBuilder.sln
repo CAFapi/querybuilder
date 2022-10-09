@@ -14,9 +14,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sepg", "sepg", "{0E41084B-F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder", "src\MicroFocus.CafApi.QueryBuilder\MicroFocus.CafApi.QueryBuilder.csproj", "{B166407E-8C41-4567-9D97-4BAAAF22ED5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFocus.CafApi.QueryBuilder.Matcher", "src\MicroFocus.CafApi.QueryBuilder.Matcher\MicroFocus.CafApi.QueryBuilder.Matcher.csproj", "{B2C95B3E-5B41-4B2A-852C-EF22A57EE663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Matcher", "src\MicroFocus.CafApi.QueryBuilder.Matcher\MicroFocus.CafApi.QueryBuilder.Matcher.csproj", "{B2C95B3E-5B41-4B2A-852C-EF22A57EE663}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFocus.CafApi.QueryBuilder.Matcher.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Matcher.Tests\MicroFocus.CafApi.QueryBuilder.Matcher.Tests.csproj", "{615EDEF2-D8EB-4155-9759-2497AEEF0F23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Matcher.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Matcher.Tests\MicroFocus.CafApi.QueryBuilder.Matcher.Tests.csproj", "{615EDEF2-D8EB-4155-9759-2497AEEF0F23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal", "src\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.csproj", "{9264B6B6-68F0-4204-9820-AD6A8F958C5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson", "src\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.csproj", "{56F204AB-7717-494E-B31F-AA03EFA3FCC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.Tests.csproj", "{35BC15D9-962A-4514-9FF0-A81E34067E9E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests.csproj", "{1F76A21A-2541-4F38-9665-18E801231857}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +44,22 @@ Global
 		{615EDEF2-D8EB-4155-9759-2497AEEF0F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615EDEF2-D8EB-4155-9759-2497AEEF0F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{615EDEF2-D8EB-4155-9759-2497AEEF0F23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9264B6B6-68F0-4204-9820-AD6A8F958C5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9264B6B6-68F0-4204-9820-AD6A8F958C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9264B6B6-68F0-4204-9820-AD6A8F958C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9264B6B6-68F0-4204-9820-AD6A8F958C5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F204AB-7717-494E-B31F-AA03EFA3FCC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F204AB-7717-494E-B31F-AA03EFA3FCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F204AB-7717-494E-B31F-AA03EFA3FCC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F204AB-7717-494E-B31F-AA03EFA3FCC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35BC15D9-962A-4514-9FF0-A81E34067E9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35BC15D9-962A-4514-9FF0-A81E34067E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35BC15D9-962A-4514-9FF0-A81E34067E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35BC15D9-962A-4514-9FF0-A81E34067E9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F76A21A-2541-4F38-9665-18E801231857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F76A21A-2541-4F38-9665-18E801231857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F76A21A-2541-4F38-9665-18E801231857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F76A21A-2541-4F38-9665-18E801231857}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +68,10 @@ Global
 		{B166407E-8C41-4567-9D97-4BAAAF22ED5E} = {E13052DF-B1FA-43A6-9CBF-4A84D348D293}
 		{B2C95B3E-5B41-4B2A-852C-EF22A57EE663} = {E13052DF-B1FA-43A6-9CBF-4A84D348D293}
 		{615EDEF2-D8EB-4155-9759-2497AEEF0F23} = {A4A44382-E93C-4C5B-B9D5-F9503C143CA3}
+		{9264B6B6-68F0-4204-9820-AD6A8F958C5E} = {E13052DF-B1FA-43A6-9CBF-4A84D348D293}
+		{56F204AB-7717-494E-B31F-AA03EFA3FCC7} = {E13052DF-B1FA-43A6-9CBF-4A84D348D293}
+		{35BC15D9-962A-4514-9FF0-A81E34067E9E} = {A4A44382-E93C-4C5B-B9D5-F9503C143CA3}
+		{1F76A21A-2541-4F38-9665-18E801231857} = {A4A44382-E93C-4C5B-B9D5-F9503C143CA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A1CA9E5-8E7E-4B28-9389-8D9110FFF23B}
