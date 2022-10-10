@@ -788,8 +788,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
 
             _logger.LogInformation("Comparing expected transformation '{0}' to actual '{1}'", transformedExpectedClause,
                         transformedActualClause);
-            System.Diagnostics.Debug.WriteLine("Comparing expected transformation '{0}' to actual '{1}'", transformedExpectedClause,
-                        transformedActualClause);
 
             Assert.Equal(transformedExpectedClause, transformedActualClause);
         }
@@ -797,7 +795,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
         private static JsonArray? GetJsonNode(string backtickVqll)
         {
             string _vqll = backtickVqll.Replace('`', '"');
-            System.Diagnostics.Debug.WriteLine("Parsing vqll query: {0}", _vqll);
             JsonDocument document = JsonDocument.Parse(_vqll);
             return JsonArray.Create(document.RootElement);
             //TODO : check IDisposable
