@@ -217,10 +217,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
             {
                 switch (node[2].GetValue<JsonElement>().ValueKind)
                 {
-                    // TODO: redundant null cheak
-                    case JsonValueKind.Null:
-                        start = null;
-                        break;
                     case JsonValueKind.Number:
                         start = node[2].GetValue<long?>();
                         isStartANumber = true;
@@ -242,9 +238,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
             {
                 switch (node[3].GetValue<JsonElement>().ValueKind)
                 {
-                    case JsonValueKind.Null:
-                        end = null;
-                        break;
                     case JsonValueKind.Number:
                         end = node[3].GetValue<long?>();
                         isEndANumber = true;
@@ -303,10 +296,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
             {
                 switch (node[3].GetValue<JsonElement>().ValueKind)
                 {
-                    //TODO: redundant null type check
-                    case JsonValueKind.Null:
-                        end = null;
-                        break;
                     case JsonValueKind.Number:
                         end = node[3].GetValue<long?>();
                         break;
@@ -344,9 +333,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
             {
                 switch (node[3].GetValue<JsonElement>().ValueKind)
                 {
-                    case JsonValueKind.Null:
-                        end = null;
-                        break;
                     case JsonValueKind.String:
                         end = node[3].GetValue<string>();
                         break;
