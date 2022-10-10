@@ -31,7 +31,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
             .CreateLogger<SystemJsonFilterReaderTest>();
 
         private static readonly ILogger<SystemJsonFilterReader> _filterReaderlogger =
-            LoggerFactory.Create(b => b.AddDebug().AddConsole())
+            LoggerFactory.Create(
+                b => b
+                .AddDebug()
+                .AddConsole()
+                .AddFilter("MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.SystemJsonFilterReader", LogLevel.Debug))
             .CreateLogger<SystemJsonFilterReader>();
 
         [Fact]
@@ -795,7 +799,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
         private static JsonArray? GetJsonNode(string backtickVqll)
         {
             string vqll = backtickVqll.Replace('`', '"');
-            _logger.LogInformation("Parsing vqll query: {0}", vqll);
             JsonDocument document = JsonDocument.Parse(vqll);
             return JsonArray.Create(document.RootElement);
             //TODO : check IDisposable
