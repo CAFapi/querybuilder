@@ -293,7 +293,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
         public void TestParseInNumbersNoArgs()
         {
             string query = "[`in-numbers`,`REPOSITORY_ID`]";
-            Filter<string> clause = FilterFactory.In("REPOSITORY_ID", new long[0]);
+            Filter<string> clause = FilterFactory.In("REPOSITORY_ID", Array.Empty<long>());
             VerifyVqllParsing(query, clause);
         }
 
@@ -309,7 +309,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
         public void TestParseInStringsNoArgs()
         {
             string query = "[`in-strings`,`REPOSITORY_ID`]";
-            Filter<string> clause = FilterFactory.In("REPOSITORY_ID", new String[0]);
+            Filter<string> clause = FilterFactory.In("REPOSITORY_ID", Array.Empty<string>());
             VerifyVqllParsing(query, clause);
         }
 
