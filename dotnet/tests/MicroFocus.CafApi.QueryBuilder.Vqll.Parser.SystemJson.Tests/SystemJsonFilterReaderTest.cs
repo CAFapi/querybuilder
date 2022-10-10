@@ -794,14 +794,19 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
 
         private static JsonArray? GetJsonNode(string backtickVqll)
         {
-            string _vqll = backtickVqll.Replace('`', '"');
-            JsonDocument document = JsonDocument.Parse(_vqll);
+            string vqll = backtickVqll.Replace('`', '"');
+            _logger.LogInformation("Parsing vqll query: {0}", vqll);
+            JsonDocument document = JsonDocument.Parse(vqll);
             return JsonArray.Create(document.RootElement);
             //TODO : check IDisposable
-            //using (JsonDocument document = JsonDocument.Parse(_vqll))
+            //  JsonElement rootElm;
+            // (JsonDocument document = JsonDocument.Parse(vqll))
             //{
-            //    return JsonArray.Create(document.RootElement);
+                // Cannot access rootElement in SystemJsonFilterReader if this code is in 'using' block
+                // Error: Cannot access disposed object
+            //    rootElm = document.RootElement;
             //}
+            // return JsonArray.Create(rootElm);
         }
         private static string ToVqll(Filter<string> filter)
         {
