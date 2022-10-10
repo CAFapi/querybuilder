@@ -18,6 +18,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
 {
@@ -139,7 +140,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
         {
             if (node.Count == 2)
             {
-                return FilterFactory.In(node[1].GetValue<string>(), new long[0]);
+                return FilterFactory.In(node[1].GetValue<string>(), Array.Empty<long>());
             }
             else
             {
@@ -151,7 +152,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
         {
             if (node.Count == 2)
             {
-                return FilterFactory.In(node[1].GetValue<string>(), new string[0]);
+                return FilterFactory.In(node[1].GetValue<string>(), Array.Empty<string>());
             }
             else
             {
@@ -161,7 +162,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
 
         private long[] GetLongValues(JsonArray node)
         {
-            List<long> inValues = new List<long>();
+            var inValues = new List<long>();
             IEnumerator<JsonNode> iter = GetFilterArgumentsElements(node);
             while (iter.MoveNext())
             {
@@ -172,7 +173,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
 
         private string[] GetStringValues(JsonArray node)
         {
-            List<string> inValues = new List<string>();
+            var inValues = new List<string>();
 
             IEnumerator<JsonNode> iter = GetFilterArgumentsElements(node);
             while (iter.MoveNext())
@@ -419,7 +420,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
         {
             IEnumerator<JsonNode> iter = node.GetEnumerator();
             iter.MoveNext(); // move from first element which is the filter type
-            List<Filter<string>> clauses = new List<Filter<string>>();
+            var clauses = new List<Filter<string>>();
             while (iter.MoveNext())
             {
                 clauses.Add(CreateFilter(iter.Current.AsArray()));
@@ -470,12 +471,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
 
         private LikeToken[] GetLikeTokens(IEnumerator<JsonNode> likeTokensIterator)
         {
-            List<LikeToken> likeTokens = new List<LikeToken>();
+            var likeTokens = new List<LikeToken>();
             while (likeTokensIterator.MoveNext())
             {
                 likeTokens.Add(CreateLikeToken(likeTokensIterator.Current.AsArray()));
             }
-            return (LikeToken[])likeTokens.ToArray();
+            return likeTokens.ToArray<LikeToken>();
         }
 
         private FullTextFilter CreateFulltextOrClause(JsonArray node)
@@ -492,7 +493,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
         {
             node.RemoveAt(0);// move from first element which is the filter type
             IEnumerator<JsonNode> iter = node.GetEnumerator();
-            List<FullTextFilter> clauses = new List<FullTextFilter>();
+            var clauses = new List<FullTextFilter>();
             while (iter.MoveNext())
             {
                 clauses.Add(CreateFullTextClause(iter.Current.AsArray()));
@@ -508,7 +509,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
 
         private Filter<string> CreateFieldFullTextFilter(JsonArray node)
         {
-            List<string> fields = new List<string>();
+            var fields = new List<string>();
             IEnumerator<JsonNode> iter = node[1].AsArray().GetEnumerator();
             while (iter.MoveNext())
             {
