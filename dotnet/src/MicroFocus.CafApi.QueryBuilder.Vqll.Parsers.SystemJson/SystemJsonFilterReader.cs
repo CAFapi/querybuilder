@@ -38,7 +38,10 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson
 
         private Filter<string> CreateFilter(JsonNode node)
         {
-            _logger.LogDebug("Parsing: {0}", node);
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
+                _logger.LogDebug("Parsing: {0}", node.ToJsonString());
+            }
             string filterType = node[0].GetValue<string>();
             switch (filterType)
             {
