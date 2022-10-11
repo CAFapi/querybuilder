@@ -35,8 +35,8 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
                 b => b
                 .AddDebug()
                 .AddConsole()
-                .AddFilter("MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.SystemJsonFilterReader", LogLevel.Debug))
-            .CreateLogger<SystemJsonFilterReader>();
+                .AddFilter("SystemJsonFilterReader", LogLevel.Debug))
+            .CreateLogger("SystemJsonFilterReader");
 
         [Fact]
         public void TestParseEquals()
@@ -816,7 +816,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
             using var stream = new MemoryStream();
             using (var jsonWriter = new Utf8JsonWriter(stream))
             {
-                FilterExtension.WriteToJsonArray(filter, jsonWriter);
+                filter.WriteToJsonArray(jsonWriter);
             }
 
             return Encoding.UTF8.GetString(stream.ToArray());

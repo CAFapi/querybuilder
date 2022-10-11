@@ -51,7 +51,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
                 case "in-numbers":
                     return CreateInNumbersFilter(node);
                 case "in-strings":
-                    return CreateInstringsFilter(node);
+                    return CreateInStringsFilter(node);
                 case "contains":
                     return CreateContainsFilter(node);
                 case "starts-with":
@@ -63,7 +63,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
                 case "between-numbers":
                     return CreateBetweenNumbersFilter(node);
                 case "between-strings":
-                    return CreateBetweenstringsFilter(node);
+                    return CreateBetweenStringsFilter(node);
                 case "<":
                     return CreateLessThanFilter(node);
                 case "<=":
@@ -255,8 +255,8 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
             {
                 Filter<string> betweenFilter =
                     start == null
-                    ? FilterFactory.Between(node[1].GetValue<string>(), null, Convert.ToInt64(end))
-                    : FilterFactory.Between(node[1].GetValue<string>(), Convert.ToInt64(start), null);
+                    ? FilterFactory.Between(node[1].GetValue<string>(), null, (long)end)
+                    : FilterFactory.Between(node[1].GetValue<string>(), (long)start, null);
                 return betweenFilter;
             }
             else
