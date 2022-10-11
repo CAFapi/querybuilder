@@ -251,13 +251,17 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
                 }
             }
 
+            if (start == null && end == null)
+            {
+                throw new ArgumentException("Unexpected NULL start and end values in 'between' filter");
+            }
+
             if (isStartANumber || isEndANumber)
             {
-                Filter<string> betweenFilter =
-                    start == null
-                    ? FilterFactory.Between(node[1].GetValue<string>(), null, (long)end)
-                    : FilterFactory.Between(node[1].GetValue<string>(), (long)start, null);
-                return betweenFilter;
+                return FilterFactory.Between(node[1].GetValue<string>(),
+                    start == null ? null : (long?)start,
+                    end == null ? null : (long?)end
+                );
             }
             else
             {
