@@ -148,7 +148,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
             }
         }
 
-        private Filter<string> CreateInstringsFilter(JsonArray node)
+        private Filter<string> CreateInStringsFilter(JsonArray node)
         {
             if (node.Count == 2)
             {
@@ -307,7 +307,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
             return FilterFactory.Between(node[1].GetValue<string>(), start, end);
         }
 
-        private Filter<string> CreateBetweenstringsFilter(JsonArray node)
+        private Filter<string> CreateBetweenStringsFilter(JsonArray node)
         {
             string start;
             if (node[2] == null)
