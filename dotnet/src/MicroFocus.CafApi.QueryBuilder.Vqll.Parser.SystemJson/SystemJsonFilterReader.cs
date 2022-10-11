@@ -183,6 +183,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
             return inValues.ToArray();
         }
 
+        private IEnumerator<JsonNode> GetFilterArgumentsElements(JsonArray node)
+        {
+            IEnumerator<JsonNode> iter = node.GetEnumerator();
+            iter.MoveNext(); // filter type
+            iter.MoveNext(); // field name
+            return iter;
+        }
+
         private Filter<string> CreateContainsFilter(JsonArray node)
         {
             return FilterFactory.Contains(node[1].GetValue<string>(), node[2].GetValue<string>());
@@ -196,14 +204,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
         private Filter<string> CreateLikeFilter(JsonArray node)
         {
             return FilterFactory.Like(node[1].GetValue<string>(), GetLikeTokens(GetFilterArgumentsElements(node)));
-        }
-
-        private IEnumerator<JsonNode> GetFilterArgumentsElements(JsonArray node)
-        {
-            IEnumerator<JsonNode> iter = node.GetEnumerator();
-            iter.MoveNext(); // filter type
-            iter.MoveNext(); // field name
-            return iter;
         }
 
         private Filter<string> CreateBetweenFilter(JsonArray node)
