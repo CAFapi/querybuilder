@@ -138,7 +138,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
 
         private Filter<string> CreateInNumbersFilter(JsonNode node)
         {
-            if (node[2] == null)
+            if (node.AsArray().Count == 2)
             {
                 return FilterFactory.In(node[1].GetValue<string>(), Array.Empty<long>());
             }
@@ -150,7 +150,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
 
         private Filter<string> CreateInStringsFilter(JsonNode node)
         {
-            if (node[2] == null)
+            if (node.AsArray().Count == 2)
             {
                 return FilterFactory.In(node[1].GetValue<string>(), Array.Empty<string>());
             }
