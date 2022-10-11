@@ -42,7 +42,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.csproj" />
-    <ProjectReference Include="..\..\src\MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson\MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.csproj" />
+    <ProjectReference Include="..\..\src\MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson\MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson.csproj" />
     <ProjectReference Include="..\..\src\MicroFocus.CafApi.QueryBuilder\MicroFocus.CafApi.QueryBuilder.csproj" />
   </ItemGroup>
 

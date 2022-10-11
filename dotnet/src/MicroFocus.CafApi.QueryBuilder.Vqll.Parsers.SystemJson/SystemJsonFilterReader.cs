@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 
-namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
+namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson
 {
     public sealed class SystemJsonFilterReader
     {

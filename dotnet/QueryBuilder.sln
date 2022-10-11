@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Matcher.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Matcher.Tests\MicroFocus.CafApi.QueryBuilder.Matcher.Tests.csproj", "{615EDEF2-D8EB-4155-9759-2497AEEF0F23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson", "src\MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson\MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.csproj", "{57EC963E-7467-4CC4-B14E-4239ACB10F31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson", "src\MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson\MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson.csproj", "{57EC963E-7467-4CC4-B14E-4239ACB10F31}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal", "src\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.Internal.csproj", "{9264B6B6-68F0-4204-9820-AD6A8F958C5E}"
 EndProject
@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests\MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson.Tests.csproj", "{1F76A21A-2541-4F38-9665-18E801231857}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests\MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests.csproj", "{D672DC66-B838-4EF8-8194-3AFAE0AA6D5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson.Tests", "tests\MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson.Tests\MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson.Tests.csproj", "{D672DC66-B838-4EF8-8194-3AFAE0AA6D5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -22,7 +22,7 @@ using System.Text.Json.Nodes;
 using MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson;
 using Microsoft.Extensions.Logging;
 
-namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
+namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson.Tests
 {
     public sealed class SystemJsonFilterReaderTest
     {
