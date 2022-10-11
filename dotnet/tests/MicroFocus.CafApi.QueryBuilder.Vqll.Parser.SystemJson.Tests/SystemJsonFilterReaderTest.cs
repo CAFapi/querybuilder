@@ -30,7 +30,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
             LoggerFactory.Create(b => b.AddDebug().AddConsole())
             .CreateLogger<SystemJsonFilterReaderTest>();
 
-        private static readonly ILogger<SystemJsonFilterReader> _filterReaderlogger =
+        private static readonly ILogger _filterReaderlogger =
             LoggerFactory.Create(
                 b => b
                 .AddDebug()
