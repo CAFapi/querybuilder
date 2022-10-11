@@ -584,7 +584,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson.Tests
             string query = "[`or`,[`in`,`REPOSITORY_ID`,1234,2345],[`==`,`CLASSIFICATION`,`classified`]]";
             Filter<string> clause1 = FilterFactory.In("REPOSITORY_ID", 1234L, 2345L);
             Filter<string> clause2 = FilterFactory.Equals("CLASSIFICATION", "classified");
-            Filter<string> orClause = FilterFactory.Or(new List<Filter<string>> { clause1, clause2});
+            Filter<string> orClause = FilterFactory.Or(new List<Filter<string>> { clause1, clause2 });
             VerifyVqllParsing(query, orClause);
         }
 
