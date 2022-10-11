@@ -209,7 +209,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
         private Filter<string> CreateBetweenFilter(JsonArray node)
         {
             bool isStartANumber = false;
-            Object start;
+            object start;
             if (node[2] == null)
             {
                 start = null;
@@ -230,7 +230,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson
                 }
             }
             bool isEndANumber = false;
-            Object end;
+            object end;
             if (node[3] == null)
             {
                 end = null;
