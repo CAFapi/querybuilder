@@ -782,7 +782,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
 
         private static void VerifyVqllParsing(string vqllQuery, Filter<string> expectedClause)
         {
-            JsonArray? vqllNode = GetJsonNode(vqllQuery);
+            JsonNode vqllNode = GetJsonNode(vqllQuery);
             Filter<string> actualClause = SystemJsonFilterReader.ReadFromJsonArray(vqllNode, _filterReaderlogger);
 
             Assert.NotNull(actualClause);
@@ -796,21 +796,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parser.SystemJson.Tests
             Assert.Equal(transformedExpectedClause, transformedActualClause);
         }
 
-        private static JsonArray? GetJsonNode(string backtickVqll)
+        private static JsonNode GetJsonNode(string backtickVqll)
         {
             string vqll = backtickVqll.Replace('`', '"');
-            JsonDocument document = JsonDocument.Parse(vqll);
-            return JsonArray.Create(document.RootElement);
-            //TODO : check IDisposable
-            //  JsonElement rootElm;
-            // (JsonDocument document = JsonDocument.Parse(vqll))
-            //{
-                // Cannot access rootElement in SystemJsonFilterReader if this code is in 'using' block
-                // Error: Cannot access disposed object
-            //    rootElm = document.RootElement;
-            //}
-            // return JsonArray.Create(rootElm);
+            return JsonNode.Parse(vqll)!;
         }
+
         private static string ToVqll(Filter<string> filter)
         {
             using var stream = new MemoryStream();
