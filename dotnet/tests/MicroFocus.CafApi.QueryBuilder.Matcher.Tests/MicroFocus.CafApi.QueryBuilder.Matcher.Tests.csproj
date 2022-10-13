@@ -1,4 +1,4 @@
-<!--
+﻿<!--
 
     Copyright 2022 Micro Focus or one of its affiliates.
 
@@ -36,6 +36,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\MicroFocus.CafApi.QueryBuilder.Mapper\MicroFocus.CafApi.QueryBuilder.Mapper.csproj" />
+    <ProjectReference Include="..\..\src\MicroFocus.CafApi.QueryBuilder.Matcher\MicroFocus.CafApi.QueryBuilder.Matcher.csproj" />
+    <ProjectReference Include="..\..\src\MicroFocus.CafApi.QueryBuilder\MicroFocus.CafApi.QueryBuilder.csproj" />
   </ItemGroup>
 
 </Project>
