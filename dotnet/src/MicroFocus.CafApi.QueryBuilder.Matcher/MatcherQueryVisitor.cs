@@ -207,7 +207,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitEmpty(IMatcherFieldSpec<Document> fieldSpec)
         {
-            _isMatch = GetStringValues(fieldSpec).Select(v => !string.IsNullOrEmpty(v)).Count() == 0;
+            // TODO: check this
+            //_isMatch = GetStringValues(fieldSpec).Select(v => !string.IsNullOrEmpty(v)).Count() == 0;
+            _isMatch = !GetStringValues(fieldSpec).Any(v => v.Length > 0);
         }
 
         public void VisitOr(IEnumerable<Filter<IMatcherFieldSpec<Document>>> filters)

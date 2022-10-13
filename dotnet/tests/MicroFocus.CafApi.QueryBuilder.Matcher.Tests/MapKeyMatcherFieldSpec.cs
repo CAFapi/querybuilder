@@ -15,7 +15,6 @@
  */
 
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices;
 
 namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 {
@@ -34,13 +33,13 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         [return: NotNull]
         IEnumerable<IMatcherFieldValue> IMatcherFieldSpec<Dictionary<string, List<string>>>.GetFieldValues(Dictionary<string, List<string>> document)
         {
-            if (document[_key] == null)
+            if (document.ContainsKey(_key))
             {
-                return Enumerable.Empty<IMatcherFieldValue>();
+                return document[_key].Select(value => new MatcherFieldValue(value));
             }
             else
             {
-                return document[_key].Select(value => new MatcherFieldValue(value));
+                return Enumerable.Empty<IMatcherFieldValue>();
             }
         }
 
