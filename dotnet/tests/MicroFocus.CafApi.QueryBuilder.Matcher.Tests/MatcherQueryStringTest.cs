@@ -18,12 +18,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 {
     public sealed class MatcherQueryStringTest
     {
-        private Dictionary<string, List<string>> _document;
-        private static string SINGLE_VALUE = "SINGLE_VALUE";
-        private static string MULTIPLE_VALUE = "MULTIPLE_VALUE";
-        private static string IS_EMPTY = "IS_EMPTY";
-        private static string IS_ACTUALLY_EMPTY = "IS_ACTUALLY_EMPTY";
-        private static string REFERENCE_FIELD = "REFERENCE_FIELD";
+        private readonly Dictionary<string, List<string>> _document;
+        private static readonly string SINGLE_VALUE = "SINGLE_VALUE";
+        private static readonly string MULTIPLE_VALUE = "MULTIPLE_VALUE";
+        private static readonly string IS_EMPTY = "IS_EMPTY";
+        private static readonly string IS_ACTUALLY_EMPTY = "IS_ACTUALLY_EMPTY";
+        private static readonly string REFERENCE_FIELD = "REFERENCE_FIELD";
 
         public MatcherQueryStringTest()
         {
@@ -536,23 +536,20 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         private bool DocMatches(Filter<string> filter)
         {
-            //var method = typeof(MapKeyMatcherFieldSpec).GetConstructor(new[] { typeof(string) });
-            var method = typeof(MapKeyMatcherFieldSpec).GetMethod("Create");
-            if (method == null)
-            { throw new ArgumentNullException("Mapping function not found"); }
-            Func<string, MapKeyMatcherFieldSpec> create = (Func<string, MapKeyMatcherFieldSpec>)Delegate.CreateDelegate(typeof(Func<string, MapKeyMatcherFieldSpec>), method);
-            var mappedFilter = FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, create);
+            Filter<MapKeyMatcherFieldSpec> mappedFilter = MatcherTestHelper.MapFilter(filter);
             return mappedFilter.IsMatch(_document);
         }
 
         private static Dictionary<string, List<string>> GetDocument()
         {
-            Dictionary<string, List<string>> document = new();
-            document.Add(SINGLE_VALUE, new List<string>() { "TIGER" });
-            document.Add(MULTIPLE_VALUE, new List<string>() { "ANACONDA", "MOOSE", "ZEBRA" });
-            document.Add(IS_EMPTY, new List<string>() { "" });
-            document.Add(REFERENCE_FIELD, new List<string>() { "ref:CHAMELEON" });
-            document.Add(IS_ACTUALLY_EMPTY, new List<string>());
+            Dictionary<string, List<string>> document = new()
+            {
+                { SINGLE_VALUE, new List<string>() { "TIGER" } },
+                { MULTIPLE_VALUE, new List<string>() { "ANACONDA", "MOOSE", "ZEBRA" } },
+                { IS_EMPTY, new List<string>() { "" } },
+                { REFERENCE_FIELD, new List<string>() { "ref:CHAMELEON" } },
+                { IS_ACTUALLY_EMPTY, new List<string>() }
+            };
 
             return document;
         }

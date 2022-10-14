@@ -18,11 +18,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 {
     public sealed class MatcherQueryLongTest
     {
-        private Dictionary<string, List<string>> _document;
-        private static string SINGLE_VALUE = "SINGLE_VALUE";
-        private static string SINGLE_VALUE_WITH_INVALID_ENTRY = "SINGLE_VALUE_WITH_INVALID_ENTRY";
-        private static string MULTIPLE_VALUE = "MULTIPLE_VALUE";
-        private static string MULTIPLE_VALUE_WITH_INVALID_ENTRY = "MULTIPLE_VALUE_WITH_INVALID_ENTRY";
+        private readonly Dictionary<string, List<string>> _document;
+        private static readonly string SINGLE_VALUE = "SINGLE_VALUE";
+        private static readonly string SINGLE_VALUE_WITH_INVALID_ENTRY = "SINGLE_VALUE_WITH_INVALID_ENTRY";
+        private static readonly string MULTIPLE_VALUE = "MULTIPLE_VALUE";
+        private static readonly string MULTIPLE_VALUE_WITH_INVALID_ENTRY = "MULTIPLE_VALUE_WITH_INVALID_ENTRY";
 
         public MatcherQueryLongTest()
         {
@@ -31,14 +31,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         //  Equality testing
         [Fact]
-        public void singleValueFieldEqualsLong()
+        public void SingleValueFieldEqualsLong()
         {
             Filter<string> filter = FilterFactory.Equals(SINGLE_VALUE, 5);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field");
         }
 
         [Fact]
-        public void singleValueFieldWithInvalidEntryEqualsLong()
+        public void SingleValueFieldWithInvalidEntryEqualsLong()
         {
             try
             {
@@ -52,28 +52,28 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void singleValueFieldNotEqualToLong()
+        public void SingleValueFieldNotEqualToLong()
         {
             Filter<string> filter = FilterFactory.NotEquals(SINGLE_VALUE, 6);
             Assert.True(DocMatches(filter), "Should not have matched 5 in SINGLE_VALUE field to 6");
         }
 
         [Fact]
-        public void multiValuedFieldEqualsLong()
+        public void MultiValuedFieldEqualsLong()
         {
             Filter<string> filter = FilterFactory.Equals(MULTIPLE_VALUE, 10);
             Assert.True(DocMatches(filter), "Should have matched 10 in MULTIPLE_VALUE field");
         }
 
         [Fact]
-        public void multiValuedFieldNotEqualToLong()
+        public void MultiValuedFieldNotEqualToLong()
         {
             Filter<string> filter = FilterFactory.NotEquals(MULTIPLE_VALUE, 1000);
             Assert.True(DocMatches(filter), "Should not have matched anything in MULTIPLE_VALUE field to 1000");
         }
 
         [Fact]
-        public void multiValuedFieldWithInvalidEntryNotEqualToLong()
+        public void MultiValuedFieldWithInvalidEntryNotEqualToLong()
         {
             try
             {
@@ -87,7 +87,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void multiValuedFieldWithInvalidEntryEqualToLong()
+        public void MultiValuedFieldWithInvalidEntryEqualToLong()
         {
             try
             {
@@ -102,14 +102,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         //  In testing
         [Fact]
-        public void singleValueFieldHasLongIn()
+        public void SingleValueFieldHasLongIn()
         {
             Filter<string> filter = FilterFactory.In(SINGLE_VALUE, 4, 5, 6);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field");
         }
 
         [Fact]
-        public void singleValueFieldWithInvalidEntryHasNotGotLongIn()
+        public void SingleValueFieldWithInvalidEntryHasNotGotLongIn()
         {
             try
             {
@@ -123,21 +123,21 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void singleValueFieldHasNotGotLongIn()
+        public void SingleValueFieldHasNotGotLongIn()
         {
             Filter<string> filter = FilterFactory.In(SINGLE_VALUE, 6, 7, 8);
             Assert.False(DocMatches(filter), "Should not have matched 5 in SINGLE_VALUE field");
         }
 
         [Fact]
-        public void multiValuedFieldHasLongIn()
+        public void MultiValuedFieldHasLongIn()
         {
             Filter<string> filter = FilterFactory.In(MULTIPLE_VALUE, 1, 10, 100);
             Assert.True(DocMatches(filter), "Should have matched 10 in MULTIPLE_VALUE field");
         }
 
         [Fact]
-        public void multiValuedFieldWithInvalidEntryHasLongIn()
+        public void MultiValuedFieldWithInvalidEntryHasLongIn()
         {
             try
             {
@@ -151,7 +151,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void multiValuedFieldHasNotGotLongIn()
+        public void MultiValuedFieldHasNotGotLongIn()
         {
             Filter<string> filter = FilterFactory.In(MULTIPLE_VALUE, 1000, 2000, 3000);
             Assert.False(DocMatches(filter), "Should have matched anything in MULTIPLE_VALUE field");
@@ -159,28 +159,28 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         //  Between testing
         [Fact]
-        public void singleValueFieldHasLongBetween()
+        public void SingleValueFieldHasLongBetween()
         {
             Filter<string> filter = FilterFactory.Between(SINGLE_VALUE, 4L, 6L);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field");
         }
 
         [Fact]
-        public void singleValueFieldHasLongBetweenInclusiveStart()
+        public void SingleValueFieldHasLongBetweenInclusiveStart()
         {
             Filter<string> filter = FilterFactory.Between(SINGLE_VALUE, 5L, 6L);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field");
         }
 
         [Fact]
-        public void singleValueFieldHasLongBetweenInclusiveEnd()
+        public void SingleValueFieldHasLongBetweenInclusiveEnd()
         {
             Filter<string> filter = FilterFactory.Between(SINGLE_VALUE, 1L, 5L);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field");
         }
 
         [Fact]
-        public void singleValueFieldWithInvalidEntryHasLongBetween()
+        public void SingleValueFieldWithInvalidEntryHasLongBetween()
         {
             try
             {
@@ -194,35 +194,35 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void singleValueFieldHasNotGotLongBetween()
+        public void SingleValueFieldHasNotGotLongBetween()
         {
             Filter<string> filter = FilterFactory.Between(SINGLE_VALUE, 6L, 8L);
             Assert.False(DocMatches(filter), "Should not have matched 5 in SINGLE_VALUE field");
         }
 
         [Fact]
-        public void multiValuedFieldHasLongBetween()
+        public void MultiValuedFieldHasLongBetween()
         {
             Filter<string> filter = FilterFactory.Between(MULTIPLE_VALUE, 19L, 25L);
             Assert.True(DocMatches(filter), "Should have matched 20 in MULTIPLE_VALUE field");
         }
 
         [Fact]
-        public void multiValuedFieldHasLongBetweenInclusiveStart()
+        public void MultiValuedFieldHasLongBetweenInclusiveStart()
         {
             Filter<string> filter = FilterFactory.Between(MULTIPLE_VALUE, 20L, 25L);
             Assert.True(DocMatches(filter), "Should have matched 20 in MULTIPLE_VALUE field");
         }
 
         [Fact]
-        public void multiValuedFieldHasLongBetweenInclusiveEnd()
+        public void MultiValuedFieldHasLongBetweenInclusiveEnd()
         {
             Filter<string> filter = FilterFactory.Between(MULTIPLE_VALUE, 5L, 20L);
             Assert.True(DocMatches(filter), "Should have matched 20 in MULTIPLE_VALUE field");
         }
 
         [Fact]
-        public void multiValuedFieldWithInvalidEntryHasLongBetween()
+        public void MultiValuedFieldWithInvalidEntryHasLongBetween()
         {
             try
             {
@@ -236,7 +236,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void multiValuedFieldHasNotGotLongBetween()
+        public void MultiValuedFieldHasNotGotLongBetween()
         {
             Filter<string> filter = FilterFactory.Between(MULTIPLE_VALUE, 25L, 50L);
             Assert.False(DocMatches(filter), "Should not have matched anything in MULTIPLE_VALUE field");
@@ -244,14 +244,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         //  Less than testing
         [Fact]
-        public void singleValueFieldLessThanLong()
+        public void SingleValueFieldLessThanLong()
         {
             Filter<string> filter = FilterFactory.LessThan(SINGLE_VALUE, 20);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field as < 20");
         }
 
         [Fact]
-        public void singleValueFieldWithInvalidEntryLessThanLong()
+        public void SingleValueFieldWithInvalidEntryLessThanLong()
         {
             try
             {
@@ -265,21 +265,21 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void singleValueFieldNotLessThanLong()
+        public void SingleValueFieldNotLessThanLong()
         {
             Filter<string> filter = FilterFactory.LessThan(SINGLE_VALUE, 2);
             Assert.False(DocMatches(filter), "Should not have matched 5 in SINGLE_VALUE field as < 2");
         }
 
         [Fact]
-        public void multiValuedFieldLessThanLong()
+        public void MultiValuedFieldLessThanLong()
         {
             Filter<string> filter = FilterFactory.LessThan(MULTIPLE_VALUE, 3);
             Assert.True(DocMatches(filter), "Should have matched 2 in MULTIPLE_VALUE field as < 3");
         }
 
         [Fact]
-        public void multiValuedFieldWithInvalidEntryLessThanLong()
+        public void MultiValuedFieldWithInvalidEntryLessThanLong()
         {
             try
             {
@@ -293,7 +293,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void multiValuedFieldNotLessThanLong()
+        public void MultiValuedFieldNotLessThanLong()
         {
             Filter<string> filter = FilterFactory.LessThan(MULTIPLE_VALUE, 1);
             Assert.False(DocMatches(filter), "Should not have matched 2 in MULTIPLE_VALUE field as < 1");
@@ -301,14 +301,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         //  Less than or equal to testing
         [Fact]
-        public void singleValueFieldLessThanOrEqualToLong()
+        public void SingleValueFieldLessThanOrEqualToLong()
         {
             Filter<string> filter = FilterFactory.LessThanOrEquals(SINGLE_VALUE, 6);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field as <= 6");
         }
 
         [Fact]
-        public void singleValueFieldWithInvalidEntryLessThanOrEqualToLong()
+        public void SingleValueFieldWithInvalidEntryLessThanOrEqualToLong()
         {
             try
             {
@@ -322,28 +322,28 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void singleValueFieldNotLessThanOrEqualToLong()
+        public void SingleValueFieldNotLessThanOrEqualToLong()
         {
             Filter<string> filter = FilterFactory.LessThanOrEquals(SINGLE_VALUE, 3);
             Assert.False(DocMatches(filter), "Should not have matched 5 in SINGLE_VALUE field as <= 3");
         }
 
         [Fact]
-        public void singleValueFieldLessThanOrEqualToLongWithEqualValue()
+        public void SingleValueFieldLessThanOrEqualToLongWithEqualValue()
         {
             Filter<string> filter = FilterFactory.LessThanOrEquals(SINGLE_VALUE, 5);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field as <= 5");
         }
 
         [Fact]
-        public void multiValuedFieldLessThanOrEqualToLong()
+        public void MultiValuedFieldLessThanOrEqualToLong()
         {
             Filter<string> filter = FilterFactory.LessThanOrEquals(MULTIPLE_VALUE, 3);
             Assert.True(DocMatches(filter), "Should have matched 2 in MULTIPLE_VALUE field as <= 3");
         }
 
         [Fact]
-        public void multiValuedFieldWithInvalidLessThanOrEqualToLong()
+        public void MultiValuedFieldWithInvalidLessThanOrEqualToLong()
         {
             try
             {
@@ -357,14 +357,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void multiValuedFieldNotLessThanOrEqualToLong()
+        public void MultiValuedFieldNotLessThanOrEqualToLong()
         {
             Filter<string> filter = FilterFactory.LessThanOrEquals(MULTIPLE_VALUE, 1);
             Assert.False(DocMatches(filter), "Should not have matched 2 in MULTIPLE_VALUE field as <= 13");
         }
 
         [Fact]
-        public void multiValuedFieldLessThanOrEqualToLongWithEqualValue()
+        public void MultiValuedFieldLessThanOrEqualToLongWithEqualValue()
         {
             Filter<string> filter = FilterFactory.LessThanOrEquals(MULTIPLE_VALUE, 20);
             Assert.True(DocMatches(filter), "Should have matched 20 in MULTIPLE_VALUE field as <= 20");
@@ -372,14 +372,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         //  Greater than testing
         [Fact]
-        public void singleValueFieldGreaterThanLong()
+        public void SingleValueFieldGreaterThanLong()
         {
             Filter<string> filter = FilterFactory.GreaterThan(SINGLE_VALUE, 4);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field as > 4");
         }
 
         [Fact]
-        public void singleValueFieldWithInvalidEntryGreaterThanLong()
+        public void SingleValueFieldWithInvalidEntryGreaterThanLong()
         {
             try
             {
@@ -394,35 +394,35 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void singleValueFieldNotGreaterThanLong()
+        public void SingleValueFieldNotGreaterThanLong()
         {
             Filter<string> filter = FilterFactory.GreaterThan(SINGLE_VALUE, 6);
             Assert.False(DocMatches(filter), "Should not have matched 5 in SINGLE_VALUE field as > 6");
         }
 
         [Fact]
-        public void singleValueFieldNotGreaterThanLongWithEqualValue()
+        public void SingleValueFieldNotGreaterThanLongWithEqualValue()
         {
             Filter<string> filter = FilterFactory.GreaterThan(SINGLE_VALUE, 5);
             Assert.False(DocMatches(filter), "Should not have matched 5 in SINGLE_VALUE field as > 5");
         }
 
         [Fact]
-        public void multiValuedFieldGreaterThanLong()
+        public void MultiValuedFieldGreaterThanLong()
         {
             Filter<string> filter = FilterFactory.GreaterThan(MULTIPLE_VALUE, 19);
             Assert.True(DocMatches(filter), "Should have matched 20 in MULTIPLE_VALUE field as > 19");
         }
 
         [Fact]
-        public void multiValuedFieldNotGreaterThanLongWithEqualValue()
+        public void MultiValuedFieldNotGreaterThanLongWithEqualValue()
         {
             Filter<string> filter = FilterFactory.GreaterThan(MULTIPLE_VALUE, 20);
             Assert.False(DocMatches(filter), "Should not have matched 20 in MULTIPLE_VALUE field as > 20");
         }
 
         [Fact]
-        public void multiValuedFieldWithInvalidNotGreaterThanLongWithEqualValue()
+        public void MultiValuedFieldWithInvalidNotGreaterThanLongWithEqualValue()
         {
             try
             {
@@ -437,14 +437,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         //  Greater than or equal to testing
         [Fact]
-        public void singleValueFieldGreaterThanOrEqualToLong()
+        public void SingleValueFieldGreaterThanOrEqualToLong()
         {
             Filter<string> filter = FilterFactory.GreaterThanOrEquals(SINGLE_VALUE, 2);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field as >= 2");
         }
 
         [Fact]
-        public void singleValueFieldWithInvalidEntryGreaterThanOrEqualToLong()
+        public void SingleValueFieldWithInvalidEntryGreaterThanOrEqualToLong()
         {
             try
             {
@@ -458,42 +458,42 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
-        public void singleValueFieldNotGreaterThanOrEqualToLong()
+        public void SingleValueFieldNotGreaterThanOrEqualToLong()
         {
             Filter<string> filter = FilterFactory.GreaterThanOrEquals(SINGLE_VALUE, 6);
             Assert.False(DocMatches(filter), "Should not have matched 5 in SINGLE_VALUE field as >= 6");
         }
 
         [Fact]
-        public void singleValueFieldGreaterThanOrEqualToLongWithEqualValue()
+        public void SingleValueFieldGreaterThanOrEqualToLongWithEqualValue()
         {
             Filter<string> filter = FilterFactory.GreaterThanOrEquals(SINGLE_VALUE, 5);
             Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field as >= 5");
         }
 
         [Fact]
-        public void multiValuedFieldGreaterThanOrEqualToLong()
+        public void MultiValuedFieldGreaterThanOrEqualToLong()
         {
             Filter<string> filter = FilterFactory.GreaterThanOrEquals(MULTIPLE_VALUE, 1);
             Assert.True(DocMatches(filter), "Should have matched 2 in MULTIPLE_VALUE field as >= 1");
         }
 
         [Fact]
-        public void multiValuedFieldNotGreaterThanOrEqualToLong()
+        public void MultiValuedFieldNotGreaterThanOrEqualToLong()
         {
             Filter<string> filter = FilterFactory.GreaterThanOrEquals(MULTIPLE_VALUE, 1000);
             Assert.False(DocMatches(filter), "Should not have matched 2 in MULTIPLE_VALUE field as >= 1000");
         }
 
         [Fact]
-        public void multiValuedFieldGreaterThanOrEqualToLongWithEqualValue()
+        public void MultiValuedFieldGreaterThanOrEqualToLongWithEqualValue()
         {
             Filter<string> filter = FilterFactory.GreaterThanOrEquals(MULTIPLE_VALUE, 2);
             Assert.True(DocMatches(filter), "Should have matched 2 in MULTIPLE_VALUE field as >= 2");
         }
 
         [Fact]
-        public void multiValuedFieldWithInvalidGreaterThanOrEqualToLongWithEqualValue()
+        public void MultiValuedFieldWithInvalidGreaterThanOrEqualToLongWithEqualValue()
         {
             try
             {
@@ -508,22 +508,19 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         private bool DocMatches(Filter<string> filter)
         {
-            //var method = typeof(MapKeyMatcherFieldSpec).GetConstructor(new[] { typeof(string) });
-            var method = typeof(MapKeyMatcherFieldSpec).GetMethod("Create");
-            if (method == null)
-            { throw new ArgumentNullException("Mapping function not found"); }
-            Func<string, MapKeyMatcherFieldSpec> create = (Func<string, MapKeyMatcherFieldSpec>)Delegate.CreateDelegate(typeof(Func<string, MapKeyMatcherFieldSpec>), method);
-            var mappedFilter = FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, create);
+            Filter<MapKeyMatcherFieldSpec> mappedFilter = MatcherTestHelper.MapFilter(filter);
             return mappedFilter.IsMatch(_document);
         }
 
         private static Dictionary<string, List<string>> GetDocument()
         {
-            Dictionary<string, List<string>> document = new();
-            document.Add(SINGLE_VALUE, new List<string> { "5" });
-            document.Add(SINGLE_VALUE_WITH_INVALID_ENTRY, new List<string> { "five" });
-            document.Add(MULTIPLE_VALUE, new List<string> { "2", "10", "20" });
-            document.Add(MULTIPLE_VALUE_WITH_INVALID_ENTRY, new List<string> { "1", "two", "3" });
+            Dictionary<string, List<string>> document = new()
+            {
+                { SINGLE_VALUE, new List<string> { "5" } },
+                { SINGLE_VALUE_WITH_INVALID_ENTRY, new List<string> { "five" } },
+                { MULTIPLE_VALUE, new List<string> { "2", "10", "20" } },
+                { MULTIPLE_VALUE_WITH_INVALID_ENTRY, new List<string> { "1", "two", "3" } }
+            };
 
             return document;
         }

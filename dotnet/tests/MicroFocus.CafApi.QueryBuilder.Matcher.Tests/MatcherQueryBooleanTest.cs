@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System;
-using System.Linq.Expressions;
-using System.Reflection.Emit;
-using System.Reflection.Metadata;
 
 namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 {
     public sealed class MatcherQueryBooleanTest
     {
-        private Dictionary<string, List<string>> _document;
+        private readonly Dictionary<string, List<string>> _document;
         private static string SINGLE_VALUE = "SINGLE_VALUE";
         private static string MULTIPLE_VALUE = "MULTIPLE_VALUE";
 
@@ -62,20 +58,17 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         private bool DocMatches(Filter<string> filter)
         {
-            //var method = typeof(MapKeyMatcherFieldSpec).GetConstructor(new[] { typeof(string) });
-            var method = typeof(MapKeyMatcherFieldSpec).GetMethod("Create");
-            if (method == null)
-            { throw new ArgumentNullException("Mapping function not found"); }
-            Func<string, MapKeyMatcherFieldSpec> create = (Func<string, MapKeyMatcherFieldSpec>)Delegate.CreateDelegate(typeof(Func<string, MapKeyMatcherFieldSpec>), method);
-            var mappedFilter = FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, create);
+            Filter<MapKeyMatcherFieldSpec> mappedFilter = MatcherTestHelper.MapFilter(filter);
             return mappedFilter.IsMatch(_document);
         }
 
         private static Dictionary<string, List<string>> GetDocument()
         {
-            Dictionary<string, List<string>> document = new();
-            document.Add(SINGLE_VALUE, new List<string>() { "true" });
-            document.Add(MULTIPLE_VALUE, new List<string>() { "true", "true", "true" });
+            Dictionary<string, List<string>> document = new()
+            {
+                { SINGLE_VALUE, new List<string>() { "true" } },
+                { MULTIPLE_VALUE, new List<string>() { "true", "true", "true" } }
+            };
 
             return document;
         }

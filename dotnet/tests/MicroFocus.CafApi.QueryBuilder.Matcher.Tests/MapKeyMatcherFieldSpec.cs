@@ -25,7 +25,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         {
             return new MapKeyMatcherFieldSpec(key);
         }
-        public MapKeyMatcherFieldSpec(string key)
+        private MapKeyMatcherFieldSpec(string key)
         {
             _key = key;
         }
@@ -47,17 +47,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         {
             get
             {
-                switch (this._key)
+                return _key switch
                 {
-                    case "SINGLE_VALUE":
-                    case "MULTIPLE_VALUE":
-                    case "SINGLE_VALUE_PATH":
-                    case "MULTIPLE_VALUE_PATH":
-                    case "SHAREPOINT_PATH":
-                        return true;
-                    default:
-                        return false;
-                }
+                    "SINGLE_VALUE" or "MULTIPLE_VALUE" or "SINGLE_VALUE_PATH" or "MULTIPLE_VALUE_PATH" or "SHAREPOINT_PATH" => true,
+                    _ => false,
+                };
             }
         }
 
@@ -65,15 +59,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         {
             get
             {
-                switch (_key)
+                return _key switch
                 {
-                    case "SINGLE_VALUE_PATH":
-                    case "MULTIPLE_VALUE_PATH":
-                    case "SHAREPOINT_PATH":
-                        return true;
-                    default:
-                        return false;
-                }
+                    "SINGLE_VALUE_PATH" or "MULTIPLE_VALUE_PATH" or "SHAREPOINT_PATH" => true,
+                    _ => false,
+                };
             }
         }
 
