@@ -30,12 +30,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             // TODO: check this: static Create function vs constructor
             //var method = typeof(MapKeyMatcherFieldSpec).GetConstructor(new[] { typeof(string) });
             var method = typeof(MapKeyMatcherFieldSpec).GetMethod("Create");
-            if (method == null)
-            {
-                // custom exception?
-                throw new ArgumentNullException("Mapping function not found");
-            }
-            return (Func<string, MapKeyMatcherFieldSpec>)Delegate.CreateDelegate(typeof(Func<string, MapKeyMatcherFieldSpec>), method);
+            return (Func<string, MapKeyMatcherFieldSpec>)Delegate.CreateDelegate(typeof(Func<string, MapKeyMatcherFieldSpec>), method!);
         }
 
         public static string Print(Dictionary<string, List<string>> document)
