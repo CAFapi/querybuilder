@@ -37,5 +37,15 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             }
             return (Func<string, MapKeyMatcherFieldSpec>)Delegate.CreateDelegate(typeof(Func<string, MapKeyMatcherFieldSpec>), method);
         }
+
+        public static string Print(Dictionary<string, List<string>> document)
+        {
+            return "{" + string.Join(", ", document.Select(kv => kv.Key + " = " + Print(kv.Value)).ToArray()) + "}";
+        }
+
+        public static string Print(List<string> values)
+        {
+            return "[" + string.Join(", ", values) + "]";
+        }
     }
 }

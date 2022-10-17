@@ -164,7 +164,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             Filter<string> filter,
             List<string> allFullTextFields)
         {
-            LOGGER.LogInformation("Matching document {Document}", document);
+            LOGGER.LogInformation("Matching document {Document}", MatcherTestHelper.Print(document));
             Func<string, MapKeyMatcherFieldSpec> create = MatcherTestHelper.GetMappingFunction();
             List<MapKeyMatcherFieldSpec>? fullTextFieldSpecs = allFullTextFields?.Select(create).ToList();
             var mappedFilter = FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, create);
