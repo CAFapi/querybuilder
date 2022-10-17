@@ -253,8 +253,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         {
             return GetStringValues(fieldSpec).Where(v =>
             {
-                return long.TryParse(
-                    v, System.Globalization.NumberStyles.AllowThousands | System.Globalization.NumberStyles.AllowLeadingSign, null, out long xi);
+                return long.TryParse(v, NumberStyles.AllowLeadingSign, null, out long xi);
             }).Select(v => long.Parse(v));
         }
 
