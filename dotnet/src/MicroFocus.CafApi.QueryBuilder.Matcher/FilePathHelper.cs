@@ -81,7 +81,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
                 if (c1 == slash) return 2;  /* Absolute UNC pathname "\\\\foo" */
                 return 1;                   /* Drive-relative "\\foo" */
             }
-            if (IsLetter(c0) && (c1 == ':'))
+            if (char.IsLetter(c0) && (c1 == ':'))
             {
                 if ((n > 2) && (path.ElementAt(2) == slash))
                     return 3;               /* Absolute local pathname "z:\\foo" */
@@ -234,7 +234,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             while ((src < len) && IsSlash(path.ElementAt(src))) src++;
             char c;
             if ((len - src >= 2)
-                && IsLetter(c = path.ElementAt(src))
+                && char.IsLetter(c = path.ElementAt(src))
                 && path.ElementAt(src + 1) == ':')
             {
                 /* Remove leading slashes if followed by drive specifier.
@@ -269,9 +269,5 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             return (c == '\\') || (c == '/');
         }
 
-        private bool IsLetter(char c)
-        {
-            return ((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z'));
-        }
     }
 }
