@@ -361,7 +361,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
                 _mqVisitor._isMatch = fullTextFilters.All(fullTextFilter =>
                 {
                     MatcherQueryVisitor<Document> visitor =
-                    new MatcherQueryVisitor<Document>(_mqVisitor._document, _mqVisitor._allFullTextFieldSpecs);
+                        new MatcherQueryVisitor<Document>(_mqVisitor._document, _mqVisitor._allFullTextFieldSpecs);
                     _mqVisitor.VisitFieldFullTextImpl(_fieldSpecs, fullTextFilter);
 
                     return visitor.GetResult();
