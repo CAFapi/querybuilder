@@ -297,14 +297,13 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         //[return: NotNull]
         private static IEnumerable<string> TokenizePath(string path)
         {
-            List<string> tokens = new List<string>();
-            FileInfo f = new FileInfo(path);
-            string fpath = f.FullName;
+            var tokens = new List<string>();
+            FilePathHelper f = new FilePathHelper(path);
             do
             {
-                tokens.Add(fpath.Replace('\\', '/'));
-                fpath = f.Directory.FullName;
-            } while (f.Directory != null);
+                tokens.Add(f.GetPath().Replace('\\', '/'));
+                f = f.GetParentFile();
+            } while (f != null && f.GetParentFile() != null);
             return tokens;
         }
 
