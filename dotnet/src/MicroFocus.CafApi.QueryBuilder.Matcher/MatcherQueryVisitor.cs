@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 using System;
-//using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.IO;
 
 namespace MicroFocus.CafApi.QueryBuilder.Matcher
 {
@@ -207,8 +205,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitEmpty(IMatcherFieldSpec<Document> fieldSpec)
         {
-            // TODO: check this
-            //_isMatch = GetStringValues(fieldSpec).Select(v => !string.IsNullOrEmpty(v)).Count() == 0;
             _isMatch = !GetStringValues(fieldSpec).Any(v => v.Length > 0);
         }
 
@@ -248,13 +244,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             VisitFieldFullTextImpl(fieldSpecs, fullTextFilter);
         }
 
-        //[return: NotNull]
         private IEnumerable<IMatcherFieldValue> GetFieldValues(IMatcherFieldSpec<Document> fieldSpec)
         {
             return fieldSpec.GetFieldValues(_document);
         }
 
-        //[return: NotNull]
         private IEnumerable<long> GetLongStream(IMatcherFieldSpec<Document> fieldSpec)
         {
             return GetStringValues(fieldSpec).Where(v =>
@@ -264,7 +258,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             }).Select(v => long.Parse(v));
         }
 
-        //[return: NotNull]
         private IEnumerable<string> GetStringValues(IMatcherFieldSpec<Document> fieldSpec)
         {
             var stream = GetFieldValues(fieldSpec)
@@ -275,7 +268,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             : stream;
         }
 
-        //[return: NotNull]
         private IEnumerable<string> GetFieldValuesAsStream(IMatcherFieldSpec<Document> fieldSpec)
         {
             if (fieldSpec.IsTokenizedPath)
@@ -288,13 +280,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             }
         }
 
-        //[return: NotNull]
         private static List<string> ToUppercase(IEnumerable<string> values)
         {
             return values.Select(v => v.ToUpper(new CultureInfo("en-US"))).ToList();
         }
 
-        //[return: NotNull]
         private static IEnumerable<string> TokenizePath(string path)
         {
             var tokens = new List<string>();

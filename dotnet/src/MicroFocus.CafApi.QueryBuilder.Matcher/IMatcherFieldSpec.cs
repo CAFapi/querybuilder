@@ -19,7 +19,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 {
     public interface IMatcherFieldSpec<in Document>
     {
-        //[NotNull]
         IEnumerable<IMatcherFieldValue> GetFieldValues(Document document);
 
         bool IsCaseInsensitive { get; }

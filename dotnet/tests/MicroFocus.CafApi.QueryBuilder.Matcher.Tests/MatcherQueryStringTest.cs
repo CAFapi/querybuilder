@@ -525,13 +525,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         [Fact]
         public void GetStringValueOnReferenceFieldValueDoesNotThrowRuntimeException()
         {
-            //TODO runtimeexception??
-            //try {
+            try {
             Filter<string> filter = FilterFactory.Contains(REFERENCE_FIELD, "CHAMELEON");
             Assert.False(DocMatches(filter), "Should not have found CHAMELEON in REFERENCE_FIELD field");
-            //} catch (RuntimeException e) {
-            //    fail("Should not have thrown a RuntimeException when calling GetStringValue on a reference field ");
-            //}
+            } catch (SystemException) {
+                Assert.True(false, "Should not have thrown a SystemException when calling GetStringValue on a reference field ");
+            }
         }
 
         private bool DocMatches(Filter<string> filter)

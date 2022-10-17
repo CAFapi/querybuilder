@@ -154,7 +154,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 }
                 else
                 {
-                    // TODO: how to fail?
                     Assert.True(false, "Should not have thrown UnsupportedOperationException");
                 }
             }

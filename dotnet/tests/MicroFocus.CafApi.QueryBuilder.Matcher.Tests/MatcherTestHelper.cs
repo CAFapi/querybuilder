@@ -27,7 +27,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         public static Func<string, MapKeyMatcherFieldSpec> GetMappingFunction()
         {
-            // TODO: check this
+            // TODO: check this: static Create function vs constructor
             //var method = typeof(MapKeyMatcherFieldSpec).GetConstructor(new[] { typeof(string) });
             var method = typeof(MapKeyMatcherFieldSpec).GetMethod("Create");
             if (method == null)

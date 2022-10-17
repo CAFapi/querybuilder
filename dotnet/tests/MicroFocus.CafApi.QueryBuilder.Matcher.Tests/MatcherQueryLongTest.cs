@@ -45,9 +45,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.Equals(SINGLE_VALUE_WITH_INVALID_ENTRY, 5);
                 Assert.False(DocMatches(filter), "Should not have matched 5 in SINGLE_VALUE_WITH_INVALID_ENTRY field to 5");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"five\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"five\" as a long value");
             }
         }
 
@@ -80,9 +80,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.NotEquals(MULTIPLE_VALUE_WITH_INVALID_ENTRY, 5);
                 Assert.True(DocMatches(filter), "Should not have matched 5 in MULTIPLE_VALUE_WITH_INVALID_ENTRY field to 5");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"two\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"two\" as a long value");
             }
         }
 
@@ -94,9 +94,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.Equals(MULTIPLE_VALUE_WITH_INVALID_ENTRY, 3);
                 Assert.True(DocMatches(filter), "Should have matched 3 in MULTIPLE_VALUE_WITH_INVALID_ENTRY field to 3");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"two\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"two\" as a long value");
             }
         }
 
@@ -116,9 +116,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.In(SINGLE_VALUE_WITH_INVALID_ENTRY, 4, 5, 6);
                 Assert.False(DocMatches(filter), "Should not have matched anything in SINGLE_VALUE_WITH_INVALID_ENTRY field");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"two\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"two\" as a long value");
             }
         }
 
@@ -144,9 +144,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.In(MULTIPLE_VALUE_WITH_INVALID_ENTRY, 1, 10, 100);
                 Assert.True(DocMatches(filter), "Should have matched 10 in MULTIPLE_VALUE field");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"two\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"two\" as a long value");
             }
         }
 
@@ -187,9 +187,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.Between(SINGLE_VALUE_WITH_INVALID_ENTRY, 4L, 6L);
                 Assert.False(DocMatches(filter), "Should not have matched anything in SINGLE_VALUE_WITH_INVALID_ENTRY field");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"five\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"five\" as a long value");
             }
         }
 
@@ -229,9 +229,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.Between(MULTIPLE_VALUE_WITH_INVALID_ENTRY, 5L, 10L);
                 Assert.False(DocMatches(filter), "Should not have matched anything in MULTIPLE_VALUE_WITH_INVALID_ENTRY field");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"two\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"two\" as a long value");
             }
         }
 
@@ -258,9 +258,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.LessThan(SINGLE_VALUE_WITH_INVALID_ENTRY, 20);
                 Assert.False(DocMatches(filter), "Should not have matched anything in SINGLE_VALUE_WITH_INVALID_ENTRY field");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"five\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"five\" as a long value");
             }
         }
 
@@ -286,9 +286,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.LessThan(MULTIPLE_VALUE_WITH_INVALID_ENTRY, 3);
                 Assert.True(DocMatches(filter), "Should have matched 1 in MULTMULTIPLE_VALUE_WITH_INVALID_ENTRYIPLE_VALUE field as < 3");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"two\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"two\" as a long value");
             }
         }
 
@@ -315,9 +315,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.LessThanOrEquals(SINGLE_VALUE_WITH_INVALID_ENTRY, 6);
                 Assert.False(DocMatches(filter), "Should not have matched anything in SINGLE_VALUE_WITH_INVALID_ENTRY field");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"five\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"five\" as a long value");
             }
         }
 
@@ -350,9 +350,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.LessThanOrEquals(MULTIPLE_VALUE_WITH_INVALID_ENTRY, 3);
                 Assert.True(DocMatches(filter), "Should have matched 3 in MULTIPLE_VALUE_WITH_INVALID_ENTRY field as <= 3");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"two\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"two\" as a long value");
             }
         }
 
@@ -386,10 +386,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.GreaterThan(SINGLE_VALUE_WITH_INVALID_ENTRY, 4);
                 Assert.False(DocMatches(filter), "Should not have matched anything in SINGLE_VALUE_WITH_INVALID_ENTRY field");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                // TODO fail equivalent?
-                Assert.True(null == e, "Should not have thrown an error when processing \"five\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"five\" as a long value");
             }
         }
 
@@ -429,9 +428,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.GreaterThan(MULTIPLE_VALUE_WITH_INVALID_ENTRY, 20);
                 Assert.False(DocMatches(filter), "Should not have matched 20 in MULTIPLE_VALUE_WITH_INVALID_ENTRY field as > 20");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"two\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"two\" as a long value");
             }
         }
 
@@ -451,9 +450,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.GreaterThan(SINGLE_VALUE_WITH_INVALID_ENTRY, 2);
                 Assert.False(DocMatches(filter), "Should not have matched anything in SINGLE_VALUE_WITH_INVALID_ENTRY field");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"five\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"five\" as a long value");
             }
         }
 
@@ -500,9 +499,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 Filter<string> filter = FilterFactory.GreaterThanOrEquals(MULTIPLE_VALUE, 2);
                 Assert.True(DocMatches(filter), "Should have matched 2 in MULTIPLE_VALUE field as >= 2");
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                Assert.True(null == e, "Should not have thrown an error when processing \"two\" as a long value");
+                Assert.True(false, "Should not have thrown an error when processing \"two\" as a long value");
             }
         }
 
