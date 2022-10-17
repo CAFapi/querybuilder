@@ -58,12 +58,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             if (fieldSpec.IsCaseInsensitive)
             {
                 _isMatch = GetFieldValuesAsStream(fieldSpec)
-                    .Any(v => String.Equals(v, value, StringComparison.CurrentCultureIgnoreCase));
+                    .Any(v => string.Equals(v, value, StringComparison.CurrentCultureIgnoreCase));
             }
             else
             {
                 _isMatch = GetFieldValuesAsStream(fieldSpec)
-                    .Any(v => String.Equals(v, value));
+                    .Any(v => string.Equals(v, value));
             }
         }
 
@@ -82,12 +82,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             if (fieldSpec.IsCaseInsensitive)
             {
                 _isMatch = !GetFieldValuesAsStream(fieldSpec)
-                    .Any(v => String.Equals(v, value, StringComparison.CurrentCultureIgnoreCase));
+                    .Any(v => string.Equals(v, value, StringComparison.CurrentCultureIgnoreCase));
             }
             else
             {
                 _isMatch = !GetFieldValuesAsStream(fieldSpec)
-                    .Any(v => String.Equals(v, value));
+                    .Any(v => string.Equals(v, value));
             }
         }
 
@@ -259,9 +259,8 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         {
             return GetStringValues(fieldSpec).Where(v =>
             {
-                long xi;
                 return long.TryParse(
-                    v, System.Globalization.NumberStyles.AllowThousands | System.Globalization.NumberStyles.AllowLeadingSign, null, out xi);
+                    v, System.Globalization.NumberStyles.AllowThousands | System.Globalization.NumberStyles.AllowLeadingSign, null, out long xi);
             }).Select(v => long.Parse(v));
         }
 
