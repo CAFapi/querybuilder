@@ -24,7 +24,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
     {
         private readonly string _path;
         private readonly int _prefixLength;
-        private readonly char _slash = Path.DirectorySeparatorChar;
+        private static readonly char _slash = Path.DirectorySeparatorChar;
 
         public FilePathHelper(string pathname)
         {
@@ -69,7 +69,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             return new FilePathHelper(p, _prefixLength);
         }
 
-        public int PrefixLength(string path)
+        private int PrefixLength(string path)
         {
             char slash = _slash;
             int n = path.Length;
@@ -100,7 +100,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
          * the pathname does not name a parent directory.
          * 
          */
-        public string GetParent()
+        private string GetParent()
         {
             int index = _path.LastIndexOf(Path.DirectorySeparatorChar);
             if (index < _prefixLength)
@@ -113,11 +113,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         }
 
         /*
-        public string Normalize(string path)
          * Check that the given pathname is normal.  If not, invoke the real
          * normalizer on the part of the pathname that requires normalization.
          * This way we iterate through the whole pathname string only once.
          */
+        private string Normalize(string path)
         {
             int n = path.Length;
             char slash = _slash;
