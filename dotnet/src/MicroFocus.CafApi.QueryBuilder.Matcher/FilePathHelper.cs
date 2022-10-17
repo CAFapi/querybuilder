@@ -40,24 +40,24 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
 
         /*
-        Converts this abstract pathname into a pathname string. The resulting
-        string uses the default name-separator character to separate the names in the name sequence.
-        */
+         * Converts this abstract pathname into a pathname string. The resulting
+         * string uses the default name-separator character to separate the names in the name sequence.
+         */
         public string GetPath()
         {
             return _path;
         }
 
         /*
-         Returns the abstract pathname of this abstract pathname's parent,
-         or null if this pathname does not name a parent directory.
-         The parent of an abstract pathname consists of the
-         pathname's prefix, if any, and each name in the pathname's name
-         sequence except for the last. If the name sequence is empty then
-         the pathname does not name a parent directory.
-         Returns the abstract pathname of the parent directory named by this
-         abstract pathname, or null if this pathname does not name a parent
-        */
+         * Returns the abstract pathname of this abstract pathname's parent,
+         * or null if this pathname does not name a parent directory.
+         * 
+         * The parent of an abstract pathname consists of the
+         * pathname's prefix, if any, and each name in the pathname's name
+         * sequence except for the last. If the name sequence is empty then
+         * the pathname does not name a parent directory.
+         * 
+         */
         public FilePathHelper GetParentFile()
         {
             string p = GetParent();
@@ -91,17 +91,15 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         }
 
         /*
-          Returns the pathname string of this abstract pathname's parent, or
-          null if this pathname does not name a parent directory.
-     
-          The parent of an abstract pathname consists of the
-          pathname's prefix, if any, and each name in the pathname's name
-          sequence except for the last.  If the name sequence is empty then
-          the pathname does not name a parent directory.
-     
-          Returns the pathname string of the parent directory named by this
-          abstract pathname, or null if this pathname does not name a parent
-        */
+         * Returns the pathname string of this abstract pathname's parent, or
+         * null if this pathname does not name a parent directory.
+         * 
+         * The parent of an abstract pathname consists of the
+         * pathname's prefix, if any, and each name in the pathname's name
+         * sequence except for the last.  If the name sequence is empty then
+         * the pathname does not name a parent directory.
+         * 
+         */
         public string GetParent()
         {
             int index = _path.LastIndexOf(Path.DirectorySeparatorChar);
@@ -115,11 +113,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         }
 
         /*
-        Check that the given pathname is normal.  If not, invoke the real
-        normalizer on the part of the pathname that requires normalization.
-        This way we iterate through the whole pathname string only once.
-        */
         public string Normalize(string path)
+         * Check that the given pathname is normal.  If not, invoke the real
+         * normalizer on the part of the pathname that requires normalization.
+         * This way we iterate through the whole pathname string only once.
+         */
         {
             int n = path.Length;
             char slash = _slash;
@@ -141,9 +139,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         }
 
         /*
-          Normalize the given pathname, whose length is len, starting at the given
-          offset; everything before this offset is already normal.
-        */
+         * Normalize the given pathname, whose length is len, starting at the given
+         * offset; everything before this offset is already normal.
+         */
         private string Normalize(string path, int len, int off)
         {
             if (len == 0) return path;
@@ -218,18 +216,18 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             return sb.ToString();
         }
 
-        /* A normal Win32 pathname contains no duplicate slashes, except possibly
-       for a UNC prefix, and does not end with a slash.  It may be the empty
-       string.  Normalized Win32 pathnames have the convenient property that
-       the length of the prefix almost uniquely identifies the type of the path
-       and whether it is absolute or relative:
-
-           0  relative to both drive and directory
-           1  drive-relative (begins with '\\')
-           2  absolute UNC (if first char is '\\'),
-                else directory-relative (has form "z:foo")
-           3  absolute local pathname (begins with "z:\\")
-     */
+        /*
+         * A normal Win32 pathname contains no duplicate slashes, except possibly
+         * for a UNC prefix, and does not end with a slash.  It may be the empty
+         * string.  Normalized Win32 pathnames have the convenient property that
+         * the length of the prefix almost uniquely identifies the type of the path
+         * and whether it is absolute or relative:
+         *   0  relative to both drive and directory
+         *   1  drive-relative (begins with '\\')
+         *   2  absolute UNC (if first char is '\\'),
+         *         else directory-relative (has form "z:foo")
+         *   3  absolute local pathname (begins with "z:\\")
+         */
         private int NormalizePrefix(string path, int len, StringBuilder sb)
         {
             int src = 0;
