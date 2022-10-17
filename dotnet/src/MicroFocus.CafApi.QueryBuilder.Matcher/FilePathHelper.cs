@@ -38,7 +38,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             _prefixLength = prefixLength;
         }
 
-
         /*
          * Converts this abstract pathname into a pathname string. The resulting
          * string uses the default name-separator character to separate the names in the name sequence.
