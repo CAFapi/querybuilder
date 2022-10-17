@@ -49,8 +49,20 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             {
                 return _key switch
                 {
-                    "SINGLE_VALUE" or "MULTIPLE_VALUE" or "SINGLE_VALUE_PATH" or "MULTIPLE_VALUE_PATH" or "SHAREPOINT_PATH" => true,
-                    _ => false,
+                    "SINGLE_VALUE"
+                    or "MULTIPLE_VALUE"
+                    or "SINGLE_VALUE_PATH"
+                    or "MULTIPLE_VALUE_PATH"
+                    or "SHAREPOINT_PATH"
+                    or "WINDOWS_PATH"
+                    or "IP_PATH"
+                    or "NO_ROOT_PATH"
+                    or "NO_ROOT_WINDOWS_PATH"
+                    or "HOST_NAME_PATH"
+                    or "FILE_PATH"
+                    => true,
+                    _
+                    => false,
                 };
             }
         }
@@ -61,8 +73,18 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             {
                 return _key switch
                 {
-                    "SINGLE_VALUE_PATH" or "MULTIPLE_VALUE_PATH" or "SHAREPOINT_PATH" => true,
-                    _ => false,
+                    "SINGLE_VALUE_PATH"
+                    or "MULTIPLE_VALUE_PATH"
+                    or "SHAREPOINT_PATH"
+                    or "WINDOWS_PATH"
+                    or "IP_PATH"
+                    or "NO_ROOT_PATH"
+                    or "NO_ROOT_WINDOWS_PATH"
+                    or "HOST_NAME_PATH"
+                    or "FILE_PATH"
+                    => true,
+                    _
+                    => false,
                 };
             }
         }
