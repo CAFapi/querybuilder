@@ -24,7 +24,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
     {
         private readonly string _path;
         private readonly int _prefixLength;
-        private readonly char _slash = '\\';
+        private readonly char _slash = Path.DirectorySeparatorChar;
 
         public FilePathHelper(string pathname)
         {
