@@ -20,19 +20,22 @@ using System.Text;
 
 namespace MicroFocus.CafApi.QueryBuilder.Matcher
 {
-    internal sealed class FilePathHelper
+    /**
+     * An abstract representation of file and directory pathnames based on Java's java.io.File and java.io.FileSystem.
+     */
+    internal sealed class FilePath
     {
         private readonly string _path;
         private readonly int _prefixLength;
         private static readonly char _slash = Path.DirectorySeparatorChar;
 
-        public FilePathHelper(string pathname)
+        public FilePath(string pathname)
         {
             _path = Normalize(pathname);
             _prefixLength = PrefixLength(_path);
         }
 
-        private FilePathHelper(string pathname, int prefixLength)
+        private FilePath(string pathname, int prefixLength)
         {
             _path = pathname;
             _prefixLength = prefixLength;
@@ -57,15 +60,15 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
          * the pathname does not name a parent directory.
          * 
          */
-        public FilePathHelper GetParentFile()
+        public FilePath GetParentFile()
         {
             string p = GetParent();
             if (p == null) return null;
-            if (GetType() != typeof(FilePathHelper))
+            if (GetType() != typeof(FilePath))
             {
                 p = Normalize(p);
             }
-            return new FilePathHelper(p, _prefixLength);
+            return new FilePath(p, _prefixLength);
         }
 
         private int PrefixLength(string path)

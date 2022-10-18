@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Diagnostics;
 
 namespace MicroFocus.CafApi.QueryBuilder.Matcher
 {
@@ -286,13 +287,16 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         private static IEnumerable<string> TokenizePath(string path)
         {
+            Debug.WriteLine("Tokenizing path: " + path);
             var tokens = new List<string>();
-            FilePathHelper f = new FilePathHelper(path);
+            FilePath f = new FilePath(path);
             do
             {
+                Debug.WriteLine("path :name: " + f.GetPath());
                 tokens.Add(f.GetPath().Replace('\\', '/'));
                 f = f.GetParentFile();
             } while (f != null && f.GetParentFile() != null);
+            Debug.WriteLine("path Tokens: " + string.Join(", ", tokens));
             return tokens;
         }
 
