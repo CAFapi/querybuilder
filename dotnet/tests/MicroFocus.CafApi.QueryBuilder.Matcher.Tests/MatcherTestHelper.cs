@@ -19,18 +19,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 {
     public static class MatcherTestHelper
     {
-        public static Filter<MapKeyMatcherFieldSpec> MapFilter(Filter<string> filter)
-        {
-            Func<string, MapKeyMatcherFieldSpec> create = GetMappingFunction();
-            return FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, create);
-        }
-
-        public static Func<string, MapKeyMatcherFieldSpec> GetMappingFunction()
-        {
-            var method = typeof(MapKeyMatcherFieldSpec).GetMethod("Create");
-            return (Func<string, MapKeyMatcherFieldSpec>)Delegate.CreateDelegate(typeof(Func<string, MapKeyMatcherFieldSpec>), method!);
-        }
-
         public static string Print(Dictionary<string, List<string>> document)
         {
             return "{" + string.Join(", ", document.Select(kv => kv.Key + " = " + Print(kv.Value)).ToArray()) + "}";
