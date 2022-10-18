@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MicroFocus.CafApi.QueryBuilder.Matcher
+namespace MicroFocus.CafApi.QueryBuilder.Mapper
 {
     public static class FilterMapper<T, R>
     {

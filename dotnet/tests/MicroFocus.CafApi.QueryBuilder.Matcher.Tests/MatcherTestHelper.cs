@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 global using Xunit;
+global using MicroFocus.CafApi.QueryBuilder.Mapper;
 
 namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 {
