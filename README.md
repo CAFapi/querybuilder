@@ -104,7 +104,8 @@ namespace MicroFocus.Verity.QueryBuilderUsage
             Filter<string> filter = ParseVqll(vqll, _filterReaderlogger);
 
             // Map the 'string' type Filter object to a 'MapKeyMatcherFieldSpec' type Filter.
-            // The 'fields' specified in the filter which are strings are mapped to "keys" in a Dictionary representation of a document
+            // The 'fields' specified in the filter which are strings are mapped
+            // to "keys" in a Dictionary representation of a document
             var mappedFilter = FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, MapKeyMatcherFieldSpec.Create);
 
             // Check which documents match the filter
@@ -121,7 +122,8 @@ namespace MicroFocus.Verity.QueryBuilderUsage
             Filter<string> filter = ParseVqll(vqll, _filterReaderlogger);
 
             // Map the 'string' type Filter object to a 'MapKeyMatcherFieldSpec' type Filter.
-            // The 'fields' specified in the filter which are strings are mapped to "keys" in a Dictionary representation of a document
+            // The 'fields' specified in the filter which are strings are mapped
+            // to "keys" in a Dictionary representation of a document
             var mappedFilter = FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, MapKeyMatcherFieldSpec.Create);
 
             List<string> fulltextFields = new() { "CONTENT" };
@@ -132,7 +134,8 @@ namespace MicroFocus.Verity.QueryBuilderUsage
             // Check which documents match the fulltext filter
             foreach (Dictionary<string, List<string>> document in documents)
             {
-                Console.WriteLine("Document {0} matches filter: {1}", Print(document), mappedFilter.IsMatch(document, mappedFullTextFields));
+                Console.WriteLine("Document {0} matches filter: {1}",
+                    Print(document), mappedFilter.IsMatch(document, mappedFullTextFields));
             }
         }
 
@@ -271,7 +274,8 @@ namespace MicroFocus.Verity.QueryBuilderUsage
         }
 
         [return: NotNull]
-        IEnumerable<IMatcherFieldValue> IMatcherFieldSpec<Dictionary<string, List<string>>>.GetFieldValues(Dictionary<string, List<string>> document)
+        IEnumerable<IMatcherFieldValue> 
+            IMatcherFieldSpec<Dictionary<string, List<string>>>.GetFieldValues(Dictionary<string, List<string>> document)
         {
             if (document.ContainsKey(_key))
             {
