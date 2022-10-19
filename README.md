@@ -43,6 +43,7 @@ The [QueryBuilder.Parsers.SystemJson](dotnet/src/MicroFocus.CafApi.QueryBuilder.
 The [QueryBuilder.Mapper](dotnet/src/MicroFocus.CafApi.QueryBuilder.Mapper) module can be used to change the type parameter of Filter objects by applying a mapping function lazily.
 
 
+# Filter matching
 The [QueryBuilder.Matcher](dotnet/src/MicroFocus.CafApi.QueryBuilder.Matcher) is a library that allows users to match a document to a `Filter`.
 
 ### Matching a document to filter
