@@ -1,7 +1,7 @@
 # Query Builder
 
-The query builder is a library that helps interpret or construct a VQLL query.
-VQLL is a Lisp-style grammar that writes values out in JSON arrays.
+The query builder is a library that helps interpret or construct a VQLL query.  
+[VQLL](dotnet/src/MicroFocus.CafApi.QueryBuilder.Vqll.Builders.SystemJson) is a Lisp-style grammar that writes values out in JSON arrays.
 
 
 ## Usage
@@ -36,14 +36,14 @@ Include the following packages in the project:
 
 
 # VQLL Parser
-The [QueryBuilder.Parsers.SystemJson](MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson) is a library that helps create field filters/clauses by analyzing a query string that conforms to VQLL.
+The [QueryBuilder.Parsers.SystemJson](dotnet/src/MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson) is a library that helps create field filters/clauses by analyzing a query string that conforms to VQLL.
 
 
 # Filter conversions
-The [QueryBuilder.Mapper](MicroFocus.CafApi.QueryBuilder.Mapper) module can be used to change the type parameter of Filter objects by applying a mapping function lazily.
+The [QueryBuilder.Mapper](dotnet/src/MicroFocus.CafApi.QueryBuilder.Mapper) module can be used to change the type parameter of Filter objects by applying a mapping function lazily.
 
 
-The [QueryBuilder.Matcher](MicroFocus.CafApi.QueryBuilder.Matcher) is a library that allows users to match a document to a `Filter`.
+The [QueryBuilder.Matcher](dotnet/src/MicroFocus.CafApi.QueryBuilder.Matcher) is a library that allows users to match a document to a `Filter`.
 
 ### Matching a document to filter
 To match a document to a filter, first create a filter, and then invoke the `filter.IsMatch` method mapping the `Filter<string>` 
@@ -51,8 +51,6 @@ to a `Filter<IMatcherFieldSpec>` using the `FilterMapper.Map` method.
 
 
 ### Sample console application
-
-
 
 ```
 using System.Text.Json.Nodes;
