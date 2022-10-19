@@ -83,7 +83,7 @@ namespace MicroFocus.Verity.QueryBuilderUsage
             {
                 @"[""=="", ""TITLE"",""Sciullo Properties -- Appraisal""]",
                 @"[""between-numbers"",""REPOSITORY_ID"",100,102]",
-                @"[""contains"",""FILE_PATH"",""//alpha-agent04/EnronData/bailey-s_000/bailey-s/Deleted Items""]",
+                @"[""contains"",""FILE_PATH"",""//alpha-agent04/EnronData/Deleted Items""]",
                 @"[""starts-with"",""TITLE"",""Cheryl""]",
                 @"[""and"",[""in"",""REPOSITORY_ID"",100,101],[""=="",""COLLECTION_STATUS"",""CONTENT""]]"
             };
