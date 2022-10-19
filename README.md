@@ -251,3 +251,87 @@ namespace MicroFocus.Verity.QueryBuilderUsage
     }
 }
 ```
+
+### Sample MatcherFieldSpec
+```
+using System.Diagnostics.CodeAnalysis;
+using MicroFocus.CafApi.QueryBuilder.Matcher;
+
+namespace MicroFocus.Verity.QueryBuilderUsage
+{
+    public sealed class MapKeyMatcherFieldSpec : IMatcherFieldSpec<Dictionary<string, List<string>>>
+    {
+        private readonly string _key;
+        public static MapKeyMatcherFieldSpec Create(string key)
+        {
+            return new MapKeyMatcherFieldSpec(key);
+        }
+        private MapKeyMatcherFieldSpec(string key)
+        {
+            _key = key;
+        }
+
+        [return: NotNull]
+        IEnumerable<IMatcherFieldValue> IMatcherFieldSpec<Dictionary<string, List<string>>>.GetFieldValues(Dictionary<string, List<string>> document)
+        {
+            if (document.ContainsKey(_key))
+            {
+                return document[_key].Select(value => new MatcherFieldValue(value));
+            }
+            else
+            {
+                return Enumerable.Empty<IMatcherFieldValue>();
+            }
+        }
+
+        bool IMatcherFieldSpec<Dictionary<string, List<string>>>.IsCaseInsensitive
+        {
+            get
+            {
+                return _key switch
+                {
+                    "REPOSITORY_PATH"
+                    or "FILE_PATH"
+                    or "CLASSIFICATION"
+                    => true,
+                    _
+                    => false,
+                };
+            }
+        }
+
+        bool IMatcherFieldSpec<Dictionary<string, List<string>>>.IsTokenizedPath
+        {
+            get
+            {
+                return _key switch
+                {
+                    "REPOSITORY_PATH"
+                    or "FILE_PATH"
+                    => true,
+                    _
+                    => false,
+                };
+            }
+        }
+
+        public override string ToString()
+        {
+            return "MapKeyMatcherFieldSpec [key=" + _key + "]";
+        }
+
+        class MatcherFieldValue : IMatcherFieldValue
+        {
+            private readonly string _value;
+            public MatcherFieldValue(string value)
+            {
+                _value = value;
+            }
+            string IMatcherFieldValue.StringValue => _value;
+
+            bool IMatcherFieldValue.IsReference => _value.StartsWith("ref:");
+        }
+
+    }
+}
+```
