@@ -81,11 +81,11 @@ namespace MicroFocus.Verity.QueryBuilderUsage
             // Filter criteria specified in VQLL
             var vqllQueries = new List<string>
             {
-                @"[""=="", ""TITLE"",""Sciullo Properties -- Appraisal""]", // titleEquals
-                @"[""between-numbers"",""REPOSITORY_ID"",100,102]" , // repoIdBetween
-                @"[""contains"",""FILE_PATH"",""//alpha-agent04/EnronData/bailey-s_000/bailey-s/Deleted Items""]" , //filePathContains
-                @"[""starts-with"",""TITLE"",""Cheryl""]" , // titleStartsWith
-                @"[""and"",[""in"",""REPOSITORY_ID"",100,101],[""=="",""COLLECTION_STATUS"",""CONTENT""]]" // andQuery
+                @"[""=="", ""TITLE"",""Sciullo Properties -- Appraisal""]",
+                @"[""between-numbers"",""REPOSITORY_ID"",100,102]",
+                @"[""contains"",""FILE_PATH"",""//alpha-agent04/EnronData/bailey-s_000/bailey-s/Deleted Items""]",
+                @"[""starts-with"",""TITLE"",""Cheryl""]",
+                @"[""and"",[""in"",""REPOSITORY_ID"",100,101],[""=="",""COLLECTION_STATUS"",""CONTENT""]]"
             };
 
             foreach (string vqll in vqllQueries)
@@ -147,7 +147,8 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "IS_ROOT", new List<string>() { "true" } },
                         { "CLASSIFIED", new List<string>() { "true" } },
                         { "COLLECTION_STATUS", new List<string>() { "CONTENT" } },
-                        { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/bailey-s_000/bailey-s/Sent Items/Enron Co_kv21.mail/Enron Co/enron guaranty (forest oil - conf).doc" } },
+                        { "FILE_PATH", new List<string>()
+                        { "//alpha-agent04/EnronData/Sent Items/enron guaranty (forest oil - conf).doc" } },
                         { "REPOSITORY_ID", new List<string>() { "100" } },
                         { "TITLE", new List<string>() { "enron guaranty (forest oil - conf).doc" } },
                         { "CONTENT", new List<string>() { "ENRON CORP.\n\nGuaranty\n\nThis Guaranty (this “Guaranty”), dated effective as of August 16, 2001 " +
@@ -171,7 +172,7 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "IS_ROOT", new List<string>() { "true" } },
                         { "CLASSIFIED", new List<string>() { "false" } },
                         { "COLLECTION_STATUS", new List<string>() { "CONTENT" } },
-                        { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/bailey-s_000/bailey-s/Deleted Items/Cheryl N_kv191.msg" } },
+                        { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/Deleted Items/Cheryl N_kv191.msg" } },
                         { "REPOSITORY_ID", new List<string>() { "101" } },
                         { "TITLE", new List<string>() { "Cheryl Nelson - Working From Home" } },
                         { "CONTENT", new List<string>() { "Good Afternoon all! I just received a call from Cheryl detailing that she will be working from home " +
@@ -189,15 +190,17 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "IS_ROOT", new List<string>() { "true" } },
                         { "CLASSIFIED", new List<string>() { "true" } },
                         { "COLLECTION_STATUS", new List<string>() { "CONTENT" } },
-                        { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/bailey-s_000/bailey-s/Deleted Items/Time exc_kv515.msg" } },
+                        { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/Deleted Items/Time exc_kv515.msg" } },
                         { "REPOSITORY_ID", new List<string>() { "101" } },
                         { "TITLE", new List<string>() { "Time exceptions for period from Feb 1st thru Feb 15th--PLEASE EMAIL SUZANNE ADAMS" } },
-                        { "CONTENT", new List<string>() { "PLEASE EMAIL YOUR TIME EXCEPTIONS TO SUZANNE ADAMS FOR THE ABOVE-REFERENCED TIME PERIOD.  " +
-                        "SHE WILL BE TAKING CARE OF THEM--YOU HAVE CHANGED COST CENTERS--YOU ARE NOW IN COST CENTER 105654.  " +
+                        { "CONTENT", new List<string>() { "PLEASE EMAIL YOUR TIME EXCEPTIONS TO SUZANNE ADAMS FOR THE "
+                        + "ABOVE-REFERENCED TIME PERIOD.   SHE WILL BE TAKING CARE OF THEM--YOU HAVE CHANGED COST "
+                        + "CENTERS--YOU ARE NOW IN COST CENTER 105654.  " +
                         "SINCE SHE WILL HAVE QUITE A FEW THIS TIME, PLEASE GET THEM TO HER AS SOON AS YOU CAN.\n\n" +
-                        "Joanne Rozycki\nSenior Administrative Assistant\nEnron North America Corp.\n1400 Smith Street, EB3880D\nHouston, TX  77002\n" +
-                        "Phone:  (713) 853-5968     Fax:      (713) 646-3490\n" +
-                        "Email:   joanne.rozycki@enron.com" } }
+                        "Joanne Rozycki\nSenior Administrative Assistant\nEnron North America Corp."
+                        + "1400 Smith Street, EB3880D\nHouston, TX  77002\n"
+                        + "Phone:  (713) 853-5968     Fax:      (713) 646-3490\n"
+                        + "Email:   joanne.rozycki@enron.com" } }
                     }
                 },
                 {
@@ -207,14 +210,17 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "IS_ROOT", new List<string>() { "false" } },
                         { "CLASSIFIED", new List<string>() { "true" } },
                         { "COLLECTION_STATUS", new List<string>() { "CONTENT" } },
-                        { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/bailey-s_000/bailey-s/Sent Items/PCS Nito_kv29.msg" } },
+                        { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/Sent Items/PCS Nito_kv29.msg" } },
                         { "REPOSITORY_ID", new List<string>() { "102" } },
                         { "TITLE", new List<string>() { "Sciullo Properties -- Appraisal" } },
-                        { "CONTENT", new List<string>() { "Leonard,\n\nWELCOME BACK !!!!!   Hope you and Dorothy had a pleasant trip to Germany???   " +
-                        "Hope all is well with Kasie??? I would love to hear all about it.\n\nWhile you were gone, Maria Pirro contacted me -- " +
-                        "she is with West Penn Appraisers, Inc. and she faxed their fee schedule relating to the various Sciullo Properties.\n\n" +
-                        "I will fax a copy to you, and we can draw up a contract." +
-                        "\nCordially, \nSusan S. Bailey\nEnron North America Corp.\n1400 Smith Street, Suite 3803A\nHouston, Texas 77002\nPhone: (713) 853-4737\nFax: (713) 646-3490\nEmail: Susan.Bailey@enron.com" } }
+                        { "CONTENT", new List<string>()
+                        { "Leonard,\n\nWELCOME BACK !!!!!   Hope you and Dorothy had a pleasant trip to Germany???"
+                        + "Hope all is well with Kasie??? I would love to hear all about it.\n\nWhile you were gone, "
+                        + "Maria Pirro contacted me --  "she is with West Penn Appraisers, Inc. and she faxed their fee"
+                        + " schedule relating to the various Sciullo Properties.\n\n"
+                        + "I will fax a copy to you, and we can draw up a contract."
+                        + "\nCordially, \nSusan S. Bailey\nEnron North America Corp.\n1400 Smith Street, Suite 3803A"
+                        + " Houston, Texas 77002\nPhone: (713) 853-4737\nFax: (713) 646-3490\nEmail: Susan.Bailey@enron.com" } }
                     }
                 },
                 {
@@ -224,7 +230,7 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "IS_ROOT", new List<string>() { "true" } },
                         { "CLASSIFIED", new List<string>() { "true" } },
                         { "COLLECTION_STATUS", new List<string>() { "METADATA" } },
-                        { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/bailey-s_000/bailey-s/All documents/Swap Can_kv1905.msg" } },
+                        { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/All documents/Swap Can_kv1905.msg" } },
                         { "REPOSITORY_ID", new List<string>() { "103" } },
                         { "TITLE", new List<string>() { "Swap Candidates -- (EB38C1)" } }
                     }
