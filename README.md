@@ -151,18 +151,13 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "//alpha-agent04/EnronData/Sent Items/enron guaranty (forest oil - conf).doc" } },
                         { "REPOSITORY_ID", new List<string>() { "100" } },
                         { "TITLE", new List<string>() { "enron guaranty (forest oil - conf).doc" } },
-                        { "CONTENT", new List<string>() { "ENRON CORP.\n\nGuaranty\n\nThis Guaranty (this “Guaranty”), dated effective as of August 16, 2001 " +
-                        "(the “Effective Date”), is made and entered into by ENRON CORP., an Oregon corporation (“Guarantor”).\nW I T N E S S E T H:\n\nWHEREAS, " +
-                        "Forest Oil Corporation, a New York corporation (“Counterparty”), and ENRON NORTH AMERICA CORP. (“Enron”), a wholly owned subsidiary of " +
-                        "Guarantor, are contemplating entering into, or have entered into, one or more swap, option or other financially-settled derivative " +
-                        "transactions, which transactions will be evidenced by one or more swap agreements, confirmations and/or master agreements, including " +
-                        "without limitation, (all such swap, option or other financially-settled derivative transactions and the agreements evidencing same, " +
-                        "including without limitation, whether entered into prior to, on or after the date hereof, as the same may from time to time be modified, " +
-                        "amended and supplemented, shall be referred to herein collectively as the “Contract”); and \n\nWHEREAS, Guarantor will directly or " +
-                        "indirectly benefit from the transactions to be entered into between Enron and Counterparty;\n\nNOW THEREFORE, in consideration of " +
-                        "Counterparty entering into the Contract, Guarantor hereby covenants and agrees as follows:\n\n1.  GUARANTY.  Subject to the provisions " +
-                        "hereof, Guarantor hereby irrevocably and unconditionally guarantees the timely payment when due of the obligations of Enron " +
-                        "(the “Obligations”) to Counterparty under the Contract." } }
+                        { "CONTENT", new List<string>() { "ENRON CORP.\n\nGuaranty\n\nThis Guaranty (this “Guaranty”), "
+                        + "dated effective as of August 16, 2001 Guarantor will directly or "
+                        + "indirectly benefit from the transactions to be entered into between Enron and Counterparty;"
+                        + "NOW THEREFORE, in consideration of Counterparty entering into the Contract, Guarantor hereby "
+                        + "covenants and agrees as follows:1.  GUARANTY.  Subject to the provisions "
+                        + "hereof, Guarantor hereby irrevocably and unconditionally guarantees the timely payment when due "
+                        + "of the obligations of Enron (the “Obligations”) to Counterparty under the Contract." } }
                     }
                 },
                 {
@@ -175,12 +170,9 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/Deleted Items/Cheryl N_kv191.msg" } },
                         { "REPOSITORY_ID", new List<string>() { "101" } },
                         { "TITLE", new List<string>() { "Cheryl Nelson - Working From Home" } },
-                        { "CONTENT", new List<string>() { "Good Afternoon all! I just received a call from Cheryl detailing that she will be working from home " +
-                        "on a project for Frank Sayre.  If you need to reach her you may call her at home at (713)785-6152.  If you need further assistance, " +
-                        "please feel free to contact me directly.  Thank you for your attention to this matter.  \n\nKeegan\n" +
-                        "Enron Wholesale Services\n713-345-3317\n\n***********\nEDRM Enron Email Data Set has been produced in EML, PST and NSF format by ZL Technologies, Inc. " +
-                        "This Data Set is licensed under a Creative Commons Attribution 3.0 United States License <http://creativecommons.org/licenses/by/3.0/us/> . " +
-                        "To provide attribution, please cite to \"ZL Technologies, Inc. (http://www.zlti.com)." } }
+                        { "CONTENT", new List<string>() { "Good Afternoon all! I just received a call from Cheryl detailing"
+                        + " that she will be working from home on a project for Frank Sayre."
+                        + "If you need to reach her you may call her at home at (713)785-6152." } }
                     }
                 },
                 {
@@ -192,7 +184,8 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "COLLECTION_STATUS", new List<string>() { "CONTENT" } },
                         { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/Deleted Items/Time exc_kv515.msg" } },
                         { "REPOSITORY_ID", new List<string>() { "101" } },
-                        { "TITLE", new List<string>() { "Time exceptions for period from Feb 1st thru Feb 15th--PLEASE EMAIL SUZANNE ADAMS" } },
+                        { "TITLE", new List<string>() { "Time exceptions for period from Feb 1st thru Feb 15th--PLEASE EMAIL"
+                        + " SUZANNE ADAMS" } },
                         { "CONTENT", new List<string>() { "PLEASE EMAIL YOUR TIME EXCEPTIONS TO SUZANNE ADAMS FOR THE "
                         + "ABOVE-REFERENCED TIME PERIOD.   SHE WILL BE TAKING CARE OF THEM--YOU HAVE CHANGED COST "
                         + "CENTERS--YOU ARE NOW IN COST CENTER 105654.  " +
