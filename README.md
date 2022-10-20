@@ -27,10 +27,10 @@ Include the following packages in the project:
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="MicroFocus.CafApi.QueryBuilder" Version="1.0.0-US-584051-SNAPSHOT-00020" />
-    <PackageReference Include="MicroFocus.CafApi.QueryBuilder.Mapper" Version="1.0.0-US-404006-SNAPSHOT-00018" />
-    <PackageReference Include="MicroFocus.CafApi.QueryBuilder.Matcher" Version="1.0.0-US-584051-SNAPSHOT-00020" />
-    <PackageReference Include="MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson" Version="1.0.0-US-569038-SNAPSHOT-00009" />
+    <PackageReference Include="MicroFocus.CafApi.QueryBuilder" Version="1.0.0-*" />
+    <PackageReference Include="MicroFocus.CafApi.QueryBuilder.Mapper" Version="1.0.0-*" />
+    <PackageReference Include="MicroFocus.CafApi.QueryBuilder.Matcher" Version="1.0.0-US-*" />
+    <PackageReference Include="MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson" Version="1.0.0-US-*" />
 </ItemGroup>
 ```
 
