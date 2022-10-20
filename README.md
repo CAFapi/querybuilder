@@ -23,7 +23,7 @@ Set up the package source for the QueryBuilder packages in a `nuget.config` file
 ```
 
 
-Include the following packages in the project:
+Include the following package dependencies in the project:
 
 ```xml
 <ItemGroup>
