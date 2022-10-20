@@ -88,13 +88,11 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                 @"[""and"",[""in"",""REPOSITORY_ID"",100,101],[""=="",""COLLECTION_STATUS"",""CONTENT""]]"
             };
 
+            // Check which documents match each of these criteria
             foreach (string vqll in vqllQueries)
             { 
                 FilterDocuments(vqll, documents);
             }
-
-            string fulltextQuery = @"[""full-text"",[""full-text"",[""'"",""contract""],[""*""]]]"; // document Has Term
-            FulltextFilterDocuments(fulltextQuery, documents);
         }
 
         private static void FilterDocuments(string vqll, IEnumerable<Dictionary<string, List<string>>> documents)
@@ -112,30 +110,6 @@ namespace MicroFocus.Verity.QueryBuilderUsage
             foreach (Dictionary<string, List<string>> document in documents)
             {
                 Console.WriteLine("Document {0} matches filter: {1}", Print(document), mappedFilter.IsMatch(document));
-            }
-        }
-
-        private static void FulltextFilterDocuments(string vqll, IEnumerable<Dictionary<string, List<string>>> documents)
-        {
-            Console.WriteLine($"Parsing fulltext vqll query: '{vqll}'");
-            // Parse vqll to get a Filter object
-            Filter<string> filter = ParseVqll(vqll, _filterReaderlogger);
-
-            // Map the 'string' type Filter object to a 'MapKeyMatcherFieldSpec' type Filter.
-            // The 'fields' specified in the filter which are strings are mapped
-            // to "keys" in a Dictionary representation of a document
-            var mappedFilter = FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, MapKeyMatcherFieldSpec.Create);
-
-            List<string> fulltextFields = new() { "CONTENT" };
-
-            // Map the 'string' type fields to a 'MapKeyMatcherFieldSpec'.
-            List<MapKeyMatcherFieldSpec>? mappedFullTextFields = fulltextFields?.Select(MapKeyMatcherFieldSpec.Create).ToList();
-
-            // Check which documents match the fulltext filter
-            foreach (Dictionary<string, List<string>> document in documents)
-            {
-                Console.WriteLine("Document {0} matches filter: {1}",
-                    Print(document), mappedFilter.IsMatch(document, mappedFullTextFields));
             }
         }
 
