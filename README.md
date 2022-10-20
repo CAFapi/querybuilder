@@ -72,6 +72,8 @@ namespace MicroFocus.Verity.QueryBuilderUsage
         private static readonly ILogger _filterReaderlogger =
             LoggerFactory.Create(b => b.AddDebug().AddConsole().AddFilter("SystemJsonFilterReader", LogLevel.Debug))
             .CreateLogger("SystemJsonFilterReader");
+
+
         static void Main(string[] args)
         {
             Console.WriteLine("Prepare some test documents...");
