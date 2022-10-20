@@ -210,8 +210,9 @@ namespace MicroFocus.Verity.QueryBuilderUsage
 
         private static Filter<string> ParseVqll(string vqll, ILogger logger)
         {
-            // Parse the vqll criteria wich is a json string and get a JsonNode
+            // Parse the vqll criteria which is a json string and get a JsonNode
             var vqllJsonNode = JsonNode.Parse(vqll)!;
+            // Interpret the vqll and create a Filter object
             return SystemJsonFilterReader.ReadFromJsonArray(vqllJsonNode, logger);
         }
 
