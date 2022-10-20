@@ -70,7 +70,8 @@ namespace MicroFocus.Verity.QueryBuilderUsage
     {
         // Create a logger to be passed to the vqll parser
         private static readonly ILogger _filterReaderlogger =
-            LoggerFactory.Create(b => b.AddDebug().AddConsole().AddFilter("SystemJsonFilterReader", LogLevel.Debug))
+            LoggerFactory
+            .Create(b =>b.AddDebug().AddConsole().AddFilter("SystemJsonFilterReader", LogLevel.Error))
             .CreateLogger("SystemJsonFilterReader");
 
 
@@ -80,38 +81,48 @@ namespace MicroFocus.Verity.QueryBuilderUsage
             // Each document is a Dictionary which has field names mapped to a list of string field values 
             IEnumerable<Dictionary<string, List<string>>> documents = GetDocuments();
 
+            Console.WriteLine("Prepare some test criteria...");
             // Filter criteria specified in VQLL
             var vqllQueries = new List<string>
             {
-                @"[""=="", ""TITLE"",""Sciullo Properties -- Appraisal""]",
-                @"[""between-numbers"",""REPOSITORY_ID"",100,102]",
-                @"[""contains"",""FILE_PATH"",""//alpha-agent04/EnronData/Deleted Items""]",
-                @"[""starts-with"",""TITLE"",""Cheryl""]",
-                @"[""and"",[""in"",""REPOSITORY_ID"",100,101],[""=="",""COLLECTION_STATUS"",""CONTENT""]]"
+                @"[""=="", ""TITLE"",""Sciullo Properties -- Appraisal""]", // titleEquals
+                @"[""between-numbers"",""REPOSITORY_ID"",100,102]" , // repoIdBetween
+                @"[""contains"",
+                    ""FILE_PATH"",
+                    ""//alpha-agent04/EnronData/bailey-s_000/bailey-s/Deleted Items""]" , //filePathContains
+                @"[""starts-with"",""TITLE"",""Cheryl""]" , // titleStartsWith
+                @"[""and"",
+                    [""in"",
+                    ""REPOSITORY_ID"",100,101],[""=="",""COLLECTION_STATUS"",""CONTENT""]]" // andQuery
             };
 
+            Console.WriteLine("Check which documents match each of these criteria...");
             // Check which documents match each of these criteria
             foreach (string vqll in vqllQueries)
             { 
                 FilterDocuments(vqll, documents);
             }
+            Console.WriteLine("Document matching completed.");
         }
 
         private static void FilterDocuments(string vqll, IEnumerable<Dictionary<string, List<string>>> documents)
         {
+            Console.WriteLine("-------------------------------------");
             Console.WriteLine($"Parsing vqll query: '{vqll}'");
+            Console.WriteLine("-------------------------------------");
             // Parse vqll to get a Filter object
             Filter<string> filter = ParseVqll(vqll, _filterReaderlogger);
 
             // Map the 'string' type Filter object to a 'MapKeyMatcherFieldSpec' type Filter.
-            // The 'fields' specified in the filter which are strings are mapped
-            // to "keys" in a Dictionary representation of a document
+            // The 'fields' specified in the filter which are strings are mapped to
+            // "keys" in a Dictionary representation of a document
             var mappedFilter = FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, MapKeyMatcherFieldSpec.Create);
 
             // Check which documents match the filter
             foreach (Dictionary<string, List<string>> document in documents)
             {
-                Console.WriteLine("Document {0} matches filter: {1}", Print(document), mappedFilter.IsMatch(document));
+                Console.WriteLine("---- Match: {1} : Document {0} ----",
+                    Print(document), mappedFilter.IsMatch(document));
             }
         }
 
@@ -126,17 +137,15 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "IS_ROOT", new List<string>() { "true" } },
                         { "CLASSIFIED", new List<string>() { "true" } },
                         { "COLLECTION_STATUS", new List<string>() { "CONTENT" } },
-                        { "FILE_PATH", new List<string>()
-                        { "//alpha-agent04/EnronData/Sent Items/enron guaranty (forest oil - conf).doc" } },
+                        { "FILE_PATH", new List<string>() {
+                            "//alpha-agent04/EnronData/Sent Items/enron guaranty (forest oil - conf).doc" } },
                         { "REPOSITORY_ID", new List<string>() { "100" } },
                         { "TITLE", new List<string>() { "enron guaranty (forest oil - conf).doc" } },
-                        { "CONTENT", new List<string>() { "ENRON CORP.\n\nGuaranty\n\nThis Guaranty (this “Guaranty”), "
-                        + "dated effective as of August 16, 2001 Guarantor will directly or "
-                        + "indirectly benefit from the transactions to be entered into between Enron and Counterparty;"
-                        + "NOW THEREFORE, in consideration of Counterparty entering into the Contract, Guarantor hereby "
-                        + "covenants and agrees as follows:1.  GUARANTY.  Subject to the provisions "
-                        + "hereof, Guarantor hereby irrevocably and unconditionally guarantees the timely payment when due "
-                        + "of the obligations of Enron (the “Obligations”) to Counterparty under the Contract." } }
+                        { "CONTENT", new List<string>() {
+                            "ENRON CORP.Guaranty This Guaranty (this “Guaranty”), dated effective as of August 16, 2001 "
+                        + " In consideration of Counterparty entering into the Contract, Guarantor agrees as follows:"
+                        + " 1. Guarantor hereby irrevocably and unconditionally guarantees"
+                        + " the timely payment when due of the obligations of Enron to Counterparty under the Contract." } }
                     }
                 },
                 {
@@ -149,9 +158,9 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/Deleted Items/Cheryl N_kv191.msg" } },
                         { "REPOSITORY_ID", new List<string>() { "101" } },
                         { "TITLE", new List<string>() { "Cheryl Nelson - Working From Home" } },
-                        { "CONTENT", new List<string>() { "Good Afternoon all! I just received a call from Cheryl detailing"
-                        + " that she will be working from home on a project for Frank Sayre."
-                        + "If you need to reach her you may call her at home at (713)785-6152." } }
+                        { "CONTENT", new List<string>() {
+                            "Good Afternoon all! I just received a call from Cheryl detailing that she will be working from home "
+                            + "on a project for Frank Sayre." } }
                     }
                 },
                 {
@@ -163,16 +172,12 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "COLLECTION_STATUS", new List<string>() { "CONTENT" } },
                         { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/Deleted Items/Time exc_kv515.msg" } },
                         { "REPOSITORY_ID", new List<string>() { "101" } },
-                        { "TITLE", new List<string>() { "Time exceptions for period from Feb 1st thru Feb 15th--PLEASE EMAIL"
-                        + " SUZANNE ADAMS" } },
-                        { "CONTENT", new List<string>() { "PLEASE EMAIL YOUR TIME EXCEPTIONS TO SUZANNE ADAMS FOR THE "
-                        + "ABOVE-REFERENCED TIME PERIOD.   SHE WILL BE TAKING CARE OF THEM--YOU HAVE CHANGED COST "
-                        + "CENTERS--YOU ARE NOW IN COST CENTER 105654.  " +
-                        "SINCE SHE WILL HAVE QUITE A FEW THIS TIME, PLEASE GET THEM TO HER AS SOON AS YOU CAN.\n\n" +
-                        "Joanne Rozycki\nSenior Administrative Assistant\nEnron North America Corp."
-                        + "1400 Smith Street, EB3880D\nHouston, TX  77002\n"
-                        + "Phone:  (713) 853-5968     Fax:      (713) 646-3490\n"
-                        + "Email:   joanne.rozycki@enron.com" } }
+                        { "TITLE", new List<string>() {
+                            "Time exceptions for period from Feb 1st thru Feb 15th--PLEASE EMAIL SUZANNE ADAMS" } },
+                        { "CONTENT", new List<string>() {
+                            "PLEASE EMAIL YOUR TIME EXCEPTIONS TO SUZANNE ADAMS FOR THE ABOVE-REFERENCED TIME PERIOD.  "
+                        + "SHE WILL BE TAKING CARE OF THEM--YOU HAVE CHANGED COST CENTERS--YOU ARE NOW IN COST CENTER 105654.  "
+                        + "SINCE SHE WILL HAVE QUITE A FEW THIS TIME, PLEASE GET THEM TO HER AS SOON AS YOU CAN. " } }
                     }
                 },
                 {
@@ -185,14 +190,11 @@ namespace MicroFocus.Verity.QueryBuilderUsage
                         { "FILE_PATH", new List<string>() { "//alpha-agent04/EnronData/Sent Items/PCS Nito_kv29.msg" } },
                         { "REPOSITORY_ID", new List<string>() { "102" } },
                         { "TITLE", new List<string>() { "Sciullo Properties -- Appraisal" } },
-                        { "CONTENT", new List<string>()
-                        { "Leonard,\n\nWELCOME BACK !!!!!   Hope you and Dorothy had a pleasant trip to Germany???"
-                        + "Hope all is well with Kasie??? I would love to hear all about it.\n\nWhile you were gone, "
-                        + "Maria Pirro contacted me --  "she is with West Penn Appraisers, Inc. and she faxed their fee"
-                        + " schedule relating to the various Sciullo Properties.\n\n"
-                        + "I will fax a copy to you, and we can draw up a contract."
-                        + "\nCordially, \nSusan S. Bailey\nEnron North America Corp.\n1400 Smith Street, Suite 3803A"
-                        + " Houston, Texas 77002\nPhone: (713) 853-4737\nFax: (713) 646-3490\nEmail: Susan.Bailey@enron.com" } }
+                        { "CONTENT", new List<string>() {
+                            "Leonard, WELCOME BACK !!!!!   Hope you and Dorothy had a pleasant trip to Germany???   "
+                        + "Hope all is well with Kasie??? While you were gone, Maria Pirro contacted me -- "
+                        + "she is with West Penn Appraisers, Inc. and she faxed their fee schedule "
+                        + "and we can draw up a contract." } }
                     }
                 },
                 {
@@ -220,15 +222,26 @@ namespace MicroFocus.Verity.QueryBuilderUsage
 
         private static string Print(Dictionary<string, List<string>> document)
         {
-            return "{" + string.Join(", ", document.Select(kv => kv.Key + " = " + Print(kv.Value)).ToArray()) + "}";
+            return "{\n" + string.Join(",\n",
+                document.Select(kv => kv.Key + " = " + Print(kv.Value)).ToArray()) + "\n}";
+        }
+
+        private static string PrintOnlyID(Dictionary<string, List<string>> document)
+        {
+            return "{\n" + string.Join(",\n",
+                document
+                .Where(kv => kv.Key == "ID")
+                .Select(kv => kv.Key + " = " + Print(kv.Value)).ToArray()) + "\n}";
         }
 
         private static string Print(List<string> values)
         {
             return "[" + string.Join(", ", values) + "]";
         }
+
     }
 }
+
 ```
 
 ### Sample MatcherFieldSpec
