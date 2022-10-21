@@ -18,6 +18,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.Linq;
 
 namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson
@@ -31,8 +32,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Vqll.Parsers.SystemJson
             _logger = logger;
         }
 
-        public static Filter<string> ReadFromJsonArray(JsonNode vqll, ILogger logger)
+        public static Filter<string> ReadFromJsonArray(JsonNode vqll, ILogger logger = null)
         {
+            if (logger == null)
+            {
+                logger = NullLogger<SystemJsonFilterReader>.Instance;
+            }
             return new SystemJsonFilterReader(logger).CreateFilter(vqll);
         }
 
