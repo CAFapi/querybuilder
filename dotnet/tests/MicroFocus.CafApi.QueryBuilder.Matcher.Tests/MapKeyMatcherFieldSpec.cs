@@ -21,17 +21,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
     public sealed class MapKeyMatcherFieldSpec : IMatcherFieldSpec<Dictionary<string, List<string>>>
     {
         private readonly string _key;
-        public static MapKeyMatcherFieldSpec Create(string key)
-        {
-            return new MapKeyMatcherFieldSpec(key);
-        }
-        private MapKeyMatcherFieldSpec(string key)
+
+        public MapKeyMatcherFieldSpec(string key)
         {
             _key = key;
         }
 
         [return: NotNull]
-        IEnumerable<IMatcherFieldValue> IMatcherFieldSpec<Dictionary<string, List<string>>>.GetFieldValues(Dictionary<string, List<string>> document)
+        public IEnumerable<IMatcherFieldValue> GetFieldValues(Dictionary<string, List<string>> document)
         {
             if (document.ContainsKey(_key))
             {
@@ -43,7 +40,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             }
         }
 
-        bool IMatcherFieldSpec<Dictionary<string, List<string>>>.IsCaseInsensitive
+        public bool IsCaseInsensitive
         {
             get
             {
@@ -67,7 +64,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             }
         }
 
-        bool IMatcherFieldSpec<Dictionary<string, List<string>>>.IsTokenizedPath
+        public bool IsTokenizedPath
         {
             get
             {
@@ -87,11 +84,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                     => false,
                 };
             }
-        }
-
-        public override string ToString()
-        {
-            return "MapKeyMatcherFieldSpec [key=" + _key + "]";
         }
 
         class MatcherFieldValue : IMatcherFieldValue

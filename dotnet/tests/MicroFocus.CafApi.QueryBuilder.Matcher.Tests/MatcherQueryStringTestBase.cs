@@ -137,7 +137,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
         protected bool DocMatches(Filter<string> filter)
         {
-            return filter.Map(MapKeyMatcherFieldSpec.Create).IsMatch(_document);
+            return filter.Map(x => new MapKeyMatcherFieldSpec(x)).IsMatch(_document);
         }
 
         protected abstract Dictionary<string, List<string>> GetDocument();
