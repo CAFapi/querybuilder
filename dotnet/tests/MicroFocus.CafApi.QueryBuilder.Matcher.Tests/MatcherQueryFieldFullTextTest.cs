@@ -166,8 +166,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         {
             LOGGER.LogInformation("Matching document {Document}", MatcherTestHelper.Print(document));
             List<MapKeyMatcherFieldSpec>? fullTextFieldSpecs = allFullTextFields?.Select(MapKeyMatcherFieldSpec.Create).ToList();
-            var mappedFilter = FilterMapper<string, MapKeyMatcherFieldSpec>.Map(filter, MapKeyMatcherFieldSpec.Create);
-            return mappedFilter.IsMatch(document, fullTextFieldSpecs);
+            return filter.Map(MapKeyMatcherFieldSpec.Create).IsMatch(document, fullTextFieldSpecs);
         }
 
         private static Dictionary<string, List<string>> GetMetadataOnlyDocument()

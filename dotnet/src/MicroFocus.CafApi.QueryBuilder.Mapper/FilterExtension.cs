@@ -19,17 +19,17 @@ using System.Linq;
 
 namespace MicroFocus.CafApi.QueryBuilder.Mapper
 {
-    public static class FilterMapper<T, R>
+    public static class FilterExtension
     {
-        public static Filter<R> Map(Filter<T> sourceFilter, Func<T, R> mapper)
+        public static Filter<R> Map<T, R>(this Filter<T> that, Func<T, R> mapper)
         {
             FilterMapperVisitor<T, R> visitor = new FilterMapperVisitor<T, R>(mapper);
-            sourceFilter.Invoke(visitor);
+            that.Invoke(visitor);
 
             return visitor.GetResult();
         }
 
-        class FilterMapperVisitor<VT, VR> : IFilterVisitor<T>
+        class FilterMapperVisitor<T, R> : IFilterVisitor<T>
         {
             private readonly Func<T, R> _mapper;
             private Filter<R> _result;
