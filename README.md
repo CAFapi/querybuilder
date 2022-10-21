@@ -38,132 +38,73 @@ to a `Filter<IMatcherFieldSpec>` using the `filter.Map` method.
 
 A sample document is represented by a Dictionary which has field names mapped to a list of string field values 
 ```
-    var document = new Dictionary<string, List<string>>()
-        {
-            { "ID", new List<string>() { "1" } },
-            { "IS_ROOT", new List<string>() { "true" } },
-            { "CLASSIFIED", new List<string>() { "true" } },
-            { "COLLECTION_STATUS", new List<string>() { "CONTENT" } },
-            { "FILE_PATH", new List<string>() {
-                "//alpha-agent04/EnronData/Sent Items/enron guaranty (forest oil - conf).doc" } },
-            { "REPOSITORY_ID", new List<string>() { "100" } },
-            { "TITLE", new List<string>() { "enron guaranty (forest oil - conf).doc" } },
-            { "CONTENT", new List<string>() {
-                "ENRON CORP.Guaranty This Guaranty (this “Guaranty”), dated effective as of August 16, 2001 "
-            + " In consideration of Counterparty entering into the Contract, Guarantor agrees as follows:"
-            + " 1. Guarantor hereby irrevocably and unconditionally guarantees"
-            + " the timely payment when due of the obligations of Enron to Counterparty under the Contract." } }
-        }
+var document = new Dictionary<string, List<string>>()
+{
+    { "ID", new List<string>() { "1" } },
+    { "IS_ROOT", new List<string>() { "true" } },
+    { "CLASSIFIED", new List<string>() { "true" } },
+    { "COLLECTION_STATUS", new List<string>() { "CONTENT" } },
+    { "FILE_PATH", new List<string>() {
+        "//alpha-agent04/EnronData/Sent Items/enron guaranty (forest oil - conf).doc" } },
+    { "REPOSITORY_ID", new List<string>() { "100" } },
+    { "TITLE", new List<string>() { "enron guaranty (forest oil - conf).doc" } },
+    { "CONTENT", new List<string>() {
+        "ENRON CORP.Guaranty This Guaranty (this “Guaranty”), dated effective as of August 16, 2001 "
+    + " In consideration of Counterparty entering into the Contract, Guarantor agrees as follows:"
+    + " 1. Guarantor hereby irrevocably and unconditionally guarantees"
+    + " the timely payment when due of the obligations of Enron to Counterparty under the Contract." } }
+}
 ```
-In VQLL a Title equals "<som string>" is specified as
+In VQLL a Title equals "some string" is specified as
 ```
-    var vqll = @"[""=="", ""TITLE"",""Sciullo Properties -- Appraisal""]",
+var vqll = @"[""=="", ""TITLE"",""Sciullo Properties -- Appraisal""]",
 ```
 Parse the vqll criteria which is a json string and get a JsonNode
 ```
-    var vqllJsonNode = JsonNode.Parse(vqll)!;
+var vqllJsonNode = JsonNode.Parse(vqll);
 ```
 
-Create a logger to be passed to the vqll parser
+Interpret the vqll and create a Filter object
 ```
-    ILogger logger =
-        LoggerFactory
-            .Create(b =>b.AddDebug().AddConsole().AddFilter("SystemJsonFilterReader", LogLevel.Error))
-            .CreateLogger("SystemJsonFilterReader");
-```
-
-// Interpret the vqll and create a Filter object
-```
-    Filter<string> filter = SystemJsonFilterReader.ReadFromJsonArray(vqllJsonNode, logger);
+Filter<string> filter = SystemJsonFilterReader.ReadFromJsonArray(vqllJsonNode);
 ```
 
 Map the 'string' type Filter object to a 'MapKeyMatcherFieldSpec' type Filter.
 The 'fields' specified in the filter which are strings are mapped to "keys" in a Dictionary representation of a document
 ```
-    bool isMatch = filter.Map(MapKeyMatcherFieldSpec.Create).IsMatch(document);
+bool isMatch = filter.Map(x => new MapKeyMatcherFieldSpec(x)).IsMatch(document);
 ```
 
 ### Sample MatcherFieldSpec
 ```
-using System.Diagnostics.CodeAnalysis;
-using MicroFocus.CafApi.QueryBuilder.Matcher;
-
-namespace MicroFocus.Verity.QueryBuilderUsage
+public sealed class MapKeyMatcherFieldSpec : IMatcherFieldSpec<Dictionary<string, List<string>>>
 {
-    public sealed class MapKeyMatcherFieldSpec : IMatcherFieldSpec<Dictionary<string, List<string>>>
+    private readonly string _key;
+
+    public MapKeyMatcherFieldSpec(string key)
     {
-        private readonly string _key;
-        public static MapKeyMatcherFieldSpec Create(string key)
-        {
-            return new MapKeyMatcherFieldSpec(key);
-        }
-        private MapKeyMatcherFieldSpec(string key)
-        {
-            _key = key;
-        }
+        _key = key;
+    }
 
-        [return: NotNull]
-        IEnumerable<IMatcherFieldValue> 
-            IMatcherFieldSpec<Dictionary<string, List<string>>>.GetFieldValues(Dictionary<string, List<string>> document)
+    public IEnumerable<IMatcherFieldValue> GetFieldValues(Dictionary<string, List<string>> document)
+    {
+        return document[_key].Select(value => new MatcherFieldValue(value));
+    }
+
+    public bool IsCaseInsensitive => true;
+
+    public bool IsTokenizedPath => false;
+
+    class MatcherFieldValue : IMatcherFieldValue
+    {
+        private readonly string _value;
+        public MatcherFieldValue(string value)
         {
-            if (document.ContainsKey(_key))
-            {
-                return document[_key].Select(value => new MatcherFieldValue(value));
-            }
-            else
-            {
-                return Enumerable.Empty<IMatcherFieldValue>();
-            }
+            _value = value;
         }
+        string IMatcherFieldValue.StringValue => _value;
 
-        bool IMatcherFieldSpec<Dictionary<string, List<string>>>.IsCaseInsensitive
-        {
-            get
-            {
-                return _key switch
-                {
-                    "REPOSITORY_PATH"
-                    or "FILE_PATH"
-                    or "CLASSIFICATION"
-                    => true,
-                    _
-                    => false,
-                };
-            }
-        }
-
-        bool IMatcherFieldSpec<Dictionary<string, List<string>>>.IsTokenizedPath
-        {
-            get
-            {
-                return _key switch
-                {
-                    "REPOSITORY_PATH"
-                    or "FILE_PATH"
-                    => true,
-                    _
-                    => false,
-                };
-            }
-        }
-
-        public override string ToString()
-        {
-            return "MapKeyMatcherFieldSpec [key=" + _key + "]";
-        }
-
-        class MatcherFieldValue : IMatcherFieldValue
-        {
-            private readonly string _value;
-            public MatcherFieldValue(string value)
-            {
-                _value = value;
-            }
-            string IMatcherFieldValue.StringValue => _value;
-
-            bool IMatcherFieldValue.IsReference => _value.StartsWith("ref:");
-        }
-
+        bool IMatcherFieldValue.IsReference => false;
     }
 }
 ```
