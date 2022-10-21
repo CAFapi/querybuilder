@@ -49,10 +49,7 @@ var document = new Dictionary<string, List<string>>()
     { "REPOSITORY_ID", new List<string>() { "100" } },
     { "TITLE", new List<string>() { "enron guaranty (forest oil - conf).doc" } },
     { "CONTENT", new List<string>() {
-        "ENRON CORP.Guaranty This Guaranty (this “Guaranty”), dated effective as of August 16, 2001 "
-    + " In consideration of Counterparty entering into the Contract, Guarantor agrees as follows:"
-    + " 1. Guarantor hereby irrevocably and unconditionally guarantees"
-    + " the timely payment when due of the obligations of Enron to Counterparty under the Contract." } }
+        "Guarantor hereby irrevocably and unconditionally guarantees timely payment" } }
 }
 ```
 In VQLL a Title equals "some string" is specified as
