@@ -30,10 +30,10 @@ To create a filter on `FILESIZE` greater than `10`
 `Filter<string> filter = FilterFactory.GreaterThan("FILESIZE", 10);`
 
 ### Matching a document to filter
-To match a document to a filter, first create a filter, and then invoke the `filter.IsMatch` method mapping the `Filter<string>` 
-to a `Filter<IMatcherFieldSpec>` using the `FilterMapper.Map` method.
+To match a document to a filter, first create a filter, and then invoke the `filter.Map()` method to map from `Filter<string>` 
+to `Filter<IMatcherFieldSpec>`, and then use the `filter.IsMatch()` method.
 
 #### Usage
     Filter<string> filter = FilterFactory.Contains("CONTENT_PRIMARY", "address");
-    var remappedFilter = FilterMapper.Map(filter, x => new SchemaFieldAdapter(x));
+    var remappedFilter = filter.Map(x => new SchemaFieldAdapter(x));
     remappedFilter.IsMatch(document);

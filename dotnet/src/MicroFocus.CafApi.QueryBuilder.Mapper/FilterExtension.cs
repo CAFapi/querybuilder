@@ -234,7 +234,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 _result = visitor =>
                 {
                     visitor.VisitOr(filters
-                        .Select(filter => Map(filter, _mapper))
+                        .Select(filter => filter.Map(_mapper))
                         .ToList());
                 };
             }
@@ -244,7 +244,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 _result = visitor =>
                 {
                     visitor.VisitAnd(filters
-                        .Select(filter => Map(filter, _mapper))
+                        .Select(filter => filter.Map(_mapper))
                         .ToList());
                 };
             }
@@ -253,7 +253,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
             {
                 _result = visitor =>
                 {
-                    visitor.VisitNot(Map(filter, _mapper));
+                    visitor.VisitNot(filter.Map(_mapper));
                 };
             }
 
