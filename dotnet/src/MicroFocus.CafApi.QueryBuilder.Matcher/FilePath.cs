@@ -26,7 +26,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
     {
         private readonly string _path;
         private readonly int _prefixLength;
-        private static readonly char _slash = Path.DirectorySeparatorChar;
+        private static readonly char PATH_SEPARATOR_CHAR = '/';
 
         public FilePath(string pathname)
         {
@@ -72,7 +72,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         private int PrefixLength(string path)
         {
-            char slash = _slash;
+            char slash = PATH_SEPARATOR_CHAR;
             int n = path.Length;
             if (n == 0) return 0;
             char c0 = path.ElementAt(0);
@@ -121,7 +121,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         private string Normalize(string path)
         {
             int n = path.Length;
-            char slash = _slash;
+            char slash = PATH_SEPARATOR_CHAR;
             char altSlash = (slash == '\\') ? '/' : '\\';
             char prev = '0';
             for (int i = 0; i < n; i++)
@@ -148,7 +148,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             if (len == 0) return path;
             if (off < 3) off = 0;   /* Avoid fencepost cases with UNC pathnames */
             int src;
-            char slash = _slash;
+            char slash = PATH_SEPARATOR_CHAR;
             StringBuilder sb = new StringBuilder(len);
 
             if (off == 0)
@@ -259,7 +259,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
                        beginning with "\\\\" followed (most likely) by a host
                        name. */
                     src = 1;
-                    sb.Append(_slash);
+                    sb.Append(PATH_SEPARATOR_CHAR);
                 }
             }
             return src;

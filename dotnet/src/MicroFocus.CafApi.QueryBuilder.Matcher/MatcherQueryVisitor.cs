@@ -54,16 +54,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            if (fieldSpec.IsCaseInsensitive)
-            {
-                _isMatch = GetFieldValuesAsStream(fieldSpec)
-                    .Any(v => string.Equals(v, value, StringComparison.CurrentCultureIgnoreCase));
-            }
-            else
-            {
-                _isMatch = GetFieldValuesAsStream(fieldSpec)
-                    .Any(v => string.Equals(v, value));
-            }
+            var comparisonType = fieldSpec.IsCaseInsensitive
+                ? StringComparison.OrdinalIgnoreCase
+                : StringComparison.Ordinal;
+
+            _isMatch = GetFieldValuesAsStream(fieldSpec)
+                .Any(v => string.Equals(v, value, comparisonType));
         }
 
         public void VisitNotEquals(IMatcherFieldSpec<Document> fieldSpec, bool value)
@@ -78,16 +74,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitNotEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            if (fieldSpec.IsCaseInsensitive)
-            {
-                _isMatch = !GetFieldValuesAsStream(fieldSpec)
-                    .Any(v => string.Equals(v, value, StringComparison.CurrentCultureIgnoreCase));
-            }
-            else
-            {
-                _isMatch = !GetFieldValuesAsStream(fieldSpec)
-                    .Any(v => string.Equals(v, value));
-            }
+            var comparisonType = fieldSpec.IsCaseInsensitive
+                ? StringComparison.OrdinalIgnoreCase
+                : StringComparison.Ordinal;
+
+            _isMatch = !GetFieldValuesAsStream(fieldSpec)
+                .Any(v => string.Equals(v, value, comparisonType));
         }
 
         public void VisitIn(IMatcherFieldSpec<Document> fieldSpec, long[] values)
@@ -107,14 +99,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitContains(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpper(new CultureInfo("en-US")) : value;
+            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
             _isMatch = GetStringValues(fieldSpec).Any(v => v.Contains(valueToCompare));
         }
 
         public void VisitStartsWith(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpper(new CultureInfo("en-US")) : value;
+            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
             _isMatch = GetStringValues(fieldSpec).Any(v => v.StartsWith(valueToCompare));
         }
@@ -133,8 +125,8 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         {
             if (startValue != null && endValue != null)
             {
-                string valueStart = fieldSpec.IsCaseInsensitive ? startValue.ToUpper(new CultureInfo("en-US")) : startValue;
-                string valueEnd = fieldSpec.IsCaseInsensitive ? endValue.ToUpper(new CultureInfo("en-US")) : endValue;
+                string valueStart = fieldSpec.IsCaseInsensitive ? startValue.ToUpperInvariant() : startValue;
+                string valueEnd = fieldSpec.IsCaseInsensitive ? endValue.ToUpperInvariant() : endValue;
                 _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueStart) >= 0 && v.CompareTo(valueEnd) <= 0);
             }
             else if (startValue != null)
@@ -158,7 +150,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitLessThan(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpper(new CultureInfo("en-US")) : value;
+            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
             _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueToCompare) < 0);
         }
@@ -170,7 +162,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitLessThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpper(new CultureInfo("en-US")) : value;
+            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
             _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueToCompare) < 1);
         }
@@ -182,7 +174,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitGreaterThan(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpper(new CultureInfo("en-US")) : value;
+            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
             _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueToCompare) > 0);
         }
@@ -194,7 +186,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitGreaterThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpper(new CultureInfo("en-US")) : value;
+            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
             _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueToCompare) >= 0);
         }
@@ -252,20 +244,25 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         private IEnumerable<long> GetLongStream(IMatcherFieldSpec<Document> fieldSpec)
         {
-            return GetStringValues(fieldSpec).Where(v =>
-            {
-                return long.TryParse(v, NumberStyles.AllowLeadingSign, null, out long xi);
-            }).Select(v => long.Parse(v));
+            return from stringValue in GetStringValues(fieldSpec)
+                   select new
+                   {
+                       Parsed = long.TryParse(stringValue, NumberStyles.AllowLeadingSign, null, out long result),
+                       Result = result
+                   }
+                   into parsedValue
+                   where parsedValue.Parsed
+                   select parsedValue.Result;
         }
 
         private IEnumerable<string> GetStringValues(IMatcherFieldSpec<Document> fieldSpec)
         {
-            var stream = GetFieldValues(fieldSpec)
-                .Where(v => !v.IsReference)
-                .Select(v => v.StringValue);
-            return (fieldSpec.IsCaseInsensitive == true)
-            ? stream.Select(v => v.ToUpper(new CultureInfo("en-US")))
-            : stream;
+            var stream = from fieldValue in GetFieldValues(fieldSpec)
+                         where !fieldValue.IsReference
+                         select fieldValue.StringValue;
+            return fieldSpec.IsCaseInsensitive
+                ? stream.Select(v => v.ToUpperInvariant())
+                : stream;
         }
 
         private IEnumerable<string> GetFieldValuesAsStream(IMatcherFieldSpec<Document> fieldSpec)
@@ -282,7 +279,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         private static List<string> ToUppercase(IEnumerable<string> values)
         {
-            return values.Select(v => v.ToUpper(new CultureInfo("en-US"))).ToList();
+            return values.Select(v => v.ToUpperInvariant()).ToList();
         }
 
         private static IEnumerable<string> TokenizePath(string path)
