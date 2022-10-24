@@ -45,7 +45,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 return _result;
             }
 
-
             public void VisitEquals(T fieldSpec, bool value)
             {
                 _result = visitor =>
@@ -53,7 +52,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitEquals(_mapper.Invoke(fieldSpec), value);
                 };
             }
-
 
             public void VisitEquals(T fieldSpec, long value)
             {
@@ -63,7 +61,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitEquals(T fieldSpec, string value)
             {
                 _result = visitor =>
@@ -71,7 +68,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitEquals(_mapper.Invoke(fieldSpec), value);
                 };
             }
-
 
             public void VisitNotEquals(T fieldSpec, bool value)
             {
@@ -81,7 +77,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitNotEquals(T fieldSpec, long value)
             {
                 _result = visitor =>
@@ -89,7 +84,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitNotEquals(_mapper.Invoke(fieldSpec), value);
                 };
             }
-
 
             public void VisitNotEquals(T fieldSpec, string value)
             {
@@ -99,7 +93,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitIn(T fieldSpec, long[] values)
             {
                 _result = visitor =>
@@ -107,7 +100,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitIn(_mapper.Invoke(fieldSpec), values);
                 };
             }
-
 
             public void VisitIn(T fieldSpec, IEnumerable<string> values)
             {
@@ -117,7 +109,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitContains(T fieldSpec, string value)
             {
                 _result = visitor =>
@@ -125,7 +116,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitContains(_mapper.Invoke(fieldSpec), value);
                 };
             }
-
 
             public void VisitStartsWith(T fieldSpec, string value)
             {
@@ -135,7 +125,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitLike(T fieldSpec, LikeToken[] likeTokens)
             {
                 _result = visitor =>
@@ -143,7 +132,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitLike(_mapper.Invoke(fieldSpec), likeTokens);
                 };
             }
-
 
             public void VisitBetween(T fieldSpec, long? startValue, long? endValue)
             {
@@ -153,7 +141,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitBetween(T fieldSpec, string startValue, string endValue)
             {
                 _result = visitor =>
@@ -161,7 +148,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitBetween(_mapper.Invoke(fieldSpec), startValue, endValue);
                 };
             }
-
 
             public void VisitLessThan(T fieldSpec, long value)
             {
@@ -171,7 +157,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitLessThan(T fieldSpec, string value)
             {
                 _result = visitor =>
@@ -179,7 +164,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitLessThan(_mapper.Invoke(fieldSpec), value);
                 };
             }
-
 
             public void VisitLessThanOrEquals(T fieldSpec, long value)
             {
@@ -189,7 +173,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitLessThanOrEquals(T fieldSpec, string value)
             {
                 _result = visitor =>
@@ -197,7 +180,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitLessThanOrEquals(_mapper.Invoke(fieldSpec), value);
                 };
             }
-
 
             public void VisitGreaterThan(T fieldSpec, long value)
             {
@@ -207,7 +189,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitGreaterThan(T fieldSpec, string value)
             {
                 _result = visitor =>
@@ -215,7 +196,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitGreaterThan(_mapper.Invoke(fieldSpec), value);
                 };
             }
-
 
             public void VisitGreaterThanOrEquals(T fieldSpec, long value)
             {
@@ -225,7 +205,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitGreaterThanOrEquals(T fieldSpec, string value)
             {
                 _result = visitor =>
@@ -233,7 +212,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitGreaterThanOrEquals(_mapper.Invoke(fieldSpec), value);
                 };
             }
-
 
             public void VisitExists(T fieldSpec)
             {
@@ -243,7 +221,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitEmpty(T fieldSpec)
             {
                 _result = visitor =>
@@ -251,7 +228,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitEmpty(_mapper.Invoke(fieldSpec));
                 };
             }
-
 
             public void VisitOr(IEnumerable<Filter<T>> filters)
             {
@@ -263,7 +239,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitAnd(IEnumerable<Filter<T>> filters)
             {
                 _result = visitor =>
@@ -274,7 +249,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitNot(Filter<T> filter)
             {
                 _result = visitor =>
@@ -283,7 +257,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                 };
             }
 
-
             public void VisitFullText(FullTextFilter fullTextFilter)
             {
                 _result = visitor =>
@@ -291,7 +264,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
                     visitor.VisitFullText(fullTextFilter);
                 };
             }
-
 
             public void VisitFieldFullText(IEnumerable<T> fieldSpecs, FullTextFilter filter)
             {

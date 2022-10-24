@@ -54,7 +54,7 @@ var document = new Dictionary<string, List<string>>()
 ```
 In VQLL a Title equals "some string" is specified as
 ```
-var vqll = @"[""=="", ""TITLE"",""Sciullo Properties -- Appraisal""]",
+var vqll = @"[""=="", ""TITLE"", ""Sciullo Properties -- Appraisal""]",
 ```
 Parse the vqll criteria which is a json string and get a JsonNode
 ```
@@ -99,8 +99,8 @@ public sealed class MapKeyMatcherFieldSpec : IMatcherFieldSpec<Dictionary<string
         {
             _value = value;
         }
-        string IMatcherFieldValue.StringValue => _value;
 
+        string IMatcherFieldValue.StringValue => _value;
         bool IMatcherFieldValue.IsReference => false;
     }
 }

@@ -97,6 +97,5 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 
             bool IMatcherFieldValue.IsReference => _value.StartsWith("ref:");
         }
-
     }
 }

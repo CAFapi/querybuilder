@@ -377,7 +377,8 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         {
             public NoFullTextFieldsFullTextFilterVisitorImpl(
                 IEnumerable<IMatcherFieldSpec<Document>> fieldSpecs,
-                MatcherQueryVisitor<Document> mqVisitor) : base(fieldSpecs, mqVisitor)
+                MatcherQueryVisitor<Document> mqVisitor
+            ) : base(fieldSpecs, mqVisitor)
             {
             }
 
@@ -396,6 +397,5 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
                 _mqVisitor._isMatch = false;
             }
         }
-
     }
 }

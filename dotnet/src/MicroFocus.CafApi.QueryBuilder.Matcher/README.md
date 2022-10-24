@@ -22,7 +22,7 @@ The following Filters can be created:
 - `And(IEnumerable<Filter>)` match all of the specified Filters
 - `Not(Filter<string>)` match if the specified Field does not match the specified Filter
 
-####  Usage
+#### Usage
 To create a filter on `CONTENT_PRIMARY` containing the text `address`  
 `Filter<string> filter = FilterFactory.Contains("CONTENT_PRIMARY", "address");`
     
@@ -33,7 +33,7 @@ To create a filter on `FILESIZE` greater than `10`
 To match a document to a filter, first create a filter, and then invoke the `filter.IsMatch` method mapping the `Filter<string>` 
 to a `Filter<IMatcherFieldSpec>` using the `FilterMapper.Map` method.
 
-####  Usage
+#### Usage
     Filter<string> filter = FilterFactory.Contains("CONTENT_PRIMARY", "address");
     var remappedFilter = FilterMapper.Map(filter, x => new SchemaFieldAdapter(x));
     remappedFilter.IsMatch(document);
