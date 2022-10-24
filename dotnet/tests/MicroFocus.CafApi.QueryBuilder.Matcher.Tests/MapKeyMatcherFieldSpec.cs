@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 {
     public sealed class MapKeyMatcherFieldSpec : IMatcherFieldSpec<Dictionary<string, List<string>>>
@@ -27,7 +25,6 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             _key = key;
         }
 
-        [return: NotNull]
         public IEnumerable<IMatcherFieldValue> GetFieldValues(Dictionary<string, List<string>> document)
         {
             if (document.ContainsKey(_key))
@@ -86,16 +83,16 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             }
         }
 
-        class MatcherFieldValue : IMatcherFieldValue
+        sealed class MatcherFieldValue : IMatcherFieldValue
         {
             private readonly string _value;
             public MatcherFieldValue(string value)
             {
                 _value = value;
             }
-            string IMatcherFieldValue.StringValue => _value;
 
-            bool IMatcherFieldValue.IsReference => _value.StartsWith("ref:");
+            public string StringValue => _value;
+            public bool IsReference => _value.StartsWith("ref:");
         }
     }
 }

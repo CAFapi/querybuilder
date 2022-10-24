@@ -19,8 +19,8 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
     public sealed class MatcherQueryBooleanTest
     {
         private readonly Dictionary<string, List<string>> _document;
-        private static string SINGLE_VALUE = "SINGLE_VALUE";
-        private static string MULTIPLE_VALUE = "MULTIPLE_VALUE";
+        private static readonly string SINGLE_VALUE = "SINGLE_VALUE";
+        private static readonly string MULTIPLE_VALUE = "MULTIPLE_VALUE";
 
         public MatcherQueryBooleanTest()
         {

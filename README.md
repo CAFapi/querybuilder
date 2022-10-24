@@ -100,8 +100,8 @@ public sealed class MapKeyMatcherFieldSpec : IMatcherFieldSpec<Dictionary<string
             _value = value;
         }
 
-        string IMatcherFieldValue.StringValue => _value;
-        bool IMatcherFieldValue.IsReference => false;
+        public string StringValue => _value;
+        public bool IsReference => false;
     }
 }
 ```

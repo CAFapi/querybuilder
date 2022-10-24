@@ -29,7 +29,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Mapper
             return visitor.GetResult();
         }
 
-        class FilterMapperVisitor<T, R> : IFilterVisitor<T>
+        sealed class FilterMapperVisitor<T, R> : IFilterVisitor<T>
         {
             private readonly Func<T, R> _mapper;
             private Filter<R> _result;
