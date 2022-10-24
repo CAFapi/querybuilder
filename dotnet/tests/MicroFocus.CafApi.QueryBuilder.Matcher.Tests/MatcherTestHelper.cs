@@ -13,15 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+global using Xunit;
+global using MicroFocus.CafApi.QueryBuilder.Mapper;
 
 namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
 {
-    public class UnitTest1
+    public static class MatcherTestHelper
     {
-        [Fact]
-        public void Test1()
+        public static string Print(Dictionary<string, List<string>> document)
         {
+            return "{" + string.Join(", ", document.Select(kv => kv.Key + " = " + Print(kv.Value)).ToArray()) + "}";
+        }
 
+        public static string Print(List<string> values)
+        {
+            return "[" + string.Join(", ", values) + "]";
         }
     }
 }
