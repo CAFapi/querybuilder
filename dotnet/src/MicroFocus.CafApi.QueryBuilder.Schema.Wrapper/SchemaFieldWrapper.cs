@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System;
-using System.Collections.Generic;
 using MicroFocus.CafApi.QueryBuilder.Matcher;
 using MicroFocus.FAS.AdapterSdkSchema;
+using System.Collections.Generic;
 
 namespace MicroFocus.CafApi.QueryBuilder.Schema.Wrapper
 {
-    public class SchemaFieldWrapper<T> : IMatcherFieldSpec<T>
+    public abstract class SchemaFieldWrapper<T> : IMatcherFieldSpec<T>
     {
         private readonly IField _field;
 
@@ -28,13 +27,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Schema.Wrapper
         {
             _field = field;
         }
+
+        public abstract IEnumerable<IMatcherFieldValue> GetFieldValues(T document);
+
         public bool IsCaseInsensitive => _field.IsCaseInsensitive;
 
         public bool IsTokenizedPath => _field.IsTokenizedPath;
-
-        public virtual IEnumerable<IMatcherFieldValue> GetFieldValues(T document)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
