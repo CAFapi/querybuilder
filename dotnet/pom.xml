@@ -39,28 +39,6 @@
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>tests</testSourceDirectory>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.mycila</groupId>
-                    <artifactId>license-maven-plugin</artifactId>
-                    <configuration>
-                        <excludes combine.children="append">
-                            <exclude>*.sln</exclude>
-                            <exclude>.vs/**</exclude>
-                            <exclude>artifacts/**</exclude>
-                        </excludes>
-                        <mapping>
-                            <config>XML_STYLE</config>
-                            <csproj>XML_STYLE</csproj>
-                            <manifest>XML_STYLE</manifest>
-                            <props>XML_STYLE</props>
-                        </mapping>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
