@@ -1,1 +1,1 @@
-SEPG_BUILD_ENV_IMAGE=cafapi/prereleases:buildenv-dotnet-2.3.0-SNAPSHOT
+SEPG_BUILD_ENV_IMAGE=cafapi/buildenv-dotnet:2.3.0
