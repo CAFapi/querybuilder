@@ -505,7 +505,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             }
         }
 
-        private bool DocMatches(Filter<string> filter)
+        private bool? DocMatches(Filter<string> filter)
         {
             return filter.Map(x => new MapKeyMatcherFieldSpec(x)).IsMatch(_document);
         }

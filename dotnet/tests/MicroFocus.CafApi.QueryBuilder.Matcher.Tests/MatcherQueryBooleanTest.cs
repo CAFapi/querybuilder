@@ -21,6 +21,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         private readonly Dictionary<string, List<string>> _document;
         private static readonly string SINGLE_VALUE = "SINGLE_VALUE";
         private static readonly string MULTIPLE_VALUE = "MULTIPLE_VALUE";
+        private static readonly string MISSING_FIELD_VALUE = "MISSING_FIELD_VALUE";
 
         public MatcherQueryBooleanTest()
         {
@@ -56,7 +57,21 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             Assert.True(DocMatches(filter), "Should not have matched true in MULTIPLE_VALUE field to false");
         }
 
-        private bool DocMatches(Filter<string> filter)
+        [Fact]
+        public void MissingFieldEqualsBoolean()
+        {
+            Filter<string> filter = FilterFactory.Equals(MISSING_FIELD_VALUE, true);
+            Assert.True(DocMatches(filter) == null, "Equals match result is unknown for MISSING_FIELD_VALUE field");
+        }
+
+        [Fact]
+        public void MissingValueFieldNotEqualToBoolean()
+        {
+            Filter<string> filter = FilterFactory.NotEquals(MISSING_FIELD_VALUE, false);
+            Assert.True(DocMatches(filter) == null, "NotEquals match result is unknown for MISSING_FIELD_VALUE field");
+        }
+
+        private bool? DocMatches(Filter<string> filter)
         {
             return filter.Map(x => new MapKeyMatcherFieldSpec(x)).IsMatch(_document);
         }
