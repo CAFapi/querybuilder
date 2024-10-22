@@ -46,6 +46,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                     "SINGLE_VALUE"
                     or "MULTIPLE_VALUE"
                     or "SINGLE_VALUE_PATH"
+                    or "MIXED_SEPARATOR_VALUE_PATH"
                     or "MULTIPLE_VALUE_PATH"
                     or "SHAREPOINT_PATH"
                     or "WINDOWS_PATH"
@@ -68,6 +69,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 return _key switch
                 {
                     "SINGLE_VALUE_PATH"
+                    or "MIXED_SEPARATOR_VALUE_PATH"
                     or "MULTIPLE_VALUE_PATH"
                     or "SHAREPOINT_PATH"
                     or "WINDOWS_PATH"
