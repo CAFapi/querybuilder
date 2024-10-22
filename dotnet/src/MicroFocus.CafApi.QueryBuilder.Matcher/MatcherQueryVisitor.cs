@@ -25,7 +25,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
     {
         private readonly Document _document;
         private readonly IEnumerable<IMatcherFieldSpec<Document>> _allFullTextFieldSpecs;
-        private bool _isMatch;
+        private bool? _isMatch;
 
         public MatcherQueryVisitor(
             Document document,
@@ -37,78 +37,158 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             _isMatch = false;
         }
 
-        public bool GetResult()
+        public bool? GetResult()
         {
             return _isMatch;
         }
 
         public void VisitEquals(IMatcherFieldSpec<Document> fieldSpec, bool value)
         {
-            _isMatch = GetStringValues(fieldSpec).Any(v => bool.Parse(v) == value);
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = values.Any(v => bool.Parse(v) == value);
+            }
         }
 
         public void VisitEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
-            _isMatch = GetLongStream(fieldSpec).Any(v => v == value);
+            var values = GetLongStream(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = values.Any(v => v == value);
+            }
         }
 
         public void VisitEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            var comparisonType = fieldSpec.IsCaseInsensitive
-                ? StringComparison.OrdinalIgnoreCase
-                : StringComparison.Ordinal;
+            var stream = GetFieldValuesAsStream(fieldSpec);
+            if (stream == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                var comparisonType = fieldSpec.IsCaseInsensitive
+                    ? StringComparison.OrdinalIgnoreCase
+                    : StringComparison.Ordinal;
 
-            _isMatch = GetFieldValuesAsStream(fieldSpec)
-                .Any(v => string.Equals(v, value, comparisonType));
+                _isMatch = stream
+                    .Any(v => string.Equals(v, value, comparisonType));
+            }
         }
 
         public void VisitNotEquals(IMatcherFieldSpec<Document> fieldSpec, bool value)
         {
-            _isMatch = !GetStringValues(fieldSpec).Any(v => bool.Parse(v) == value);
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = !values.Any(v => bool.Parse(v) == value);
+            }
         }
 
         public void VisitNotEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
-            _isMatch = !GetLongStream(fieldSpec).Any(v => v == value);
+            var values = GetLongStream(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = !values.Any(v => v == value);
+            }
         }
 
         public void VisitNotEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            var comparisonType = fieldSpec.IsCaseInsensitive
-                ? StringComparison.OrdinalIgnoreCase
-                : StringComparison.Ordinal;
+            var stream = GetFieldValuesAsStream(fieldSpec);
+            if (stream == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                var comparisonType = fieldSpec.IsCaseInsensitive
+                    ? StringComparison.OrdinalIgnoreCase
+                    : StringComparison.Ordinal;
 
-            _isMatch = !GetFieldValuesAsStream(fieldSpec)
-                .Any(v => string.Equals(v, value, comparisonType));
+                _isMatch = !stream
+                    .Any(v => string.Equals(v, value, comparisonType));
+            }
         }
 
         public void VisitIn(IMatcherFieldSpec<Document> fieldSpec, long[] values)
         {
-            var inList = values.ToList();
-            var documentValues = GetLongStream(fieldSpec).ToList();
+            var longValues = GetLongStream(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                var inList = values.ToList();
+                var documentValues = longValues.ToList();
 
-            _isMatch = documentValues.Intersect(inList).Any();
+                _isMatch = documentValues.Intersect(inList).Any();
+            }
         }
 
         public void VisitIn(IMatcherFieldSpec<Document> fieldSpec, IEnumerable<string> values)
         {
-            _isMatch = GetFieldValuesAsStream(fieldSpec).ToList()
-                .Intersect(fieldSpec.IsCaseInsensitive ? ToUppercase(values) : values)
-                .Any();
+            var stream = GetFieldValuesAsStream(fieldSpec);
+            if (stream == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = stream.ToList()
+                    .Intersect(fieldSpec.IsCaseInsensitive ? ToUppercase(values) : values)
+                    .Any();
+            }
         }
 
         public void VisitContains(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
-            _isMatch = GetStringValues(fieldSpec).Any(v => v.Contains(valueToCompare));
+                _isMatch = values.Any(v => v.Contains(valueToCompare));
+            }
         }
 
         public void VisitStartsWith(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
-            _isMatch = GetStringValues(fieldSpec).Any(v => v.StartsWith(valueToCompare));
+                _isMatch = values.Any(v => v.StartsWith(valueToCompare));
+            }
         }
 
         public void VisitLike(IMatcherFieldSpec<Document> fieldSpec, LikeToken[] likeTokens)
@@ -118,7 +198,15 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitBetween(IMatcherFieldSpec<Document> fieldSpec, long? startValue, long? endValue)
         {
-            _isMatch = GetLongStream(fieldSpec).Any(v => v >= startValue && v <= endValue);
+            var values = GetLongStream(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = values.Any(v => v >= startValue && v <= endValue);
+            }
         }
 
         public void VisitBetween(IMatcherFieldSpec<Document> fieldSpec, string startValue, string endValue)
@@ -127,7 +215,15 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             {
                 string valueStart = fieldSpec.IsCaseInsensitive ? startValue.ToUpperInvariant() : startValue;
                 string valueEnd = fieldSpec.IsCaseInsensitive ? endValue.ToUpperInvariant() : endValue;
-                _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueStart) >= 0 && v.CompareTo(valueEnd) <= 0);
+                var values = GetStringValues(fieldSpec);
+                if (values == null)
+                {
+                    _isMatch = null;
+                }
+                else
+                {
+                    _isMatch = values.Any(v => v.CompareTo(valueStart) >= 0 && v.CompareTo(valueEnd) <= 0);
+                }
             }
             else if (startValue != null)
             {
@@ -145,83 +241,228 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitLessThan(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
-            _isMatch = GetLongStream(fieldSpec).Any(v => v < value);
+            var values = GetLongStream(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = values.Any(v => v < value);
+            }
         }
 
         public void VisitLessThan(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
-            _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueToCompare) < 0);
+                _isMatch = values.Any(v => v.CompareTo(valueToCompare) < 0);
+            }
         }
 
         public void VisitLessThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
-            _isMatch = GetLongStream(fieldSpec).Any(v => v <= value);
+            var values = GetLongStream(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = values.Any(v => v <= value);
+            }
         }
 
         public void VisitLessThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
-            _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueToCompare) < 1);
+                _isMatch = values.Any(v => v.CompareTo(valueToCompare) < 1);
+            }
         }
 
         public void VisitGreaterThan(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
-            _isMatch = GetLongStream(fieldSpec).Any(v => v > value);
+            var values = GetLongStream(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = values.Any(v => v > value);
+            }
         }
 
         public void VisitGreaterThan(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
-            _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueToCompare) > 0);
+                _isMatch = values.Any(v => v.CompareTo(valueToCompare) > 0);
+            }
         }
 
         public void VisitGreaterThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
-            _isMatch = GetLongStream(fieldSpec).Any(v => v >= value);
+            var values = GetLongStream(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = values.Any(v => v >= value);
+            }
         }
 
         public void VisitGreaterThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
         {
-            string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                string valueToCompare = fieldSpec.IsCaseInsensitive ? value.ToUpperInvariant() : value;
 
-            _isMatch = GetStringValues(fieldSpec).Any(v => v.CompareTo(valueToCompare) >= 0);
+                _isMatch = values.Any(v => v.CompareTo(valueToCompare) >= 0);
+            }
         }
 
         public void VisitExists(IMatcherFieldSpec<Document> fieldSpec)
         {
-            _isMatch = GetFieldValues(fieldSpec).Any();
+            var values = GetFieldValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = false;
+            }
+            else
+            {
+                _isMatch = values.Any();
+            }
         }
 
         public void VisitEmpty(IMatcherFieldSpec<Document> fieldSpec)
         {
-            _isMatch = !GetStringValues(fieldSpec).Any(v => v.Length > 0);
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = !values.Any(v => v.Length > 0);
+            }
         }
 
         public void VisitOr(IEnumerable<Filter<IMatcherFieldSpec<Document>>> filters)
         {
+            /*
+             true or true === true
+             true or false === true
+             false or true === true
+             false or false === false
+
+             true or unknown === true
+             false or unknown === unknown
+             unknown or true === true
+             unknown or false === unknown
+
+             unknown or unknown === unknown
+            */
+            var matches = new List<bool?>();
             foreach (Filter<IMatcherFieldSpec<Document>> filter in filters)
             {
                 filter.Invoke(this);
-                if (_isMatch)
-                {
-                    break;
-                }
+                matches.Add(_isMatch);
+            }
+            if (matches.Contains(true))
+            {
+                _isMatch = true;
+            }
+            else if (matches.Contains(null))
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = false;
             }
         }
 
         public void VisitAnd(IEnumerable<Filter<IMatcherFieldSpec<Document>>> filters)
         {
-            _isMatch = filters.All(filter => filter.IsMatch(_document, _allFullTextFieldSpecs));
+            /*
+             true and true === true
+             true and false === false
+             false and true === false
+             false and false === false
+
+             true and unknown === unknown
+             false and unknown === false
+             unknown and true === unknown
+             unknown and false === false
+
+             unknown and unknown === unknown
+           */
+
+            var matches = new List<bool?>();
+            foreach (Filter<IMatcherFieldSpec<Document>> filter in filters)
+            {
+                matches.Add(filter.IsMatch(_document, _allFullTextFieldSpecs));
+            }
+            if (matches.Contains(false))
+            {
+                _isMatch = false;
+            }
+            else if (matches.Contains(null))
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = true;
+            }
         }
 
         public void VisitNot(Filter<IMatcherFieldSpec<Document>> filter)
         {
             filter.Invoke(this);
-            _isMatch = !_isMatch;
+            /*
+             true === false
+             false === true
+             unknown === unknown
+            */
+            if (_isMatch == null)
+            {
+                _isMatch = null;
+            }
+            else
+            {
+                _isMatch = !_isMatch;
+            }
         }
 
         public void VisitFullText(FullTextFilter fullTextFilter)
@@ -244,7 +485,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         private IEnumerable<long> GetLongStream(IMatcherFieldSpec<Document> fieldSpec)
         {
-            return from stringValue in GetStringValues(fieldSpec)
+            var values = GetStringValues(fieldSpec);
+            if (values == null)
+            {
+                return null;
+            }
+            return from stringValue in values
                    select new
                    {
                        Parsed = long.TryParse(stringValue, NumberStyles.AllowLeadingSign, null, out long result),
@@ -257,7 +503,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         private IEnumerable<string> GetStringValues(IMatcherFieldSpec<Document> fieldSpec)
         {
-            var stream = from fieldValue in GetFieldValues(fieldSpec)
+            var values = GetFieldValues(fieldSpec);
+            if (values == null)
+            {
+                return null;
+            }
+            var stream = from fieldValue in values
                          where !fieldValue.IsReference
                          select fieldValue.StringValue;
             return fieldSpec.IsCaseInsensitive
@@ -269,7 +520,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         {
             if (fieldSpec.IsTokenizedPath)
             {
-                return GetStringValues(fieldSpec).SelectMany(v => TokenizePath(v));
+                var values = GetStringValues(fieldSpec);
+                if (values == null)
+                {
+                    return null;
+                }
+                return values.SelectMany(v => TokenizePath(v));
             }
             else
             {
@@ -316,7 +572,16 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         private bool HasFields(IEnumerable<IMatcherFieldSpec<Document>> fieldSpecs)
         {
-            return fieldSpecs.SelectMany(v => GetFieldValues(v)).Any();
+            var values = new List<IMatcherFieldValue>();
+            foreach (var fieldSpec in fieldSpecs)
+            {
+                var fldValues = GetFieldValues(fieldSpec);
+                if (fldValues != null)
+                {
+                    values.AddRange(fldValues);
+                }
+            }
+            return values.Any();
         }
 
         abstract class FullTextFilterVisitorImpl : IFullTextFilterVisitor
@@ -334,32 +599,62 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
             public void VisitOr(IEnumerable<FullTextFilter> fullTextFilters)
             {
+                var matches = new List<bool?>();
                 foreach (FullTextFilter fullTextFilter in fullTextFilters)
                 {
                     fullTextFilter.Invoke(this);
-                    if (_mqVisitor._isMatch)
-                    {
-                        break;
-                    }
+                    matches.Add(_mqVisitor._isMatch);
+                }
+                if (matches.Contains(true))
+                {
+                    _mqVisitor._isMatch = true;
+                }
+                else if (matches.Contains(null))
+                {
+                    _mqVisitor._isMatch = null;
+                }
+                else
+                {
+                    _mqVisitor._isMatch = false;
                 }
             }
 
             public void VisitAnd(IEnumerable<FullTextFilter> fullTextFilters)
             {
-                _mqVisitor._isMatch = fullTextFilters.All(fullTextFilter =>
+                var matches = new List<bool?>();
+                foreach(var fullTextFilter in fullTextFilters)
                 {
                     MatcherQueryVisitor<Document> visitor =
                         new MatcherQueryVisitor<Document>(_mqVisitor._document, _mqVisitor._allFullTextFieldSpecs);
                     _mqVisitor.VisitFieldFullTextImpl(_fieldSpecs, fullTextFilter);
-
-                    return visitor.GetResult();
-                });
+                    matches.Add(visitor.GetResult());
+                }
+                if (matches.Contains(false))
+                {
+                    _mqVisitor._isMatch = false;
+                }
+                else if (matches.Contains(null))
+                {
+                    _mqVisitor._isMatch = null;
+                }
+                else
+                {
+                    _mqVisitor._isMatch = true;
+                }
             }
 
             public void VisitNot(FullTextFilter fullTextFilter)
             {
                 fullTextFilter.Invoke(this);
-                _mqVisitor._isMatch = !_mqVisitor._isMatch;
+
+                if (_mqVisitor._isMatch == null)
+                {
+                    _mqVisitor._isMatch = null;
+                }
+                else
+                {
+                    _mqVisitor._isMatch = !_mqVisitor._isMatch;
+                }
             }
 
             public abstract void VisitNear(LikeToken[] lhs, LikeToken[] rhs, int distance);

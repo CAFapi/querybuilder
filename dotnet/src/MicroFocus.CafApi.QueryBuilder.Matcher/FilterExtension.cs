@@ -20,7 +20,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 {
     public static class FilterExtension
     {
-        public static bool IsMatch<Document>(
+        public static bool? IsMatch<Document>(
             this Filter<IMatcherFieldSpec<Document>> that,
             Document document
         )
@@ -28,7 +28,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             return that.IsMatch(document, null);
         }
 
-        public static bool IsMatch<Document>(
+        public static bool? IsMatch<Document>(
             this Filter<IMatcherFieldSpec<Document>> that,
             Document document,
             IEnumerable<IMatcherFieldSpec<Document>> allFullTextFieldSpecs

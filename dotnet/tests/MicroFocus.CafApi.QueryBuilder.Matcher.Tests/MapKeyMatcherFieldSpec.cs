@@ -25,7 +25,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             _key = key;
         }
 
-        public IEnumerable<IMatcherFieldValue> GetFieldValues(Dictionary<string, List<string>> document)
+        public IEnumerable<IMatcherFieldValue>? GetFieldValues(Dictionary<string, List<string>> document)
         {
             if (document.ContainsKey(_key))
             {
@@ -33,7 +33,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             }
             else
             {
-                return Enumerable.Empty<IMatcherFieldValue>();
+                return null;
             }
         }
 
