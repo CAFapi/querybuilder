@@ -26,7 +26,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
     {
         private readonly string _path;
         private readonly int _prefixLength;
-        private static readonly char PATH_SEPARATOR_CHAR = '/';
+        private static readonly char PATH_SEPARATOR_CHAR = Path.DirectorySeparatorChar;
 
         public FilePath(string pathname)
         {
