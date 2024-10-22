@@ -26,7 +26,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
     {
         private readonly string _path;
         private readonly int _prefixLength;
-        private static readonly char PATH_SEPARATOR_CHAR = Path.DirectorySeparatorChar;
+        private static readonly char PATH_SEPARATOR_CHAR = '/';
 
         public FilePath(string pathname)
         {
@@ -103,7 +103,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
          */
         private string GetParent()
         {
-            int index = _path.LastIndexOf(Path.DirectorySeparatorChar);
+            int index = _path.LastIndexOf(PATH_SEPARATOR_CHAR);
             if (index < _prefixLength)
             {
                 if ((_prefixLength > 0) && (_path.Length > _prefixLength))

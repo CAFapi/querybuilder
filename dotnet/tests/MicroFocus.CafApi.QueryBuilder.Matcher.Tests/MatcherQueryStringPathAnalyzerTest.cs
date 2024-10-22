@@ -21,6 +21,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         private static readonly string SHAREPOINT_PATH = "SHAREPOINT_PATH";
         private static readonly string CASE_SENSITIVE = "CASE_SENSITIVE";
         private static readonly string SINGLE_VALUE_PATH = "SINGLE_VALUE_PATH";
+        private static readonly string MIXED_SEPARATOR_VALUE_PATH = "MIXED_SEPARATOR_VALUE_PATH";
         private static readonly string MULTIPLE_VALUE_PATH = "MULTIPLE_VALUE_PATH";
 
         //  Equality Testing
@@ -46,6 +47,27 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestNotEquals(SINGLE_VALUE_PATH, "/a", false);
         }
 
+        [Fact]
+        public void MixedSeparatorValueFieldEqualsString()
+        {
+            TestEquals(MIXED_SEPARATOR_VALUE_PATH, "/A/B/C/D");
+            TestEquals(MIXED_SEPARATOR_VALUE_PATH, "/A/B/C");
+            TestEquals(MIXED_SEPARATOR_VALUE_PATH, "/A/B");
+            TestEquals(MIXED_SEPARATOR_VALUE_PATH, "/A");
+            TestEquals(MIXED_SEPARATOR_VALUE_PATH, "/a/B/C/D");
+            TestEquals(MIXED_SEPARATOR_VALUE_PATH, "/a/B/C");
+            TestEquals(MIXED_SEPARATOR_VALUE_PATH, "/a/B");
+            TestEquals(MIXED_SEPARATOR_VALUE_PATH, "/a");
+            TestEquals(MIXED_SEPARATOR_VALUE_PATH, "/Z/A/B/C/D", false);
+        }
+
+        [Fact]
+        public void MixedSeparatorValueFieldNotEqualToString()
+        {
+            TestNotEquals(MIXED_SEPARATOR_VALUE_PATH, "/Z/A/B/C/D");
+            TestNotEquals(MIXED_SEPARATOR_VALUE_PATH, "/Z/a/B/C/D");
+            TestNotEquals(MIXED_SEPARATOR_VALUE_PATH, "/a", false);
+        }
         [Fact]
         public void MultipleValueFieldEqualsString()
         {
@@ -346,6 +368,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 { "FILE_PATH", new List<string> { "Test Five.txt" } },
                 { CASE_SENSITIVE, new List<string> { "/A/B/C/D/file.ext" } },
                 { SINGLE_VALUE_PATH, new List<string> { "/A/B/C/D/file.ext" } },
+                { MIXED_SEPARATOR_VALUE_PATH, new List<string> { "/A/B\\C/D\\file.ext" } },
                 { MULTIPLE_VALUE_PATH, new List<string> { "/E/F/G/H/file.ext", "/I/J/K/L/file.ext" } }
             };
             return newDocument;
