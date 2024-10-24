@@ -53,14 +53,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
             var values = GetLongStream(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = values.Any(v => v == value);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)values.Any(v => v == value);
         }
 
         public void VisitEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
@@ -84,27 +79,17 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitNotEquals(IMatcherFieldSpec<Document> fieldSpec, bool value)
         {
             var values = GetStringValues(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = !values.Any(v => bool.Parse(v) == value);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)!values.Any(v => bool.Parse(v) == value);
         }
 
         public void VisitNotEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
             var values = GetLongStream(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = !values.Any(v => v == value);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)!values.Any(v => v == value);
         }
 
         public void VisitNotEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
@@ -128,7 +113,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitIn(IMatcherFieldSpec<Document> fieldSpec, long[] values)
         {
             var longValues = GetLongStream(fieldSpec);
-            if (values == null)
+            if (longValues == null)
             {
                 _isMatch = null;
             }
@@ -144,16 +129,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitIn(IMatcherFieldSpec<Document> fieldSpec, IEnumerable<string> values)
         {
             var stream = GetFieldValuesAsStream(fieldSpec);
-            if (stream == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = stream.ToList()
+            _isMatch = (stream == null)
+                ? null
+                : (bool?)stream.ToList()
                     .Intersect(fieldSpec.IsCaseInsensitive ? ToUppercase(values) : values)
                     .Any();
-            }
         }
 
         public void VisitContains(IMatcherFieldSpec<Document> fieldSpec, string value)
@@ -194,14 +174,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitBetween(IMatcherFieldSpec<Document> fieldSpec, long? startValue, long? endValue)
         {
             var values = GetLongStream(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = values.Any(v => v >= startValue && v <= endValue);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)values.Any(v => v >= startValue && v <= endValue);
         }
 
         public void VisitBetween(IMatcherFieldSpec<Document> fieldSpec, string startValue, string endValue)
@@ -211,14 +186,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
                 string valueStart = fieldSpec.IsCaseInsensitive ? startValue.ToUpperInvariant() : startValue;
                 string valueEnd = fieldSpec.IsCaseInsensitive ? endValue.ToUpperInvariant() : endValue;
                 var values = GetStringValues(fieldSpec);
-                if (values == null)
-                {
-                    _isMatch = null;
-                }
-                else
-                {
-                    _isMatch = values.Any(v => v.CompareTo(valueStart) >= 0 && v.CompareTo(valueEnd) <= 0);
-                }
+                _isMatch = (values == null)
+                    ? null
+                    : (bool?)values.Any(v => v.CompareTo(valueStart) >= 0 && v.CompareTo(valueEnd) <= 0);
             }
             else if (startValue != null)
             {
@@ -237,14 +207,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitLessThan(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
             var values = GetLongStream(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = values.Any(v => v < value);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)values.Any(v => v < value);
         }
 
         public void VisitLessThan(IMatcherFieldSpec<Document> fieldSpec, string value)
@@ -265,14 +230,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitLessThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
             var values = GetLongStream(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = values.Any(v => v <= value);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)values.Any(v => v <= value);
         }
 
         public void VisitLessThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
@@ -293,14 +253,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitGreaterThan(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
             var values = GetLongStream(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = values.Any(v => v > value);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)values.Any(v => v > value);
         }
 
         public void VisitGreaterThan(IMatcherFieldSpec<Document> fieldSpec, string value)
@@ -321,14 +276,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitGreaterThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
         {
             var values = GetLongStream(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = values.Any(v => v >= value);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)values.Any(v => v >= value);
         }
 
         public void VisitGreaterThanOrEquals(IMatcherFieldSpec<Document> fieldSpec, string value)
@@ -349,27 +299,17 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitExists(IMatcherFieldSpec<Document> fieldSpec)
         {
             var values = GetFieldValues(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = values.Any();
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)values.Any();
         }
 
         public void VisitEmpty(IMatcherFieldSpec<Document> fieldSpec)
         {
             var values = GetStringValues(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = !values.Any(v => v.Length > 0);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?)!values.Any(v => v.Length > 0);
         }
 
         public void VisitOr(IEnumerable<Filter<IMatcherFieldSpec<Document>>> filters)
@@ -638,11 +578,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             {
                 fullTextFilter.Invoke(this);
 
-                if (_mqVisitor._isMatch == null)
-                {
-                    _mqVisitor._isMatch = null;
-                }
-                else
+                if (_mqVisitor._isMatch != null)
                 {
                     _mqVisitor._isMatch = !_mqVisitor._isMatch;
                 }
