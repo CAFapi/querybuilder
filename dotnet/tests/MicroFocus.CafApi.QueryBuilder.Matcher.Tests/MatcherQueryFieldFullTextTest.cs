@@ -73,10 +73,10 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                 new object?[]{"fullTextNullFullTextFieldsMetadataDoc", metadataOnlyDocument, simpleFullTextFilter, null, false, true},
                 new object?[]{"fullTextNoFullTextFieldsContentDoc", contentDocument, simpleFullTextFilter, NO_CONFIGURED_FULLTEXT_FIELDS, false, true},
                 new object?[]{"fullTextNoFullTextFieldsMetadataDoc", metadataOnlyDocument, simpleFullTextFilter, NO_CONFIGURED_FULLTEXT_FIELDS, false,
-                 false},
+                 true},
                 new object?[]{"fullTextFullTextFieldsAndContentDoc", contentDocument, simpleFullTextFilter, CONFIGURED_FULLTEXT_FIELDS, false, true},
                 new object?[]{"fullTextFullTextFieldsAndMetadataDoc", metadataOnlyDocument, simpleFullTextFilter, CONFIGURED_FULLTEXT_FIELDS, false,
-                 false},
+                 true},
                 // VQL: (SINGLE_VALUE == \"TIGER\") AND TITLE,ADDRESS_DISPLAY,CONTENT_PRIMARY:{(Julie* AND *Shakespear)}
                 new object?[]{"andFullTextNullFullTextFieldsContentDoc", contentDocument, andFullTextFilter, null, false, true},
                 new object?[]{"andFullTextNullFullTextFieldsMetadataDoc", metadataOnlyDocument, andFullTextFilter, null, false, true},
@@ -136,13 +136,13 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             Dictionary<string, List<string>> inputDocument,
             Filter<string> inputFilter,
             List<string> inputAllFullTextFields,
-            bool expectedMatch,
+            bool? expectedMatch,
             bool expectedUnsupportedOperationException)
         {
             LOGGER.LogInformation("Testing {Message}", message);
             try
             {
-                bool isMatch = DocMatches(inputDocument, inputFilter, inputAllFullTextFields);
+                bool? isMatch = DocMatches(inputDocument, inputFilter, inputAllFullTextFields);
                 Assert.Equal(expectedMatch, isMatch);
             }
             catch (NotSupportedException e)
@@ -158,7 +158,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             }
         }
 
-        private static bool DocMatches(
+        private static bool? DocMatches(
             Dictionary<string, List<string>> document,
             Filter<string> filter,
             List<string> allFullTextFields)

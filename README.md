@@ -69,8 +69,13 @@ Filter<string> filter = SystemJsonFilterReader.ReadFromJsonArray(vqllJsonNode);
 Map the 'string' type Filter object to a 'MapKeyMatcherFieldSpec' type Filter.
 The 'fields' specified in the filter which are strings are mapped to "keys" in a Dictionary representation of a document
 ```
-bool isMatch = filter.Map(x => new MapKeyMatcherFieldSpec(x)).IsMatch(document);
+bool? isMatch = filter.Map(x => new MapKeyMatcherFieldSpec(x)).IsMatch(document);
 ```
+
+The `Filter.IsMatch(document)` function follows the [three-valued logic](https://en.wikipedia.org/wiki/Three-valued_logic) and returns  
+- `true` if the document matches the filter  
+- `false` if the document does not match the filter  
+- `null` if fields in the filter are not present in the document and the filter cannot be evaluated
 
 ### Sample MatcherFieldSpec
 ```
@@ -83,9 +88,11 @@ public sealed class MapKeyMatcherFieldSpec : IMatcherFieldSpec<Dictionary<string
         _key = key;
     }
 
-    public IEnumerable<IMatcherFieldValue> GetFieldValues(Dictionary<string, List<string>> document)
+    public IEnumerable<IMatcherFieldValue>? GetFieldValues(Dictionary<string, List<string>> document)
     {
-        return document[_key].Select(value => new MatcherFieldValue(value));
+        return document.TryGetValue(_key, out var value)
+            ? value.Select(value => new MatcherFieldValue(value))
+            : null;
     }
 
     public bool IsCaseInsensitive => true;

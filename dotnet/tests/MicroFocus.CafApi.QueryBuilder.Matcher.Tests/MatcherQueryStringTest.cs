@@ -452,7 +452,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         public void FieldNotExists()
         {
             Filter<string> filter = FilterFactory.Exists("NOT_EXISTS");
-            Assert.False(DocMatches(filter), "Should not have found NOT_EXISTS field");
+            Assert.True(DocMatches(filter) == null, "Should not have found NOT_EXISTS field");
         }
 
         // empty testing
@@ -533,7 +533,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             }
         }
 
-        private bool DocMatches(Filter<string> filter)
+        private bool? DocMatches(Filter<string> filter)
         {
             return filter.Map(x => new MapKeyMatcherFieldSpec(x)).IsMatch(_document);
         }

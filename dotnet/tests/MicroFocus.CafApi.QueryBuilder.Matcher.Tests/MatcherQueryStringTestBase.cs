@@ -30,11 +30,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestEquals(fieldName, query, true);
         }
 
-        protected void TestEquals(string fieldName, string query, bool expected)
+        protected void TestEquals(string fieldName, string query, bool? expected)
         {
             Filter<string> filter = FilterFactory.Equals(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected == true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
         protected void TestNotEquals(string fieldName, string query)
@@ -42,11 +42,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestNotEquals(fieldName, query, true);
         }
 
-        protected void TestNotEquals(string fieldName, string query, bool expected)
+        protected void TestNotEquals(string fieldName, string query, bool? expected)
         {
             Filter<string> filter = FilterFactory.NotEquals(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected == true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
         protected void TestIn(string fieldName, string[] query)
@@ -54,11 +54,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestIn(fieldName, true, query.AsEnumerable());
         }
 
-        protected void TestIn(string fieldName, bool expected, string[] query)
+        protected void TestIn(string fieldName, bool? expected, string[] query)
         {
             Filter<string> filter = FilterFactory.In(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected == true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
         protected void TestIn(string fieldName, IEnumerable<string> query)
@@ -66,11 +66,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestIn(fieldName, true, query);
         }
 
-        protected void TestIn(string fieldName, bool expected, IEnumerable<string> query)
+        protected void TestIn(string fieldName, bool? expected, IEnumerable<string> query)
         {
             Filter<string> filter = FilterFactory.In(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected == true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
         protected void TestContains(string fieldName, string query)
@@ -78,11 +78,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestContains(fieldName, query, true);
         }
 
-        protected void TestContains(string fieldName, string query, bool expected)
+        protected void TestContains(string fieldName, string query, bool? expected)
         {
             Filter<string> filter = FilterFactory.Contains(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected == true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
         protected void TestStartsWith(string fieldName, string query)
@@ -90,11 +90,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestStartsWith(fieldName, query, true);
         }
 
-        protected void TestStartsWith(string fieldName, string query, bool expected)
+        protected void TestStartsWith(string fieldName, string query, bool? expected)
         {
             Filter<string> filter = FilterFactory.StartsWith(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected == true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
         protected void TestLessThan(string fieldName, string query)
@@ -102,11 +102,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestLessThan(fieldName, query, true);
         }
 
-        protected void TestLessThan(string fieldName, string query, bool expected)
+        protected void TestLessThan(string fieldName, string query, bool? expected)
         {
             Filter<string> filter = FilterFactory.LessThan(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected == true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
         protected void TestLessThanOrEqual(string fieldName, string query)
@@ -114,11 +114,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestLessThanOrEqual(fieldName, query, true);
         }
 
-        protected void TestLessThanOrEqual(string fieldName, string query, bool expected)
+        protected void TestLessThanOrEqual(string fieldName, string query, bool? expected)
         {
             Filter<string> filter = FilterFactory.LessThanOrEquals(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected ==  true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
         protected void TestGreaterThan(string fieldName, string query)
@@ -126,11 +126,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestGreaterThan(fieldName, query, true);
         }
 
-        protected void TestGreaterThan(string fieldName, string query, bool expected)
+        protected void TestGreaterThan(string fieldName, string query, bool? expected)
         {
             Filter<string> filter = FilterFactory.GreaterThan(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected == true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
         protected void TestGreaterThanOrEqual(string fieldName, string query)
@@ -138,14 +138,14 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             TestGreaterThanOrEqual(fieldName, query, true);
         }
 
-        protected void TestGreaterThanOrEqual(string fieldName, string query, bool expected)
+        protected void TestGreaterThanOrEqual(string fieldName, string query, bool? expected)
         {
             Filter<string> filter = FilterFactory.GreaterThanOrEquals(fieldName, query);
             Assert.True(DocMatches(filter) == expected,
-                "Should" + (expected ? " " : " not ") + "have matched " + query + " in " + fieldName);
+                "Should" + (expected == true ? " " : " not ") + "have matched " + query + " in " + fieldName);
         }
 
-        protected bool DocMatches(Filter<string> filter)
+        protected bool? DocMatches(Filter<string> filter)
         {
             return filter.Map(x => new MapKeyMatcherFieldSpec(x)).IsMatch(_document);
         }

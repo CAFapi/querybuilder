@@ -25,16 +25,11 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
             _key = key;
         }
 
-        public IEnumerable<IMatcherFieldValue> GetFieldValues(Dictionary<string, List<string>> document)
+        public IEnumerable<IMatcherFieldValue>? GetFieldValues(Dictionary<string, List<string>> document)
         {
-            if (document.ContainsKey(_key))
-            {
-                return document[_key].Select(value => new MatcherFieldValue(value));
-            }
-            else
-            {
-                return Enumerable.Empty<IMatcherFieldValue>();
-            }
+            return document.TryGetValue(_key, out var value)
+                ? value.Select(value => new MatcherFieldValue(value))
+                : null;
         }
 
         public bool IsCaseInsensitive
