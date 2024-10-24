@@ -327,23 +327,32 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
              unknown or unknown === unknown
             */
-            var matches = new List<bool?>();
-            foreach (Filter<IMatcherFieldSpec<Document>> filter in filters)
+            using (var filterEnumerator = filters.GetEnumerator())
             {
-                filter.Invoke(this);
-                matches.Add(_isMatch);
-            }
-            if (matches.Contains(true))
-            {
-                _isMatch = true;
-            }
-            else if (matches.Contains(null))
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = false;
+                while (filterEnumerator.MoveNext())
+                {
+                    filterEnumerator.Current.Invoke(this);
+                    if (_isMatch == true)
+                    {
+                        return;
+                    }
+
+                    if (_isMatch == null)
+                    {
+                        while (filterEnumerator.MoveNext())
+                        {
+                            _isMatch = false;
+                            filterEnumerator.Current.Invoke(this);
+                            if (_isMatch == true)
+                            {
+                                return;
+                            }
+                        }
+
+                        _isMatch = null;
+                        return;
+                    }
+                }
             }
         }
 
@@ -363,23 +372,25 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
              unknown and unknown === unknown
            */
 
-            var matches = new List<bool?>();
+            bool? result = true;
+
             foreach (Filter<IMatcherFieldSpec<Document>> filter in filters)
             {
-                matches.Add(filter.IsMatch(_document, _allFullTextFieldSpecs));
+                bool? isMatch = filter.IsMatch(_document, _allFullTextFieldSpecs);
+
+                if (isMatch == false)
+                {
+                    result = false;
+                    break;
+                }
+
+                if (isMatch == null)
+                {
+                    result = null;
+                }
             }
-            if (matches.Contains(false))
-            {
-                _isMatch = false;
-            }
-            else if (matches.Contains(null))
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = true;
-            }
+
+            _isMatch = result;
         }
 
         public void VisitNot(Filter<IMatcherFieldSpec<Document>> filter)
