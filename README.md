@@ -88,17 +88,11 @@ public sealed class MapKeyMatcherFieldSpec : IMatcherFieldSpec<Dictionary<string
         _key = key;
     }
 
-    public IEnumerable<IMatcherFieldValue> GetFieldValues(Dictionary<string, List<string>> document)
+    public IEnumerable<IMatcherFieldValue>? GetFieldValues(Dictionary<string, List<string>> document)
     {
-        return document[_key].Select(value => new MatcherFieldValue(value));
-        if (document.ContainsKey(_key))
-        {
-                return document[_key].Select(value => new MatcherFieldValue(value));
-        }
-        else
-        {
-                return null;
-        }
+        return document.TryGetValue(_key, out var value)
+            ? value.Select(value => new MatcherFieldValue(value))
+            : null;
     }
 
     public bool IsCaseInsensitive => true;
