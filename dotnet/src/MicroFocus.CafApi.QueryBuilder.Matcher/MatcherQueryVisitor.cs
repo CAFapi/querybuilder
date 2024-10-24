@@ -47,7 +47,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             var values = GetStringValues(fieldSpec);
             _isMatch = (values == null)
                 ? null
-                : (bool?) values.Any(v => bool.Parse(v) == value);
+                : (bool?)values.Any(v => bool.Parse(v) == value);
         }
 
         public void VisitEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
@@ -315,17 +315,15 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitOr(IEnumerable<Filter<IMatcherFieldSpec<Document>>> filters)
         {
             /*
-             true or true === true
-             true or false === true
-             false or true === true
-             false or false === false
-
-             true or unknown === true
-             false or unknown === unknown
-             unknown or true === true
-             unknown or false === unknown
-
-             unknown or unknown === unknown
+                true or true === true
+                true or false === true
+                true or unknown === true
+                false or true === true
+                false or false === false
+                false or unknown === unknown
+                unknown or true === true
+                unknown or false === unknown
+                unknown or unknown === unknown
             */
             using (var filterEnumerator = filters.GetEnumerator())
             {
@@ -359,19 +357,16 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitAnd(IEnumerable<Filter<IMatcherFieldSpec<Document>>> filters)
         {
             /*
-             true and true === true
-             true and false === false
-             false and true === false
-             false and false === false
-
-             true and unknown === unknown
-             false and unknown === false
-             unknown and true === unknown
-             unknown and false === false
-
-             unknown and unknown === unknown
-           */
-
+                true and true === true
+                true and false === false
+                true and unknown === unknown
+                false and true === false
+                false and false === false
+                false and unknown === false
+                unknown and true === unknown
+                unknown and false === false
+                unknown and unknown === unknown
+            */
             bool? result = true;
 
             foreach (Filter<IMatcherFieldSpec<Document>> filter in filters)
@@ -395,12 +390,12 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
         public void VisitNot(Filter<IMatcherFieldSpec<Document>> filter)
         {
-            filter.Invoke(this);
             /*
-             true === false
-             false === true
-             unknown === unknown
+                true === false
+                false === true
+                unknown === unknown
             */
+            filter.Invoke(this);
             if (_isMatch != null)
             {
                 _isMatch = !_isMatch;
@@ -500,7 +495,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             FullTextFilter fullTextFilter
         )
         {
-            if (fieldSpecs == null || HasFields(fieldSpecs))
+            if (fieldSpecs == null || HasFields(fieldSpecs) != false)
             {
                 // Document has or may have fullText fields so matcher does not currently implement full text operation
                 throw new NotSupportedException("Not supported.");
@@ -512,18 +507,23 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             }
         }
 
-        private bool HasFields(IEnumerable<IMatcherFieldSpec<Document>> fieldSpecs)
+        private bool? HasFields(IEnumerable<IMatcherFieldSpec<Document>> fieldSpecs)
         {
-            var values = new List<IMatcherFieldValue>();
             foreach (var fieldSpec in fieldSpecs)
             {
                 var fldValues = GetFieldValues(fieldSpec);
-                if (fldValues != null)
+                if (fldValues == null)
                 {
-                    values.AddRange(fldValues);
+                    return null;
+                }
+
+                if (fldValues.Any())
+                {
+                    return true;
                 }
             }
-            return values.Any();
+
+            return false;
         }
 
         abstract class FullTextFilterVisitorImpl : IFullTextFilterVisitor
@@ -541,54 +541,65 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
 
             public void VisitOr(IEnumerable<FullTextFilter> fullTextFilters)
             {
-                var matches = new List<bool?>();
-                foreach (FullTextFilter fullTextFilter in fullTextFilters)
+                using (var filterEnumerator = fullTextFilters.GetEnumerator())
                 {
-                    fullTextFilter.Invoke(this);
-                    matches.Add(_mqVisitor._isMatch);
-                }
-                if (matches.Contains(true))
-                {
-                    _mqVisitor._isMatch = true;
-                }
-                else if (matches.Contains(null))
-                {
-                    _mqVisitor._isMatch = null;
-                }
-                else
-                {
-                    _mqVisitor._isMatch = false;
+                    while (filterEnumerator.MoveNext())
+                    {
+                        filterEnumerator.Current.Invoke(this);
+                        if (_mqVisitor._isMatch == true)
+                        {
+                            return;
+                        }
+
+                        if (_mqVisitor._isMatch == null)
+                        {
+                            while (filterEnumerator.MoveNext())
+                            {
+                                _mqVisitor._isMatch = false;
+                                filterEnumerator.Current.Invoke(this);
+                                if (_mqVisitor._isMatch == true)
+                                {
+                                    return;
+                                }
+                            }
+
+                            _mqVisitor._isMatch = null;
+                            return;
+                        }
+                    }
                 }
             }
 
             public void VisitAnd(IEnumerable<FullTextFilter> fullTextFilters)
             {
-                var matches = new List<bool?>();
-                foreach(var fullTextFilter in fullTextFilters)
+                bool? result = true;
+
+                foreach (var fullTextFilter in fullTextFilters)
                 {
                     MatcherQueryVisitor<Document> visitor =
                         new MatcherQueryVisitor<Document>(_mqVisitor._document, _mqVisitor._allFullTextFieldSpecs);
                     _mqVisitor.VisitFieldFullTextImpl(_fieldSpecs, fullTextFilter);
-                    matches.Add(visitor.GetResult());
+
+                    bool? isMatch = visitor.GetResult();
+
+                    if (isMatch == false)
+                    {
+                        result = false;
+                        break;
+                    }
+
+                    if (isMatch == null)
+                    {
+                        result = null;
+                    }
                 }
-                if (matches.Contains(false))
-                {
-                    _mqVisitor._isMatch = false;
-                }
-                else if (matches.Contains(null))
-                {
-                    _mqVisitor._isMatch = null;
-                }
-                else
-                {
-                    _mqVisitor._isMatch = true;
-                }
+
+                _mqVisitor._isMatch = result;
             }
 
             public void VisitNot(FullTextFilter fullTextFilter)
             {
                 fullTextFilter.Invoke(this);
-
                 if (_mqVisitor._isMatch != null)
                 {
                     _mqVisitor._isMatch = !_mqVisitor._isMatch;

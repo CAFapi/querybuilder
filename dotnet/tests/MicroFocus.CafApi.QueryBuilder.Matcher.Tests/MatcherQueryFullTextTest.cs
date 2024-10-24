@@ -76,7 +76,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
                  false},
                 new object?[]{"fullTextFullTextFieldsAndContentDoc", contentDocument, simpleFullTextFilter, CONFIGURED_FULLTEXT_FIELDS, false, true},
                 new object?[]{"fullTextFullTextFieldsAndMetadataDoc", metadataOnlyDocument, simpleFullTextFilter, CONFIGURED_FULLTEXT_FIELDS, false,
-                 false},
+                 true},
                 // VQL: (SINGLE_VALUE == \"TIGER\") AND (Julie* AND *Shakespear)
                 new object?[]{"andFullTextNullFullTextFieldsContentDoc", contentDocument, andFullTextFilter, null, false, true},
                 new object?[]{"andFullTextNullFullTextFieldsMetadataDoc", metadataOnlyDocument, andFullTextFilter, null, false, true},
