@@ -45,14 +45,9 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
         public void VisitEquals(IMatcherFieldSpec<Document> fieldSpec, bool value)
         {
             var values = GetStringValues(fieldSpec);
-            if (values == null)
-            {
-                _isMatch = null;
-            }
-            else
-            {
-                _isMatch = values.Any(v => bool.Parse(v) == value);
-            }
+            _isMatch = (values == null)
+                ? null
+                : (bool?) values.Any(v => bool.Parse(v) == value);
         }
 
         public void VisitEquals(IMatcherFieldSpec<Document> fieldSpec, long value)
@@ -356,7 +351,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             var values = GetFieldValues(fieldSpec);
             if (values == null)
             {
-                _isMatch = false;
+                _isMatch = null;
             }
             else
             {
@@ -455,11 +450,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
              false === true
              unknown === unknown
             */
-            if (_isMatch == null)
-            {
-                _isMatch = null;
-            }
-            else
+            if (_isMatch != null)
             {
                 _isMatch = !_isMatch;
             }
