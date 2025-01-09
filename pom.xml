@@ -29,7 +29,7 @@
 
     <groupId>com.github.cafapi.querybuilder</groupId>
     <artifactId>querybuilder-aggregator</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-200</version>
     <packaging>pom</packaging>
 
     <description>CAF Query Builder</description>
