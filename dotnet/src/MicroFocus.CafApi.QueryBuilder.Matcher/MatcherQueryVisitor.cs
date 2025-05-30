@@ -176,7 +176,7 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher
             var values = GetLongStream(fieldSpec);
             _isMatch = (values == null)
                 ? null
-                : (bool?)values.Any(v => v >= startValue && v <= endValue);
+                : (bool?)values.Any(v => (startValue is null || v >= startValue) && (endValue is null || v <= endValue));
         }
 
         public void VisitBetween(IMatcherFieldSpec<Document> fieldSpec, string startValue, string endValue)
