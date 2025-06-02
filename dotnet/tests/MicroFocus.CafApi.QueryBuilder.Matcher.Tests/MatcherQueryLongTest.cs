@@ -200,6 +200,27 @@ namespace MicroFocus.CafApi.QueryBuilder.Matcher.Tests
         }
 
         [Fact]
+        public void SingleValueFieldHasLongBetween_NullStartValue_And_EndValue()
+        {
+            Filter<string> filter = FilterFactory.Between(SINGLE_VALUE, null, 6L);
+            Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field");
+        }
+
+        [Fact]
+        public void SingleValueFieldHasLongBetween_StartValue_And_NullEndValue()
+        {
+            Filter<string> filter = FilterFactory.Between(SINGLE_VALUE, 4L, null);
+            Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field");
+        }
+
+        [Fact]
+        public void SingleValueFieldHasLongBetween_NullStartValue_And_NullEndValue()
+        {
+            Filter<string> filter = FilterFactory.Between(SINGLE_VALUE, (long?)null, (long?)null);
+            Assert.True(DocMatches(filter), "Should have matched 5 in SINGLE_VALUE field");
+        }
+
+        [Fact]
         public void MultiValuedFieldHasLongBetween()
         {
             Filter<string> filter = FilterFactory.Between(MULTIPLE_VALUE, 19L, 25L);
