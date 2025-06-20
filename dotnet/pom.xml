@@ -29,6 +29,7 @@
 
     <artifactId>querybuilder-dotnet</artifactId>
     <packaging>pom</packaging>
+    <name>querybuilder-aggregator</name>
 
     <properties>
         <nugetOutputFolder>${project.build.directory}</nugetOutputFolder>
