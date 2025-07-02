@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.cafapi.querybuilder</groupId>
         <artifactId>querybuilder-aggregator</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1-432</version>
     </parent>
 
     <artifactId>querybuilder-dotnet</artifactId>
